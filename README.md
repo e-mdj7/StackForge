@@ -16,11 +16,13 @@
 
 <p align="center">
   <a href="https://stackforge.vercel.app" target="_blank">
-    <img src="https://img.shields.io/badge/demo-Live-red?logo=vercel" alt="Live demo" />
+    <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Live demo" />
   </a>
   <a href="#stack">
-    <img src="https://img.shields.io/badge/stack-React%2019%20%7C%20Vite%208%20%7C%20TypeScript%206-orange?logo=typescript" alt="Stack" />
+    <img src="https://img.shields.io/badge/Stack-React%20%7C%20Vite%20%7C%20TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white&labelColor=3178C6&color=black" alt="Stack" />
   </a>
+</p>
+<p align="center">
   <a href="https://github.com/e-mdj7/StackForge/actions">
     <img src="https://img.shields.io/github/actions/status/e-mdj7/StackForge?logo=github&label=ci" alt="CI" />
   </a>
@@ -93,19 +95,17 @@ Everything runs locally. There is no server and no network call except brand ico
 
 <p id="stack" align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black&style=flat" />
-    <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=white&style=flat" />
-    <img src="https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=white&style=flat" height="20" alt="React" />
+    <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" height="20" alt="React" />
     <span style="margin:0 8px;color:#888">+</span>
-    <img src="https://img.shields.io/badge/TypeScript-4AB89A?logo=typescript&logoColor=white&style=flat" height="20" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" height="20" alt="TypeScript" />
     <span style="margin:0 8px;color:#888">+</span>
-    <img src="https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white&style=flat" height="20" alt="Vite" />
+    <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" height="20" alt="Vite" />
     <span style="margin:0 8px;color:#888">+</span>
-    <img src="https://img.shields.io/badge/Tailwind-06B6D4?logo=tailwindcss&logoColor=white&style=flat" height="20" alt="Tailwind" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" height="20" alt="Tailwind" />
     <span style="margin:0 8px;color:#888">+</span>
-    <img src="https://img.shields.io/badge/Zustand-646CFF?logo=github&logoColor=white&style=flat" height="20" alt="Zustand" />
+    <img src="https://img.shields.io/badge/Zustand--5-F2C811?style=flat-square&logo=zustand&logoColor=F2C811)" height="20" alt="Zustand" />
     <span style="margin:0 8px;color:#888">+</span>
-    <img src="https://img.shields.io/badge/pnpm-F67280?logo=pnpm&logoColor=white&style=flat" height="20" alt="pnpm" />
+    <img src="https://img.shields.io/badge/pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white" height="20" alt="pnpm" />
   </picture>
 </p>
 
