@@ -58,38 +58,15 @@ Everything is driven by **data, not code**. Each technology is one JSON object i
 }
 ```
 
-From those fields alone, `src/rules.ts` (~90 lines) derives every behaviour:
 
-| Field | What it produces |
-|---|---|
-| `conflicts` | Hard incompatibility. Firebase lists `postgresql`, so selecting one greys out the other with *"Firebase is not compatible with PostgreSQL"*. Symmetric — declare it once. |
-| `exclusive` | Slot contention. Firebase and Supabase both claim `baas`; Vitest and Jest both claim `test-unit`. Pick one. |
-| `needs` | Red ring + tooltip when nothing in the stack `provides` that capability, and an arrow to the provider when something does. |
-| `links` | Typed arrows, drawn only when both ends are on the canvas. Vitest → Vite is `tests`; Next.js → React is `extends`. Optional `card` sets cardinality (`n-1`, `1-n`, `n-n`), drawn as `1` / `∗` marks at each end. |
-| `langs` | The language-family badge on the block and the highlight filter. React is `ts, js, css`; Tailwind is `css`. |
-| `provides` | Feeds the stack-wide rules in `catalog/rules.json` — *users with no auth*, *self-hosted API with no database*, *containers with no CI*. |
-
-Group boxes exist only while they hold something: add a tool and its box appears, remove the last one and it disappears. Sections (`Build & Bundler`, `UI & Components`, `Styling`, …) are declared per box in `groups.json`.
-
-**Arrow direction is one promise, everywhere:** the arrow points from the thing that depends on, reads from, or acts on — to the thing it depends on. Next.js → React. Prisma → PostgreSQL. PayPal → the database and the auth provider it needs. Solid lines are runtime dependencies; **dashed** lines are referential (builds on, tests, monitors).
-
-**Click a block** to trace it: its arrows light up with a travelling dot, direct neighbours stay lit, everything else drops to 15%, and the drawer opens on the right. **Hover** puts the description and any problems in the strip along the bottom, so nothing ever covers a neighbouring block. Wires render *under* the blocks for the same reason.
-
-**Removing** is the `×` on any block (or the palette entry, or the drawer). If that block has account details saved on it you get asked first; either way an **Undo** appears for 8 seconds and restores the block with its credentials and position intact.
-
-The **Needed / recommended** panel appears top-right whenever something is missing, naming the capability, who wants it, and offering compatible technologies you can add in one click.
 
 ## The drawer
 
-Per-technology console URL, username, password and notes. The password is encrypted in the browser with **AES-GCM (PBKDF2, 310k iterations)** before it touches `localStorage`. The passphrase lives in memory for the session only and is never written anywhere, so a stolen `localStorage` dump is ciphertext. Clear the passphrase and the saved password is unreadable — including by you, so keep it somewhere.
 
-Everything runs locally. There is no server and no network call except brand icons from `cdn.simpleicons.org`.
 
 ## Editing the catalog
 
-`entries.md` is the plain-text plan: what is in (349 entries), what is queued. To add a technology, copy a neighbour in the relevant JSON. To add a whole box, add it to `groups.json` with its `sections`, create `<id>.json`, and add two lines to `src/catalog/index.ts`.
 
-`pnpm check` fails loudly on a misspelled section name, a link pointing at a nonexistent id, or a `needs` capability nothing provides.
 
 ## Stack
 
