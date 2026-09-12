@@ -1,0 +1,458 @@
+[
+  {
+    "id": "jira",
+    "name": "Jira",
+    "group": "pm",
+    "section": "Issue tracking",
+    "icon": "jira",
+    "color": "#0052cc",
+    "langs": [
+      "none"
+    ],
+    "desc": "Configurable workflows, sprints and reporting for larger orgs. Use when process and audit trails are required, not optional.",
+    "provides": [
+      "issue-tracking"
+    ],
+    "exclusive": [
+      "issue-tracker"
+    ],
+    "tags": [
+      "pm",
+      "enterprise",
+      "atlassian"
+    ],
+    "url": "https://www.atlassian.com/software/jira"
+  },
+  {
+    "id": "linear",
+    "name": "Linear",
+    "group": "pm",
+    "section": "Issue tracking",
+    "icon": "linear",
+    "color": "#5e6ad2",
+    "langs": [
+      "none"
+    ],
+    "desc": "Fast opinionated issue tracking built around cycles. Use when a product team wants speed over configurability.",
+    "provides": [
+      "issue-tracking"
+    ],
+    "exclusive": [
+      "issue-tracker"
+    ],
+    "tags": [
+      "pm"
+    ]
+  },
+  {
+    "id": "asana",
+    "name": "Asana",
+    "group": "pm",
+    "section": "Issue tracking",
+    "icon": "asana",
+    "color": "#f06a6a",
+    "langs": [
+      "none"
+    ],
+    "desc": "Task and project management for cross-functional work. Use when non-engineering teams share the same plan.",
+    "provides": [
+      "issue-tracking"
+    ],
+    "exclusive": [
+      "issue-tracker"
+    ],
+    "tags": [
+      "pm"
+    ]
+  },
+  {
+    "id": "clickup",
+    "name": "ClickUp",
+    "group": "pm",
+    "section": "Issue tracking",
+    "icon": "clickup",
+    "color": "#7b68ee",
+    "langs": [
+      "none"
+    ],
+    "desc": "Tasks, docs, goals and dashboards in one workspace. Use for small companies consolidating tools.",
+    "provides": [
+      "issue-tracking"
+    ],
+    "exclusive": [
+      "issue-tracker"
+    ],
+    "tags": [
+      "pm"
+    ]
+  },
+  {
+    "id": "githubissues",
+    "name": "GitHub Issues & Projects",
+    "group": "pm",
+    "section": "Issue tracking",
+    "icon": "github",
+    "color": "#ffffff",
+    "langs": [
+      "none"
+    ],
+    "desc": "Tracking that lives beside the code, linked to commits and PRs. Use for engineering-led projects that need no ceremony.",
+    "provides": [
+      "issue-tracking"
+    ],
+    "exclusive": [
+      "issue-tracker"
+    ],
+    "links": [
+      {
+        "to": "github",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "pm"
+    ]
+  },
+  {
+    "id": "trello",
+    "name": "Trello",
+    "group": "pm",
+    "section": "Issue tracking",
+    "icon": "trello",
+    "color": "#0052cc",
+    "langs": [
+      "none"
+    ],
+    "desc": "Cards on a board, nothing more. Use for light personal or small-team workflows.",
+    "provides": [
+      "issue-tracking"
+    ],
+    "exclusive": [
+      "issue-tracker"
+    ],
+    "tags": [
+      "pm",
+      "atlassian"
+    ]
+  },
+  {
+    "id": "notion",
+    "name": "Notion",
+    "group": "pm",
+    "section": "Docs & Knowledge",
+    "icon": "notion",
+    "color": "#ffffff",
+    "langs": [
+      "none"
+    ],
+    "desc": "Flexible docs and databases in one workspace. Use for specs, wikis and lightweight trackers.",
+    "provides": [
+      "docs"
+    ],
+    "exclusive": [
+      "wiki"
+    ],
+    "tags": [
+      "pm"
+    ],
+    "url": "https://notion.so"
+  },
+  {
+    "id": "confluence",
+    "name": "Confluence",
+    "group": "pm",
+    "section": "Docs & Knowledge",
+    "icon": "confluence",
+    "color": "#172b4d",
+    "langs": [
+      "none"
+    ],
+    "desc": "Enterprise wiki with permissions and Jira linking. Use where documentation must be governed and retained.",
+    "provides": [
+      "docs"
+    ],
+    "exclusive": [
+      "wiki"
+    ],
+    "links": [
+      {
+        "to": "jira",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "pm",
+      "enterprise",
+      "atlassian"
+    ]
+  },
+  {
+    "id": "obsidian",
+    "name": "Obsidian",
+    "group": "pm",
+    "section": "Docs & Knowledge",
+    "icon": "obsidian",
+    "color": "#7c3aed",
+    "langs": [
+      "md"
+    ],
+    "desc": "Local markdown notes with backlinks and graph view. Use for personal knowledge you want to still own in ten years.",
+    "provides": [
+      "docs"
+    ],
+    "tags": [
+      "pm"
+    ]
+  },
+  {
+    "id": "docusaurus",
+    "name": "Docusaurus",
+    "group": "pm",
+    "section": "Docs & Knowledge",
+    "icon": "docusaurus",
+    "color": "#3ecc5f",
+    "langs": [
+      "ts",
+      "md"
+    ],
+    "desc": "Versioned docs sites from markdown, built on React. Use for public product and API documentation.",
+    "provides": [
+      "docs"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "pm",
+      "web"
+    ]
+  },
+  {
+    "id": "mkdocs",
+    "name": "MkDocs",
+    "group": "pm",
+    "section": "Docs & Knowledge",
+    "icon": "materialformkdocs",
+    "color": "#526cfe",
+    "langs": [
+      "py",
+      "md"
+    ],
+    "desc": "Markdown docs sites with excellent search, popular in Python projects. Use when the repo is Python and docs must be simple.",
+    "provides": [
+      "docs"
+    ],
+    "tags": [
+      "pm"
+    ]
+  },
+  {
+    "id": "slack",
+    "name": "Slack",
+    "group": "pm",
+    "section": "Communication",
+    "icon": "slack",
+    "color": "#4a154b",
+    "langs": [
+      "none"
+    ],
+    "desc": "Channel-based chat with deep app integrations. Use as the place alerts, deploys and humans all meet.",
+    "provides": [
+      "chat"
+    ],
+    "exclusive": [
+      "chat"
+    ],
+    "tags": [
+      "pm"
+    ],
+    "url": "https://slack.com"
+  },
+  {
+    "id": "discord",
+    "name": "Discord",
+    "group": "pm",
+    "section": "Communication",
+    "icon": "discord",
+    "color": "#5865f2",
+    "langs": [
+      "none"
+    ],
+    "desc": "Free voice and text servers with a strong community culture. Use for open-source projects and user communities.",
+    "provides": [
+      "chat"
+    ],
+    "exclusive": [
+      "chat"
+    ],
+    "tags": [
+      "pm"
+    ]
+  },
+  {
+    "id": "teams",
+    "name": "Microsoft Teams",
+    "group": "pm",
+    "section": "Communication",
+    "icon": "microsoftteams",
+    "color": "#6264a7",
+    "langs": [
+      "none"
+    ],
+    "desc": "Chat and meetings bundled with Microsoft 365. Use where IT has already decided for you.",
+    "provides": [
+      "chat"
+    ],
+    "exclusive": [
+      "chat"
+    ],
+    "tags": [
+      "pm",
+      "microsoft",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "loom",
+    "name": "Loom",
+    "group": "pm",
+    "section": "Communication",
+    "icon": "loom",
+    "color": "#625df5",
+    "langs": [
+      "none"
+    ],
+    "desc": "Quick screen recordings with a talking head. Use to replace a meeting that could have been a video.",
+    "tags": [
+      "pm"
+    ]
+  },
+  {
+    "id": "git",
+    "name": "Git",
+    "group": "pm",
+    "section": "Version control",
+    "icon": "git",
+    "color": "#f05032",
+    "langs": [
+      "none"
+    ],
+    "desc": "Distributed version control underneath everything else here. Use always.",
+    "provides": [
+      "vcs"
+    ],
+    "tags": [
+      "dev"
+    ]
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "group": "pm",
+    "section": "Version control",
+    "icon": "github",
+    "color": "#ffffff",
+    "langs": [
+      "none"
+    ],
+    "desc": "Hosting, pull requests, Actions and the largest developer network. Use as the default unless policy says otherwise.",
+    "provides": [
+      "vcs-host"
+    ],
+    "exclusive": [
+      "vcs-host"
+    ],
+    "links": [
+      {
+        "to": "git",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "dev"
+    ],
+    "url": "https://github.com"
+  },
+  {
+    "id": "gitlab",
+    "name": "GitLab",
+    "group": "pm",
+    "section": "Version control",
+    "icon": "gitlab",
+    "color": "#fc6d26",
+    "langs": [
+      "none"
+    ],
+    "desc": "Repos, CI, registry and security scanning, self-hostable. Use when everything must run inside your own network.",
+    "provides": [
+      "vcs-host",
+      "self-hosted"
+    ],
+    "exclusive": [
+      "vcs-host"
+    ],
+    "links": [
+      {
+        "to": "git",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "dev",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "bitbucket",
+    "name": "Bitbucket",
+    "group": "pm",
+    "section": "Version control",
+    "icon": "bitbucket",
+    "color": "#0052cc",
+    "langs": [
+      "none"
+    ],
+    "desc": "Atlassian repository hosting with native Jira links. Use in shops already standardised on Atlassian.",
+    "provides": [
+      "vcs-host"
+    ],
+    "exclusive": [
+      "vcs-host"
+    ],
+    "links": [
+      {
+        "to": "git",
+        "rel": "extends"
+      },
+      {
+        "to": "jira",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "dev",
+      "atlassian"
+    ]
+  },
+  {
+    "id": "changesets",
+    "name": "Changesets",
+    "group": "pm",
+    "section": "Version control",
+    "icon": "npm",
+    "color": "#cb3837",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Versioning and changelogs for monorepo packages. Use when one repo publishes several npm packages.",
+    "needs": [
+      "vcs"
+    ],
+    "tags": [
+      "dev"
+    ]
+  }
+]

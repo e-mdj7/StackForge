@@ -1,0 +1,57 @@
+[
+  { "id": "reactnative", "name": "React Native", "group": "mobile", "section": "Cross-platform", "icon": "react", "color": "#61dafb", "langs": ["ts", "js"],
+    "desc": "Native iOS and Android from React components. Use when a web React team must also ship mobile.",
+    "provides": ["mobile"], "exclusive": ["mobile-framework"], "links": [{ "to": "react", "rel": "extends" }], "tags": ["mobile"] },
+
+  { "id": "flutter", "name": "Flutter", "group": "mobile", "section": "Cross-platform", "icon": "flutter", "color": "#02569b", "langs": ["dart"],
+    "desc": "One rendering engine drawing identical UI everywhere. Use when pixel parity across iOS, Android, web and desktop matters.",
+    "provides": ["mobile", "desktop"], "exclusive": ["mobile-framework"], "links": [{ "to": "dart", "rel": "extends" }], "tags": ["mobile"], "url": "https://flutter.dev" },
+
+  { "id": "expo", "name": "Expo", "group": "mobile", "section": "Cross-platform", "icon": "expo", "color": "#ffffff", "langs": ["ts", "js"],
+    "desc": "Managed builds, OTA updates and native modules for React Native. Use unless you truly need a bare native project.",
+    "provides": ["mobile-build"], "links": [{ "to": "reactnative", "rel": "extends" }], "tags": ["mobile"] },
+
+  { "id": "ionic", "name": "Ionic", "group": "mobile", "section": "Cross-platform", "icon": "ionic", "color": "#3880ff", "langs": ["ts", "css"],
+    "desc": "Web components in a native shell. Use when the app is mostly forms and lists and the team is web-only.",
+    "provides": ["mobile"], "exclusive": ["mobile-framework"], "tags": ["mobile"] },
+
+  { "id": "capacitor", "name": "Capacitor", "group": "mobile", "section": "Cross-platform", "icon": "capacitor", "color": "#119eff", "langs": ["ts"],
+    "desc": "Wraps any web app in a native container with plugin access. Use to ship an existing SPA to the app stores.",
+    "provides": ["mobile"], "tags": ["mobile"] },
+
+  { "id": "kmp", "name": "Kotlin Multiplatform", "group": "mobile", "section": "Cross-platform", "icon": "kotlin", "color": "#7f52ff", "langs": ["kotlin"],
+    "desc": "Share business logic across iOS and Android while keeping native UI. Use when you want native feel but one domain layer.",
+    "provides": ["mobile"], "exclusive": ["mobile-framework"], "links": [{ "to": "kotlin", "rel": "extends" }], "tags": ["mobile"] },
+
+  { "id": "swiftui", "name": "SwiftUI", "group": "mobile", "section": "Native", "icon": "swift", "color": "#f05138", "langs": ["swift"],
+    "desc": "Declarative native UI for Apple platforms. Use when the app must feel unmistakably iOS.",
+    "provides": ["mobile"], "links": [{ "to": "swift", "rel": "extends" }], "tags": ["mobile"] },
+
+  { "id": "jetpackcompose", "name": "Jetpack Compose", "group": "mobile", "section": "Native", "icon": "jetpackcompose", "color": "#4285f4", "langs": ["kotlin"],
+    "desc": "Declarative native UI for Android. Use for Android-first apps that need full platform access.",
+    "provides": ["mobile"], "links": [{ "to": "kotlin", "rel": "extends" }], "tags": ["mobile"] },
+
+  { "id": "electron", "name": "Electron", "group": "mobile", "section": "Desktop", "icon": "electron", "color": "#47848f", "langs": ["ts", "js"],
+    "desc": "Chromium plus Node in a desktop window. Use when you need full web compatibility and can afford a 100MB download.",
+    "provides": ["desktop"], "exclusive": ["desktop-shell"], "tags": ["desktop"] },
+
+  { "id": "tauri", "name": "Tauri", "group": "mobile", "section": "Desktop", "icon": "tauri", "color": "#ffc131", "langs": ["rust", "ts"],
+    "desc": "Rust backend with the system webview, a few MB per binary. Use when Electron is too heavy.",
+    "provides": ["desktop"], "exclusive": ["desktop-shell"], "links": [{ "to": "rust", "rel": "extends" }], "tags": ["desktop"] },
+
+  { "id": "dotnetmaui", "name": ".NET MAUI", "group": "mobile", "section": "Desktop", "icon": "dotnet", "color": "#512bd4", "langs": ["csharp"],
+    "desc": "Cross-platform native apps from C#. Use in .NET shops that already own the business logic.",
+    "provides": ["mobile", "desktop"], "links": [{ "to": "csharp", "rel": "extends" }], "tags": ["desktop", "enterprise"] },
+
+  { "id": "fastlane", "name": "Fastlane", "group": "mobile", "section": "Distribution", "icon": "fastlane", "color": "#00f200", "langs": ["ruby"],
+    "desc": "Automates signing, screenshots and store uploads. Use the first time you upload a build by hand and hate it.",
+    "provides": ["mobile-release"], "needs": ["mobile"], "tags": ["mobile", "ci"] },
+
+  { "id": "appstore", "name": "App Store Connect", "group": "mobile", "section": "Distribution", "icon": "appstore", "color": "#0d96f6", "langs": ["none"],
+    "desc": "Apple review, TestFlight builds and phased release. Use whenever you ship to iOS, whether you like it or not.",
+    "provides": ["mobile-release"], "needs": ["mobile"], "tags": ["mobile"], "url": "https://appstoreconnect.apple.com" },
+
+  { "id": "googleplay", "name": "Google Play Console", "group": "mobile", "section": "Distribution", "icon": "googleplay", "color": "#01875f", "langs": ["none"],
+    "desc": "Android release tracks, staged rollouts and vitals. Use for every Android release.",
+    "provides": ["mobile-release"], "needs": ["mobile"], "tags": ["mobile"], "url": "https://play.google.com/console" }
+]

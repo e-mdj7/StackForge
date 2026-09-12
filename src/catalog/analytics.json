@@ -1,0 +1,81 @@
+[
+  { "id": "posthog", "name": "PostHog", "group": "analytics", "section": "Product analytics", "icon": "posthog", "color": "#f54e00", "langs": ["ts"],
+    "desc": "Funnels, session replay, feature flags and experiments in one tool, self-hostable. Use when you want product analytics without wiring four vendors.",
+    "provides": ["analytics", "flags"], "exclusive": ["product-analytics"], "tags": ["oss"], "url": "https://app.posthog.com" },
+
+  { "id": "mixpanel", "name": "Mixpanel", "group": "analytics", "section": "Product analytics", "icon": "mixpanel", "color": "#7856ff", "langs": ["ts"],
+    "desc": "Event analytics with cohorts and retention reports. Use when product managers live inside funnel analysis.",
+    "provides": ["analytics"], "exclusive": ["product-analytics"], "tags": ["saas"] },
+
+  { "id": "amplitude", "name": "Amplitude", "group": "analytics", "section": "Product analytics", "icon": "amplitude", "color": "#1e61f0", "langs": ["ts"],
+    "desc": "Behavioural analytics with strong cohort and journey tooling. Use for large consumer products with dedicated analysts.",
+    "provides": ["analytics"], "exclusive": ["product-analytics"], "tags": ["saas"] },
+
+  { "id": "googleanalytics", "name": "Google Analytics", "group": "analytics", "section": "Web analytics", "icon": "googleanalytics", "color": "#e37400", "langs": ["js"],
+    "desc": "Free traffic analytics tied to Google Ads. Use when marketing needs attribution and campaign reporting.",
+    "provides": ["analytics"], "exclusive": ["web-analytics"], "tags": ["google", "saas"] },
+
+  { "id": "plausible", "name": "Plausible", "group": "analytics", "section": "Web analytics", "icon": "plausibleanalytics", "color": "#5850ec", "langs": ["elixir"],
+    "desc": "Cookie-free lightweight analytics, self-hostable. Use when you want visitor numbers without a consent banner.",
+    "provides": ["analytics", "self-hosted"], "exclusive": ["web-analytics"], "tags": ["oss", "privacy"] },
+
+  { "id": "umami", "name": "Umami", "group": "analytics", "section": "Web analytics", "icon": "umami", "color": "#000000", "langs": ["ts"],
+    "desc": "Open-source privacy-first web analytics on your own database. Use for a free self-hosted Plausible.",
+    "provides": ["analytics", "self-hosted"], "exclusive": ["web-analytics"], "needs": ["db"], "tags": ["oss", "privacy"] },
+
+  { "id": "matomo", "name": "Matomo", "group": "analytics", "section": "Web analytics", "icon": "matomo", "color": "#3152a0", "langs": ["php"],
+    "desc": "Full-featured analytics you host, with raw data ownership. Use where GDPR makes Google Analytics awkward.",
+    "provides": ["analytics", "self-hosted"], "exclusive": ["web-analytics"], "needs": ["db"], "tags": ["oss", "privacy"] },
+
+  { "id": "powerbi", "name": "Power BI", "group": "analytics", "section": "BI & Dashboards", "icon": "powerbi", "color": "#f2c811", "langs": ["dax"],
+    "desc": "Microsoft BI with DAX models and Office integration. Use where the business already runs on Excel and Azure.",
+    "provides": ["bi"], "needs": ["db"], "exclusive": ["bi"], "tags": ["microsoft", "enterprise"], "url": "https://app.powerbi.com" },
+
+  { "id": "tableau", "name": "Tableau", "group": "analytics", "section": "BI & Dashboards", "icon": "tableau", "color": "#e97627", "langs": ["none"],
+    "desc": "Exploratory visual analysis for analysts. Use when discovery and storytelling matter more than embedding.",
+    "provides": ["bi"], "needs": ["db"], "exclusive": ["bi"], "tags": ["enterprise"] },
+
+  { "id": "looker", "name": "Looker", "group": "analytics", "section": "BI & Dashboards", "icon": "looker", "color": "#4285f4", "langs": ["sql"],
+    "desc": "Governed metrics defined once in LookML. Use when every team must agree on what revenue means.",
+    "provides": ["bi"], "needs": ["warehouse"], "exclusive": ["bi"], "tags": ["google", "enterprise"] },
+
+  { "id": "metabase", "name": "Metabase", "group": "analytics", "section": "BI & Dashboards", "icon": "metabase", "color": "#509ee3", "langs": ["sql"],
+    "desc": "Self-hosted BI that non-technical users can actually query. Use to give the team dashboards this week.",
+    "provides": ["bi", "self-hosted"], "needs": ["db"], "exclusive": ["bi"], "tags": ["oss"] },
+
+  { "id": "superset", "name": "Apache Superset", "group": "analytics", "section": "BI & Dashboards", "icon": "apachesuperset", "color": "#20a7c9", "langs": ["py", "sql"],
+    "desc": "Open-source exploration and dashboarding over SQL sources. Use when licences are out and Python is in.",
+    "provides": ["bi", "self-hosted"], "needs": ["db"], "exclusive": ["bi"], "tags": ["oss"] },
+
+  { "id": "recharts", "name": "Recharts", "group": "analytics", "section": "Charting libraries", "color": "#22b5bf", "langs": ["ts"],
+    "desc": "Composable React chart components over D3. Use for standard dashboards where sensible defaults beat total control.",
+    "provides": ["charts"], "needs": ["ui"], "exclusive": ["charts"], "links": [{ "to": "react", "rel": "extends" }], "tags": ["web"] },
+
+  { "id": "chartjs", "name": "Chart.js", "group": "analytics", "section": "Charting libraries", "icon": "chartdotjs", "color": "#ff6384", "langs": ["js"],
+    "desc": "Canvas charts with almost no setup. Use for a handful of charts on a plain page.",
+    "provides": ["charts"], "exclusive": ["charts"], "tags": ["web"] },
+
+  { "id": "d3", "name": "D3.js", "group": "analytics", "section": "Charting libraries", "icon": "d3dotjs", "color": "#f9a03c", "langs": ["js"],
+    "desc": "Low-level data-driven DOM manipulation. Use when the visualisation does not exist in any chart library.",
+    "provides": ["charts"], "tags": ["web"] },
+
+  { "id": "echarts", "name": "Apache ECharts", "group": "analytics", "section": "Charting libraries", "icon": "apacheecharts", "color": "#aa344d", "langs": ["js"],
+    "desc": "Large chart catalogue that stays fast with huge datasets. Use for dense analytical dashboards.",
+    "provides": ["charts"], "exclusive": ["charts"], "tags": ["web"] },
+
+  { "id": "plotly", "name": "Plotly", "group": "analytics", "section": "Charting libraries", "icon": "plotly", "color": "#3f4f75", "langs": ["py", "js"],
+    "desc": "Interactive scientific charts with a Python API. Use in notebooks and data apps.",
+    "provides": ["charts"], "exclusive": ["charts"], "tags": ["data"] },
+
+  { "id": "visx", "name": "visx", "group": "analytics", "section": "Charting libraries", "icon": "airbnb", "color": "#ff5a5f", "langs": ["ts"],
+    "desc": "D3 primitives as React components, no chart opinions. Use when the design is bespoke but you want React rendering.",
+    "provides": ["charts"], "needs": ["ui"], "tags": ["web"] },
+
+  { "id": "segment", "name": "Segment", "group": "analytics", "section": "Event pipelines", "icon": "segment", "color": "#52bd95", "langs": ["ts"],
+    "desc": "Collects events once and fans them out to every tool. Use when marketing keeps asking for another tracking script.",
+    "provides": ["events"], "exclusive": ["cdp"], "tags": ["saas"] },
+
+  { "id": "rudderstack", "name": "RudderStack", "group": "analytics", "section": "Event pipelines", "icon": "rudderstack", "color": "#3b82f6", "langs": ["ts"],
+    "desc": "Warehouse-first customer data pipeline, self-hostable. Use when event data must land in your warehouse first.",
+    "provides": ["events", "self-hosted"], "needs": ["warehouse"], "exclusive": ["cdp"], "tags": ["oss", "data"] }
+]

@@ -1,0 +1,165 @@
+[
+  { "id": "postgresql", "name": "PostgreSQL", "group": "data", "section": "Relational", "icon": "postgresql", "color": "#4169e1", "langs": ["sql"],
+    "desc": "The default serious database: transactions, JSON, extensions, full text. Use unless you have a specific reason not to.",
+    "provides": ["db", "db-sql"], "tags": ["oss"], "url": "https://www.postgresql.org" },
+
+  { "id": "mysql", "name": "MySQL", "group": "data", "section": "Relational", "icon": "mysql", "color": "#4479a1", "langs": ["sql"],
+    "desc": "Ubiquitous relational database with cheap hosting everywhere. Use for WordPress, legacy apps and PlanetScale.",
+    "provides": ["db", "db-sql"], "tags": ["oss"] },
+
+  { "id": "sqlite", "name": "SQLite", "group": "data", "section": "Relational", "icon": "sqlite", "color": "#003b57", "langs": ["sql"],
+    "desc": "The whole database is one file in your process. Use for local apps, tests and single-server deployments.",
+    "provides": ["db", "db-sql"], "tags": ["oss", "embedded"] },
+
+  { "id": "mariadb", "name": "MariaDB", "group": "data", "section": "Relational", "icon": "mariadb", "color": "#c0765a", "langs": ["sql"],
+    "desc": "Community fork of MySQL with extra engines. Use when you want MySQL compatibility under a freer licence.",
+    "provides": ["db", "db-sql"], "tags": ["oss"] },
+
+  { "id": "mssql", "name": "SQL Server", "group": "data", "section": "Relational", "icon": "mssql", "color": "#cc2927", "langs": ["sql"],
+    "desc": "Microsoft relational database with deep .NET and Power BI integration. Use in Microsoft-centric enterprises.",
+    "provides": ["db", "db-sql"], "tags": ["enterprise", "microsoft"] },
+
+  { "id": "cockroachdb", "name": "CockroachDB", "group": "data", "section": "Relational", "icon": "cockroachlabs", "color": "#6933ff", "langs": ["sql"],
+    "desc": "Distributed Postgres-compatible SQL that survives node loss. Use when multi-region writes and uptime are contractual.",
+    "provides": ["db", "db-sql"], "tags": ["cloud"] },
+
+  { "id": "neon", "name": "Neon", "group": "data", "section": "Relational", "icon": "neon", "color": "#00e599", "langs": ["sql"],
+    "desc": "Serverless Postgres that scales to zero and branches like git. Use for preview environments per pull request.",
+    "provides": ["db", "db-sql"], "links": [{ "to": "postgresql", "rel": "extends" }], "tags": ["cloud"], "url": "https://console.neon.tech" },
+
+  { "id": "planetscale", "name": "PlanetScale", "group": "data", "section": "Relational", "icon": "planetscale", "color": "#ffffff", "langs": ["sql"],
+    "desc": "Vitess-backed MySQL with safe online schema changes. Use when migrations on a huge table must not lock it.",
+    "provides": ["db", "db-sql"], "links": [{ "to": "mysql", "rel": "extends" }], "tags": ["cloud"] },
+
+  { "id": "turso", "name": "Turso", "group": "data", "section": "Relational", "icon": "turso", "color": "#4ff8d2", "langs": ["sql"],
+    "desc": "SQLite replicated to the edge, one database per tenant if you want. Use for read-heavy globally distributed apps.",
+    "provides": ["db", "db-sql"], "links": [{ "to": "sqlite", "rel": "extends" }], "tags": ["cloud", "edge"] },
+
+  { "id": "mongodb", "name": "MongoDB", "group": "data", "section": "NoSQL & Document", "icon": "mongodb", "color": "#47a248", "langs": ["js"],
+    "desc": "Document store with flexible schemas. Use when the shape of your data genuinely varies per record.",
+    "provides": ["db", "db-nosql"], "tags": ["oss"], "url": "https://cloud.mongodb.com" },
+
+  { "id": "dynamodb", "name": "DynamoDB", "group": "data", "section": "NoSQL & Document", "icon": "amazondynamodb", "color": "#4053d6", "langs": ["none"],
+    "desc": "AWS key-value store with single-digit millisecond reads at any scale. Use when access patterns are known and fixed.",
+    "provides": ["db", "db-nosql"], "tags": ["cloud", "aws"] },
+
+  { "id": "cassandra", "name": "Cassandra", "group": "data", "section": "NoSQL & Document", "icon": "apachecassandra", "color": "#1287b1", "langs": ["none"],
+    "desc": "Wide-column store built for enormous write volume. Use for time series and event logs at petabyte scale.",
+    "provides": ["db", "db-nosql"], "tags": ["oss"] },
+
+  { "id": "couchdb", "name": "CouchDB", "group": "data", "section": "NoSQL & Document", "icon": "apachecouchdb", "color": "#e42528", "langs": ["js"],
+    "desc": "Document database built around replication and offline sync. Use for apps that must work with no network.",
+    "provides": ["db", "db-nosql"], "tags": ["oss"] },
+
+  { "id": "redis", "name": "Redis", "group": "data", "section": "Cache & KV", "icon": "redis", "color": "#ff4438", "langs": ["none"],
+    "desc": "In-memory key-value store with lists, sets and pub/sub. Use for caching, sessions, rate limits and job queues.",
+    "provides": ["cache"], "exclusive": ["cache"], "tags": ["oss"] },
+
+  { "id": "valkey", "name": "Valkey", "group": "data", "section": "Cache & KV", "icon": "valkey", "color": "#ff4438", "langs": ["none"],
+    "desc": "Linux Foundation fork of Redis after the licence change. Use when the licence matters to your legal team.",
+    "provides": ["cache"], "exclusive": ["cache"], "tags": ["oss"] },
+
+  { "id": "memcached", "name": "Memcached", "group": "data", "section": "Cache & KV", "icon": "memcached", "color": "#288d1f", "langs": ["none"],
+    "desc": "Pure in-memory cache, nothing else. Use when you need a cache and refuse the temptation to store state in it.",
+    "provides": ["cache"], "exclusive": ["cache"], "tags": ["oss"] },
+
+  { "id": "upstash", "name": "Upstash", "group": "data", "section": "Cache & KV", "icon": "upstash", "color": "#00e9a3", "langs": ["ts"],
+    "desc": "Serverless Redis and Kafka billed per request over HTTP. Use from edge functions that cannot hold a TCP connection.",
+    "provides": ["cache"], "exclusive": ["cache"], "tags": ["cloud", "edge"] },
+
+  { "id": "elasticsearch", "name": "Elasticsearch", "group": "data", "section": "Search", "icon": "elasticsearch", "color": "#005571", "langs": ["none"],
+    "desc": "Distributed search and analytics engine. Use for log analysis and search over very large corpora.",
+    "provides": ["search"], "exclusive": ["search"], "tags": ["oss"] },
+
+  { "id": "meilisearch", "name": "Meilisearch", "group": "data", "section": "Search", "icon": "meilisearch", "color": "#ff5caa", "langs": ["rust"],
+    "desc": "Typo-tolerant instant search you can self-host in minutes. Use when Elasticsearch is far more than you need.",
+    "provides": ["search", "self-hosted"], "exclusive": ["search"], "tags": ["oss"] },
+
+  { "id": "typesense", "name": "Typesense", "group": "data", "section": "Search", "icon": "typesense", "color": "#d52b9c", "langs": ["cpp"],
+    "desc": "Fast open-source search with simple defaults. Use as a self-hosted Algolia alternative.",
+    "provides": ["search", "self-hosted"], "exclusive": ["search"], "tags": ["oss"] },
+
+  { "id": "algolia", "name": "Algolia", "group": "data", "section": "Search", "icon": "algolia", "color": "#003dff", "langs": ["ts"],
+    "desc": "Hosted search-as-you-type with ranking tuned for you. Use for storefronts and docs where relevance sells.",
+    "provides": ["search"], "exclusive": ["search"], "tags": ["cloud"], "url": "https://dashboard.algolia.com" },
+
+  { "id": "prisma", "name": "Prisma", "group": "data", "section": "ORM & Query", "icon": "prisma", "color": "#2d3748", "langs": ["ts", "sql"],
+    "desc": "Typed ORM with a declarative schema and generated migrations. Use when you want your database shape in version control.",
+    "provides": ["orm"], "needs": ["db-sql"], "exclusive": ["orm"], "tags": ["oss"], "url": "https://www.prisma.io" },
+
+  { "id": "drizzle", "name": "Drizzle", "group": "data", "section": "ORM & Query", "icon": "drizzle", "color": "#c5f74f", "langs": ["ts", "sql"],
+    "desc": "Typed SQL query builder with no runtime engine. Use when you want Prisma safety but SQL that reads like SQL.",
+    "provides": ["orm"], "needs": ["db-sql"], "exclusive": ["orm"], "tags": ["oss"] },
+
+  { "id": "typeorm", "name": "TypeORM", "group": "data", "section": "ORM & Query", "icon": "typeorm", "color": "#fe0803", "langs": ["ts"],
+    "desc": "Decorator-based ORM common in NestJS projects. Use when the framework you picked already assumes it.",
+    "provides": ["orm"], "needs": ["db-sql"], "exclusive": ["orm"], "tags": ["oss"] },
+
+  { "id": "kysely", "name": "Kysely", "group": "data", "section": "ORM & Query", "color": "#b4a7d6", "langs": ["ts", "sql"],
+    "desc": "Type-safe query builder, no schema DSL. Use when you want autocomplete over a database you already own.",
+    "provides": ["orm"], "needs": ["db-sql"], "exclusive": ["orm"], "tags": ["oss"] },
+
+  { "id": "sqlalchemy", "name": "SQLAlchemy", "group": "data", "section": "ORM & Query", "icon": "sqlalchemy", "color": "#d71f00", "langs": ["py", "sql"],
+    "desc": "The Python ORM and Core query layer. Use in any serious Python service that touches SQL.",
+    "provides": ["orm"], "needs": ["db-sql"], "exclusive": ["orm"], "links": [{ "to": "python", "rel": "extends" }], "tags": ["oss"] },
+
+  { "id": "snowflake", "name": "Snowflake", "group": "data", "section": "Warehouse & Lake", "icon": "snowflake", "color": "#29b5e8", "langs": ["sql"],
+    "desc": "Cloud warehouse separating storage from compute. Use when analysts need heavy SQL without touching production.",
+    "provides": ["warehouse"], "tags": ["cloud", "data"] },
+
+  { "id": "bigquery", "name": "BigQuery", "group": "data", "section": "Warehouse & Lake", "icon": "googlebigquery", "color": "#669df6", "langs": ["sql"],
+    "desc": "Serverless warehouse billed per byte scanned. Use for huge ad-hoc analytical queries on GCP.",
+    "provides": ["warehouse"], "tags": ["cloud", "google", "data"] },
+
+  { "id": "databricks", "name": "Databricks", "group": "data", "section": "Warehouse & Lake", "icon": "databricks", "color": "#ff3621", "langs": ["py", "sql"],
+    "desc": "Lakehouse platform over Spark and Delta Lake. Use when data engineering and ML share one pipeline.",
+    "provides": ["warehouse", "etl"], "tags": ["cloud", "data", "ml"] },
+
+  { "id": "clickhouse", "name": "ClickHouse", "group": "data", "section": "Warehouse & Lake", "icon": "clickhouse", "color": "#faff69", "langs": ["sql"],
+    "desc": "Column store that aggregates billions of rows in milliseconds. Use for product analytics and observability backends.",
+    "provides": ["warehouse"], "tags": ["oss", "data"] },
+
+  { "id": "duckdb", "name": "DuckDB", "group": "data", "section": "Warehouse & Lake", "icon": "duckdb", "color": "#fff000", "langs": ["sql"],
+    "desc": "In-process analytical database that queries Parquet and CSV directly. Use for local analysis without a warehouse bill.",
+    "provides": ["warehouse"], "tags": ["oss", "data", "embedded"] },
+
+  { "id": "dbt", "name": "dbt", "group": "data", "section": "Warehouse & Lake", "icon": "dbt", "color": "#ff694b", "langs": ["sql"],
+    "desc": "Version-controlled SQL transformations with tests and lineage. Use to turn raw warehouse tables into trusted models.",
+    "provides": ["etl"], "needs": ["warehouse"], "tags": ["data"] },
+
+  { "id": "pgvector", "name": "pgvector", "group": "data", "section": "Vector", "icon": "postgresql", "color": "#4169e1", "langs": ["sql"],
+    "desc": "Vector similarity search as a Postgres extension. Use when you already run Postgres and refuse a second database.",
+    "provides": ["vector"], "needs": ["db-sql"], "links": [{ "to": "postgresql", "rel": "extends" }], "tags": ["ml", "oss"] },
+
+  { "id": "pinecone", "name": "Pinecone", "group": "data", "section": "Vector", "icon": "pinecone", "color": "#000000", "langs": ["py", "ts"],
+    "desc": "Fully managed vector database. Use when you want RAG retrieval working without operating an index.",
+    "provides": ["vector"], "tags": ["cloud", "ml"], "url": "https://app.pinecone.io" },
+
+  { "id": "qdrant", "name": "Qdrant", "group": "data", "section": "Vector", "icon": "qdrant", "color": "#dc244c", "langs": ["rust"],
+    "desc": "Open-source vector search with rich payload filtering. Use when metadata filters matter as much as similarity.",
+    "provides": ["vector", "self-hosted"], "tags": ["oss", "ml"] },
+
+  { "id": "weaviate", "name": "Weaviate", "group": "data", "section": "Vector", "icon": "weaviate", "color": "#7ad6ab", "langs": ["go"],
+    "desc": "Vector database with built-in vectoriser modules and hybrid search. Use when you want embeddings generated for you.",
+    "provides": ["vector"], "tags": ["oss", "ml"] },
+
+  { "id": "chroma", "name": "Chroma", "group": "data", "section": "Vector", "icon": "chroma", "color": "#ffde2d", "langs": ["py"],
+    "desc": "Embedded vector store that runs in your Python process. Use for prototypes and notebooks before you need a server.",
+    "provides": ["vector"], "tags": ["oss", "ml", "embedded"] },
+
+  { "id": "s3", "name": "Amazon S3", "group": "data", "section": "Object storage", "icon": "amazons3", "color": "#569a31", "langs": ["none"],
+    "desc": "The object storage everything else imitates. Use for uploads, backups and static assets.",
+    "provides": ["storage"], "tags": ["cloud", "aws"] },
+
+  { "id": "r2", "name": "Cloudflare R2", "group": "data", "section": "Object storage", "icon": "cloudflare", "color": "#f38020", "langs": ["none"],
+    "desc": "S3-compatible storage with no egress fees. Use when users download far more than they upload.",
+    "provides": ["storage"], "tags": ["cloud", "edge"] },
+
+  { "id": "minio", "name": "MinIO", "group": "data", "section": "Object storage", "icon": "minio", "color": "#c72e49", "langs": ["go"],
+    "desc": "S3-compatible object storage you run yourself. Use on-premise or in air-gapped environments.",
+    "provides": ["storage", "self-hosted"], "tags": ["oss", "selfhost"] },
+
+  { "id": "gcs", "name": "Cloud Storage", "group": "data", "section": "Object storage", "icon": "googlecloud", "color": "#4285f4", "langs": ["none"],
+    "desc": "Google object storage with tiered classes. Use when the stack already lives on GCP.",
+    "provides": ["storage"], "tags": ["cloud", "google"] }
+]

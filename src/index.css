@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+html, body, #root { height: 100%; margin: 0; background: #0b0d10; overflow: hidden; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+
+/* React Flow chrome, dark */
+.react-flow__controls-button {
+  background: #12151a; border-color: rgba(255,255,255,0.1); fill: rgba(255,255,255,0.6);
+}
+.react-flow__controls-button:hover { background: #1b1f26; }
+.react-flow__minimap { border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
+.react-flow__node-group { pointer-events: all; }
+
+/* Edges are decoration, never click targets — otherwise a wire passing over a block eats its click. */
+.react-flow__edges,
+.react-flow__edge,
+.react-flow__edge-path,
+.react-flow__edge-interaction { pointer-events: none !important; }
+
+/* Faint technology-coloured glows behind the grid, so the canvas is not a flat void.
+   Sits under React Flow's own layers, never over a card. */
+.stack-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(38rem 26rem at 12% 18%, rgba(97, 218, 251, 0.07), transparent 70%),
+    radial-gradient(34rem 24rem at 82% 14%, rgba(217, 119, 87, 0.06), transparent 70%),
+    radial-gradient(40rem 28rem at 68% 88%, rgba(36, 150, 237, 0.06), transparent 70%),
+    radial-gradient(30rem 22rem at 26% 76%, rgba(234, 75, 113, 0.05), transparent 70%);
+}
+.react-flow__minimap { border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
+
+/* React Flow ships a default skin for group nodes — a light-grey slab with a 3px radius.
+   That was the outer grey box wrapping our own bordered one. Strip it; GroupNode draws itself. */
+.react-flow__node-group {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Paint order must be: group box (0) -> wires (1) -> tech card (2).
+   React Flow puts each edge in its own <svg> at max(nodeZ)+1, which always beat the cards.
+   Keep BOTH containers out of the stacking context so their children interleave by z-index,
+   then pin the edge layer to 1 between the two node layers. */
+.react-flow__edges,
+.react-flow__nodes { z-index: auto !important; }
+.react-flow__edges svg:not(.react-flow__marker) { z-index: 1 !important; }

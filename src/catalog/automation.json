@@ -1,0 +1,69 @@
+[
+  { "id": "n8n", "name": "n8n", "group": "automation", "section": "Workflow automation", "icon": "n8n", "color": "#ea4b71", "langs": ["ts"],
+    "desc": "Self-hostable node-based workflow automation with code escape hatches. Use when Zapier gets expensive or the data cannot leave your server.",
+    "provides": ["automation", "self-hosted"], "exclusive": ["automation"], "tags": ["oss", "selfhost"], "url": "https://n8n.io" },
+
+  { "id": "zapier", "name": "Zapier", "group": "automation", "section": "Workflow automation", "icon": "zapier", "color": "#ff4f00", "langs": ["none"],
+    "desc": "Hosted integrations between thousands of SaaS apps. Use when the glue matters more than the cost per task.",
+    "provides": ["automation"], "exclusive": ["automation"], "tags": ["saas"] },
+
+  { "id": "make", "name": "Make", "group": "automation", "section": "Workflow automation", "icon": "make", "color": "#6d00cc", "langs": ["none"],
+    "desc": "Visual scenario builder with branching and iterators. Use for multi-step business flows non-developers must edit.",
+    "provides": ["automation"], "exclusive": ["automation"], "tags": ["saas"] },
+
+  { "id": "windmill", "name": "Windmill", "group": "automation", "section": "Workflow automation", "icon": "windmill", "color": "#3b82f6", "langs": ["ts", "py"],
+    "desc": "Turns scripts into workflows, UIs and cron jobs. Use when your automations are really code that needs a front door.",
+    "provides": ["automation", "self-hosted"], "exclusive": ["automation"], "tags": ["oss", "selfhost"] },
+
+  { "id": "airflow", "name": "Apache Airflow", "group": "automation", "section": "Data pipelines", "icon": "apacheairflow", "color": "#017cee", "langs": ["py"],
+    "desc": "DAG scheduler for batch data pipelines. Use when nightly jobs have dependencies and must be retried and audited.",
+    "provides": ["etl", "scheduler"], "exclusive": ["orchestrator-data"], "links": [{ "to": "python", "rel": "extends" }], "tags": ["data"] },
+
+  { "id": "dagster", "name": "Dagster", "group": "automation", "section": "Data pipelines", "icon": "dagster", "color": "#5e35b1", "langs": ["py"],
+    "desc": "Asset-oriented orchestration with typed inputs and lineage. Use when you want to reason about data assets, not tasks.",
+    "provides": ["etl", "scheduler"], "exclusive": ["orchestrator-data"], "tags": ["data"] },
+
+  { "id": "prefect", "name": "Prefect", "group": "automation", "section": "Data pipelines", "icon": "prefect", "color": "#070e10", "langs": ["py"],
+    "desc": "Python-native flows with dynamic DAGs. Use when pipelines are ordinary functions you want observability over.",
+    "provides": ["etl", "scheduler"], "exclusive": ["orchestrator-data"], "tags": ["data"] },
+
+  { "id": "airbyte", "name": "Airbyte", "group": "automation", "section": "Data pipelines", "icon": "airbyte", "color": "#615eff", "langs": ["py"],
+    "desc": "Open-source connectors that replicate sources into a warehouse. Use to avoid writing yet another API extractor.",
+    "provides": ["etl"], "needs": ["warehouse"], "tags": ["data", "oss"] },
+
+  { "id": "fivetran", "name": "Fivetran", "group": "automation", "section": "Data pipelines", "icon": "fivetran", "color": "#0073ff", "langs": ["none"],
+    "desc": "Managed ELT with maintained connectors and schema drift handling. Use when nobody wants to own pipeline breakage.",
+    "provides": ["etl"], "needs": ["warehouse"], "tags": ["data", "saas"] },
+
+  { "id": "spark", "name": "Apache Spark", "group": "automation", "section": "Data pipelines", "icon": "apachespark", "color": "#e25a1c", "langs": ["py", "sql"],
+    "desc": "Distributed processing for very large datasets. Use when the data no longer fits on one machine.",
+    "provides": ["etl"], "tags": ["data"] },
+
+  { "id": "kafka", "name": "Apache Kafka", "group": "automation", "section": "Messaging & Events", "icon": "apachekafka", "color": "#ffffff", "langs": ["java"],
+    "desc": "Durable partitioned event log that many consumers replay. Use as the backbone of event-driven architectures.",
+    "provides": ["queue", "events"], "exclusive": ["broker"], "tags": ["data"] },
+
+  { "id": "rabbitmq", "name": "RabbitMQ", "group": "automation", "section": "Messaging & Events", "icon": "rabbitmq", "color": "#ff6600", "langs": ["erlang"],
+    "desc": "Classic message broker with rich routing. Use for task distribution when Kafka is more than you need.",
+    "provides": ["queue"], "exclusive": ["broker"], "tags": ["oss"] },
+
+  { "id": "nats", "name": "NATS", "group": "automation", "section": "Messaging & Events", "icon": "natsdotio", "color": "#27aae1", "langs": ["go"],
+    "desc": "Very light pub/sub and streaming with tiny operational overhead. Use for microservice chatter and IoT fleets.",
+    "provides": ["queue", "events"], "exclusive": ["broker"], "tags": ["oss"] },
+
+  { "id": "sqs", "name": "Amazon SQS", "group": "automation", "section": "Messaging & Events", "icon": "amazonsqs", "color": "#ff4f8b", "langs": ["none"],
+    "desc": "Managed queue with dead-letter handling and no servers. Use on AWS when you just need work to not get lost.",
+    "provides": ["queue"], "exclusive": ["broker"], "tags": ["cloud", "aws"] },
+
+  { "id": "temporal", "name": "Temporal", "group": "automation", "section": "Scheduling", "icon": "temporal", "color": "#000000", "langs": ["ts", "go", "java"],
+    "desc": "Durable workflows that survive crashes and resume where they stopped. Use for long multi-step business processes like onboarding or payouts.",
+    "provides": ["scheduler", "queue"], "tags": ["backend"] },
+
+  { "id": "triggerdev", "name": "Trigger.dev", "group": "automation", "section": "Scheduling", "icon": "triggerdotdev", "color": "#ffffff", "langs": ["ts"],
+    "desc": "Long-running background jobs and schedules for TypeScript apps. Use when serverless timeouts keep killing your work.",
+    "provides": ["scheduler", "queue"], "tags": ["backend"] },
+
+  { "id": "cron", "name": "cron", "group": "automation", "section": "Scheduling", "icon": "gnubash", "color": "#4eaa25", "langs": ["bash"],
+    "desc": "The scheduler already on the server. Use for nightly scripts before reaching for anything with a dashboard.",
+    "provides": ["scheduler"], "tags": ["unix"] }
+]

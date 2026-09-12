@@ -1,0 +1,127 @@
+[
+  { "id": "express", "name": "Express", "group": "backend", "section": "Framework", "icon": "express", "color": "#ffffff", "langs": ["ts", "js"],
+    "desc": "Minimal unopinionated Node HTTP framework. Use when you want no magic and every tutorial on the internet to apply.",
+    "provides": ["api"], "exclusive": ["node-framework"], "needs": ["runtime"], "tags": ["backend"] },
+
+  { "id": "fastify", "name": "Fastify", "group": "backend", "section": "Framework", "icon": "fastify", "color": "#ffffff", "langs": ["ts"],
+    "desc": "Fast Node framework with schema-based validation built in. Use when throughput and typed routes both matter.",
+    "provides": ["api"], "exclusive": ["node-framework"], "needs": ["runtime"], "tags": ["backend"] },
+
+  { "id": "nestjs", "name": "NestJS", "group": "backend", "section": "Framework", "icon": "nestjs", "color": "#e0234e", "langs": ["ts"],
+    "desc": "Angular-style modules and DI for Node. Use on large teams that want enforced structure.",
+    "provides": ["api"], "exclusive": ["node-framework"], "needs": ["runtime"], "tags": ["backend", "enterprise"] },
+
+  { "id": "hono", "name": "Hono", "group": "backend", "section": "Framework", "icon": "hono", "color": "#e36002", "langs": ["ts"],
+    "desc": "Tiny web framework that runs on every JS runtime and edge platform. Use for edge functions and small APIs.",
+    "provides": ["api"], "exclusive": ["node-framework"], "tags": ["backend", "edge"] },
+
+  { "id": "django", "name": "Django", "group": "backend", "section": "Framework", "icon": "django", "color": "#092e20", "langs": ["py"],
+    "desc": "Batteries-included Python framework with ORM, admin and auth. Use when you want a working back office on day one.",
+    "provides": ["api", "orm", "auth"], "exclusive": ["python-framework"], "needs": ["db"],
+    "links": [{ "to": "python", "rel": "extends" }], "tags": ["backend"] },
+
+  { "id": "fastapi", "name": "FastAPI", "group": "backend", "section": "Framework", "icon": "fastapi", "color": "#009688", "langs": ["py"],
+    "desc": "Async Python APIs with automatic OpenAPI docs from type hints. Use for ML services and modern Python APIs.",
+    "provides": ["api"], "exclusive": ["python-framework"], "links": [{ "to": "python", "rel": "extends" }], "tags": ["backend", "ml"] },
+
+  { "id": "flask", "name": "Flask", "group": "backend", "section": "Framework", "icon": "flask", "color": "#ffffff", "langs": ["py"],
+    "desc": "Micro Python framework you assemble yourself. Use for small services and internal scripts with a web face.",
+    "provides": ["api"], "exclusive": ["python-framework"], "links": [{ "to": "python", "rel": "extends" }], "tags": ["backend"] },
+
+  { "id": "laravel", "name": "Laravel", "group": "backend", "section": "Framework", "icon": "laravel", "color": "#ff2d20", "langs": ["php"],
+    "desc": "Full-stack PHP with ORM, queues, auth and scheduling. Use when one developer must cover the whole product.",
+    "provides": ["api", "orm", "auth", "queue"], "needs": ["db"], "links": [{ "to": "php", "rel": "extends" }], "tags": ["backend"] },
+
+  { "id": "rails", "name": "Ruby on Rails", "group": "backend", "section": "Framework", "icon": "rubyonrails", "color": "#d30001", "langs": ["ruby"],
+    "desc": "Convention over configuration, generators for everything. Use to go from idea to CRUD app in a day.",
+    "provides": ["api", "orm"], "needs": ["db"], "links": [{ "to": "ruby", "rel": "extends" }], "tags": ["backend"] },
+
+  { "id": "spring", "name": "Spring Boot", "group": "backend", "section": "Framework", "icon": "springboot", "color": "#6db33f", "langs": ["java", "kotlin"],
+    "desc": "The enterprise Java standard: DI, data, security, actuators. Use where compliance and long support windows rule.",
+    "provides": ["api", "orm"], "needs": ["db"], "links": [{ "to": "java", "rel": "extends" }], "tags": ["backend", "enterprise"] },
+
+  { "id": "gin", "name": "Gin", "group": "backend", "section": "Framework", "icon": "gin", "color": "#00acd7", "langs": ["go"],
+    "desc": "Fast minimal Go HTTP router. Use for high-throughput services where you want explicit control.",
+    "provides": ["api"], "links": [{ "to": "go", "rel": "extends" }], "tags": ["backend"] },
+
+  { "id": "aspnet", "name": "ASP.NET Core", "group": "backend", "section": "Framework", "icon": "dotnet", "color": "#512bd4", "langs": ["csharp"],
+    "desc": "High-performance cross-platform .NET web framework. Use in Microsoft shops and for latency-sensitive managed services.",
+    "provides": ["api", "orm", "auth"], "links": [{ "to": "csharp", "rel": "extends" }], "tags": ["backend", "enterprise"] },
+
+  { "id": "phoenix", "name": "Phoenix", "group": "backend", "section": "Framework", "icon": "phoenixframework", "color": "#fd4f00", "langs": ["elixir"],
+    "desc": "Elixir framework with LiveView and channels. Use for real-time dashboards and chat without writing a SPA.",
+    "provides": ["api", "realtime"], "needs": ["db"], "links": [{ "to": "elixir", "rel": "extends" }], "tags": ["backend"] },
+
+  { "id": "graphql", "name": "GraphQL", "group": "backend", "section": "API layer", "icon": "graphql", "color": "#e10098", "langs": ["ts"],
+    "desc": "One typed endpoint where clients ask for exactly the fields they need. Use when many different clients hit one backend.",
+    "provides": ["api", "graphql"], "exclusive": ["api-style"], "tags": ["backend"] },
+
+  { "id": "trpc", "name": "tRPC", "group": "backend", "section": "API layer", "icon": "trpc", "color": "#2596be", "langs": ["ts"],
+    "desc": "End-to-end typed procedure calls with no schema or codegen. Use in a TypeScript monorepo where client and server ship together.",
+    "provides": ["api"], "exclusive": ["api-style"], "needs": ["types"],
+    "links": [{ "to": "typescript", "rel": "types" }], "tags": ["backend"] },
+
+  { "id": "openapi", "name": "OpenAPI / Swagger", "group": "backend", "section": "API layer", "icon": "swagger", "color": "#85ea2d", "langs": ["yaml"],
+    "desc": "Describes a REST API so docs, clients and mocks can be generated. Use when external teams consume your API.",
+    "provides": ["api-docs"], "tags": ["backend"] },
+
+  { "id": "grpc", "name": "gRPC", "group": "backend", "section": "API layer", "icon": "trpc", "color": "#244c5a", "langs": ["proto"],
+    "desc": "Binary RPC over HTTP/2 with generated clients. Use for chatty internal service-to-service traffic.",
+    "provides": ["api"], "exclusive": ["api-style"], "tags": ["backend"] },
+
+  { "id": "firebase", "name": "Firebase", "group": "backend", "section": "Platform (BaaS)", "icon": "firebase", "color": "#ffca28", "langs": ["ts", "js"],
+    "desc": "Google BaaS: Firestore, auth, storage, functions and hosting. Use for realtime mobile apps where documents beat tables.",
+    "provides": ["db", "db-nosql", "auth", "storage", "realtime", "hosting", "serverless"],
+    "exclusive": ["baas", "auth"], "conflicts": ["postgresql", "mysql", "prisma", "drizzle"],
+    "tags": ["cloud", "google"], "url": "https://console.firebase.google.com" },
+
+  { "id": "supabase", "name": "Supabase", "group": "backend", "section": "Platform (BaaS)", "icon": "supabase", "color": "#3fcf8e", "langs": ["sql", "ts"],
+    "desc": "Postgres with auth, storage, realtime and row-level security on top. Use when you want a BaaS but refuse to give up SQL.",
+    "provides": ["db", "db-sql", "auth", "storage", "realtime", "api", "vector"],
+    "exclusive": ["baas", "auth"], "links": [{ "to": "postgresql", "rel": "extends" }],
+    "tags": ["cloud"], "url": "https://supabase.com/dashboard" },
+
+  { "id": "appwrite", "name": "Appwrite", "group": "backend", "section": "Platform (BaaS)", "icon": "appwrite", "color": "#fd366e", "langs": ["ts"],
+    "desc": "Open-source BaaS you can run yourself. Use when you want Firebase ergonomics inside your own infrastructure.",
+    "provides": ["db", "auth", "storage", "serverless", "self-hosted"], "exclusive": ["baas", "auth"], "tags": ["cloud", "oss"] },
+
+  { "id": "pocketbase", "name": "PocketBase", "group": "backend", "section": "Platform (BaaS)", "icon": "pocketbase", "color": "#b8dbe4", "langs": ["go"],
+    "desc": "One Go binary with SQLite, auth, files and an admin UI. Use for small self-hosted apps and prototypes.",
+    "provides": ["db", "db-sql", "auth", "storage", "realtime", "self-hosted"], "exclusive": ["baas", "auth"], "tags": ["oss"] },
+
+  { "id": "convex", "name": "Convex", "group": "backend", "section": "Platform (BaaS)", "icon": "convex", "color": "#ee342f", "langs": ["ts"],
+    "desc": "Reactive TypeScript backend where queries update the UI automatically. Use for collaborative apps with live state.",
+    "provides": ["db", "realtime", "api", "serverless"], "exclusive": ["baas"], "tags": ["cloud"] },
+
+  { "id": "bullmq", "name": "BullMQ", "group": "backend", "section": "Jobs & Queues", "icon": "redis", "color": "#ff4438", "langs": ["ts"],
+    "desc": "Redis-backed job queue for Node with retries and rate limits. Use for email sending, image processing and webhooks.",
+    "provides": ["queue"], "needs": ["cache"], "links": [{ "to": "redis", "rel": "consumes" }], "tags": ["backend"] },
+
+  { "id": "celery", "name": "Celery", "group": "backend", "section": "Jobs & Queues", "icon": "celery", "color": "#37814a", "langs": ["py"],
+    "desc": "Distributed task queue for Python. Use when Django or FastAPI work must move off the request thread.",
+    "provides": ["queue"], "needs": ["cache"], "links": [{ "to": "python", "rel": "extends" }], "tags": ["backend"] },
+
+  { "id": "sidekiq", "name": "Sidekiq", "group": "backend", "section": "Jobs & Queues", "icon": "sidekiq", "color": "#b1003e", "langs": ["ruby"],
+    "desc": "Threaded Redis-backed jobs for Rails. Use as the default background processor in any Rails app.",
+    "provides": ["queue"], "needs": ["cache"], "tags": ["backend"] },
+
+  { "id": "inngest", "name": "Inngest", "group": "backend", "section": "Jobs & Queues", "icon": "inngest", "color": "#ffffff", "langs": ["ts"],
+    "desc": "Durable event-driven functions with steps and retries, no queue to run. Use on serverless where you cannot keep a worker alive.",
+    "provides": ["queue"], "tags": ["backend", "serverless"] },
+
+  { "id": "socketio", "name": "Socket.IO", "group": "backend", "section": "Realtime", "icon": "socketdotio", "color": "#ffffff", "langs": ["ts"],
+    "desc": "WebSocket abstraction with rooms, fallbacks and reconnection. Use for chat and live cursors on your own server.",
+    "provides": ["realtime"], "needs": ["runtime"], "tags": ["backend"] },
+
+  { "id": "pusher", "name": "Pusher", "group": "backend", "section": "Realtime", "icon": "pusher", "color": "#300d4f", "langs": ["ts"],
+    "desc": "Hosted pub/sub channels over WebSockets. Use when you want realtime without operating socket servers.",
+    "provides": ["realtime"], "tags": ["cloud"], "url": "https://dashboard.pusher.com" },
+
+  { "id": "ably", "name": "Ably", "group": "backend", "section": "Realtime", "icon": "ably", "color": "#ff5416", "langs": ["ts"],
+    "desc": "Realtime messaging with guaranteed ordering and delivery. Use when dropped events would be a correctness bug.",
+    "provides": ["realtime"], "tags": ["cloud"] },
+
+  { "id": "liveblocks", "name": "Liveblocks", "group": "backend", "section": "Realtime", "icon": "liveblocks", "color": "#ffffff", "langs": ["ts"],
+    "desc": "Presence, comments and conflict-free collaborative state. Use to add multiplayer to an editor or canvas.",
+    "provides": ["realtime", "users"], "tags": ["cloud"] }
+]

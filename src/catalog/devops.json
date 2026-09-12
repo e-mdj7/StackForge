@@ -1,0 +1,151 @@
+[
+  { "id": "pnpm", "name": "pnpm", "group": "devops", "section": "Package managers", "icon": "pnpm", "color": "#f69220", "langs": ["js"],
+    "desc": "Content-addressed store with hard links, so one copy of each package on disk. Use for monorepos and CI where install time and disk actually cost money.",
+    "provides": ["pkg"], "exclusive": ["js-pkg"], "needs": ["runtime"], "tags": ["web"], "url": "https://pnpm.io" },
+
+  { "id": "npm", "name": "npm", "group": "devops", "section": "Package managers", "icon": "npm", "color": "#cb3837", "langs": ["js"],
+    "desc": "Ships with Node, works everywhere, no setup. Use when you want zero decisions and no extra install step.",
+    "provides": ["pkg"], "exclusive": ["js-pkg"], "needs": ["runtime"], "tags": ["web"] },
+
+  { "id": "yarn", "name": "Yarn", "group": "devops", "section": "Package managers", "icon": "yarn", "color": "#2c8ebb", "langs": ["js"],
+    "desc": "Workspaces, Plug-n-Play and patch support. Use in existing repos already standardised on it.",
+    "provides": ["pkg"], "exclusive": ["js-pkg"], "needs": ["runtime"], "tags": ["web"] },
+
+  { "id": "uv", "name": "uv", "group": "devops", "section": "Package managers", "icon": "uv", "color": "#de5fe9", "langs": ["py"],
+    "desc": "Rust-fast Python package and project manager replacing pip, venv and poetry. Use in every new Python project.",
+    "provides": ["pkg"], "exclusive": ["py-pkg"], "links": [{ "to": "python", "rel": "extends" }], "tags": ["backend"] },
+
+  { "id": "poetry", "name": "Poetry", "group": "devops", "section": "Package managers", "icon": "poetry", "color": "#60a5fa", "langs": ["py"],
+    "desc": "Dependency resolution and packaging for Python with a lockfile. Use in projects that already depend on it.",
+    "provides": ["pkg"], "exclusive": ["py-pkg"], "tags": ["backend"] },
+
+  { "id": "docker", "name": "Docker", "group": "devops", "section": "Containers", "icon": "docker", "color": "#2496ed", "langs": ["yaml"],
+    "desc": "Packages an app with its dependencies so it runs the same everywhere. Use when the app needs more than one process or a specific system library.",
+    "provides": ["container", "self-hosted"], "exclusive": ["container-runtime"], "tags": ["infra"], "url": "https://www.docker.com" },
+
+  { "id": "podman", "name": "Podman", "group": "devops", "section": "Containers", "icon": "podman", "color": "#892ca0", "langs": ["yaml"],
+    "desc": "Daemonless rootless containers, Docker-compatible CLI. Use where a root daemon is not allowed.",
+    "provides": ["container", "self-hosted"], "exclusive": ["container-runtime"], "tags": ["infra"] },
+
+  { "id": "dockercompose", "name": "Docker Compose", "group": "devops", "section": "Containers", "icon": "docker", "color": "#2496ed", "langs": ["yaml"],
+    "desc": "Declares multi-container local environments in one YAML file. Use for local dev with a database and a cache alongside the app.",
+    "needs": ["container"], "links": [{ "to": "docker", "rel": "orchestrates" }], "tags": ["infra"] },
+
+  { "id": "kubernetes", "name": "Kubernetes", "group": "devops", "section": "Orchestration", "icon": "kubernetes", "color": "#326ce5", "langs": ["yaml"],
+    "desc": "Schedules containers across machines with self-healing and rollouts. Use when you genuinely run many services on many nodes, not before.",
+    "provides": ["orchestration"], "needs": ["container"], "exclusive": ["orchestrator"],
+    "links": [{ "to": "docker", "rel": "orchestrates" }], "tags": ["infra"] },
+
+  { "id": "helm", "name": "Helm", "group": "devops", "section": "Orchestration", "icon": "helm", "color": "#0f1689", "langs": ["yaml"],
+    "desc": "Templated, versioned Kubernetes manifests. Use once you paste the same YAML into a third environment.",
+    "needs": ["orchestration"], "links": [{ "to": "kubernetes", "rel": "deploys" }], "tags": ["infra"] },
+
+  { "id": "argocd", "name": "Argo CD", "group": "devops", "section": "Orchestration", "icon": "argo", "color": "#ef7b4d", "langs": ["yaml"],
+    "desc": "GitOps controller that reconciles the cluster to what git says. Use when the repo must be the only source of truth.",
+    "needs": ["orchestration"], "links": [{ "to": "kubernetes", "rel": "deploys" }], "tags": ["infra"] },
+
+  { "id": "githubactions", "name": "GitHub Actions", "group": "devops", "section": "CI/CD", "icon": "githubactions", "color": "#2088ff", "langs": ["yaml"],
+    "desc": "CI wired directly into the repository with a huge marketplace. Use whenever the code already lives on GitHub.",
+    "provides": ["ci"], "exclusive": ["ci"], "tags": ["infra"], "url": "https://github.com" },
+
+  { "id": "gitlabci", "name": "GitLab CI", "group": "devops", "section": "CI/CD", "icon": "gitlab", "color": "#fc6d26", "langs": ["yaml"],
+    "desc": "Pipelines, registry and environments in one product. Use in self-managed GitLab installations.",
+    "provides": ["ci"], "exclusive": ["ci"], "tags": ["infra"] },
+
+  { "id": "jenkins", "name": "Jenkins", "group": "devops", "section": "CI/CD", "icon": "jenkins", "color": "#d24939", "langs": ["groovy"],
+    "desc": "Self-hosted automation server with a plugin for everything. Use where builds must run inside your own network.",
+    "provides": ["ci", "self-hosted"], "exclusive": ["ci"], "tags": ["infra", "enterprise"] },
+
+  { "id": "circleci", "name": "CircleCI", "group": "devops", "section": "CI/CD", "icon": "circleci", "color": "#343434", "langs": ["yaml"],
+    "desc": "Hosted CI with strong caching and parallelism. Use for big test suites that need to finish fast.",
+    "provides": ["ci"], "exclusive": ["ci"], "tags": ["infra"] },
+
+  { "id": "terraform", "name": "Terraform", "group": "devops", "section": "Infra as Code", "icon": "terraform", "color": "#7b42bc", "langs": ["hcl"],
+    "desc": "Declarative infrastructure with a state file and plan step. Use so nobody creates production resources by clicking.",
+    "provides": ["iac"], "exclusive": ["iac"], "tags": ["infra"] },
+
+  { "id": "opentofu", "name": "OpenTofu", "group": "devops", "section": "Infra as Code", "icon": "opentofu", "color": "#ffda18", "langs": ["hcl"],
+    "desc": "Open-source Terraform fork under the Linux Foundation. Use when the BSL licence is a problem.",
+    "provides": ["iac"], "exclusive": ["iac"], "tags": ["infra", "oss"] },
+
+  { "id": "pulumi", "name": "Pulumi", "group": "devops", "section": "Infra as Code", "icon": "pulumi", "color": "#8a3391", "langs": ["ts", "py"],
+    "desc": "Infrastructure defined in real programming languages. Use when loops and abstractions in HCL start hurting.",
+    "provides": ["iac"], "exclusive": ["iac"], "tags": ["infra"] },
+
+  { "id": "ansible", "name": "Ansible", "group": "devops", "section": "Infra as Code", "icon": "ansible", "color": "#ee0000", "langs": ["yaml"],
+    "desc": "Agentless configuration management over SSH. Use to configure servers you already have rather than create new ones.",
+    "provides": ["iac"], "tags": ["infra"] },
+
+  { "id": "vercel", "name": "Vercel", "group": "devops", "section": "Hosting & PaaS", "icon": "vercel", "color": "#ffffff", "langs": ["none"],
+    "desc": "Git-push hosting with preview URLs and edge functions. Use for Next.js and frontend-heavy apps you want live in minutes.",
+    "provides": ["hosting", "serverless", "cdn", "ci"], "exclusive": ["paas"],
+    "links": [{ "to": "nextjs", "rel": "hosts" }], "tags": ["cloud"], "url": "https://vercel.com/dashboard" },
+
+  { "id": "netlify", "name": "Netlify", "group": "devops", "section": "Hosting & PaaS", "icon": "netlify", "color": "#00c7b7", "langs": ["none"],
+    "desc": "Static hosting with functions, forms and split testing. Use for marketing sites and Jamstack builds.",
+    "provides": ["hosting", "serverless", "cdn", "ci"], "exclusive": ["paas"], "tags": ["cloud"] },
+
+  { "id": "railway", "name": "Railway", "group": "devops", "section": "Hosting & PaaS", "icon": "railway", "color": "#ffffff", "langs": ["none"],
+    "desc": "Deploys containers and managed databases from a repo with almost no config. Use for side projects and internal tools.",
+    "provides": ["hosting", "ci"], "exclusive": ["paas"], "tags": ["cloud"] },
+
+  { "id": "render", "name": "Render", "group": "devops", "section": "Hosting & PaaS", "icon": "render", "color": "#46e3b7", "langs": ["none"],
+    "desc": "Managed web services, workers and cron with Postgres included. Use as a simpler Heroku replacement.",
+    "provides": ["hosting", "ci"], "exclusive": ["paas"], "tags": ["cloud"] },
+
+  { "id": "flyio", "name": "Fly.io", "group": "devops", "section": "Hosting & PaaS", "icon": "flydotio", "color": "#8b5cf6", "langs": ["none"],
+    "desc": "Runs containers close to users in many regions. Use when latency worldwide matters but Kubernetes does not.",
+    "provides": ["hosting"], "needs": ["container"], "exclusive": ["paas"], "tags": ["cloud"] },
+
+  { "id": "coolify", "name": "Coolify", "group": "devops", "section": "Hosting & PaaS", "icon": "coolify", "color": "#8b5cf6", "langs": ["none"],
+    "desc": "Self-hosted PaaS on your own VPS, Heroku-style. Use when you want push-to-deploy without a per-seat bill.",
+    "provides": ["hosting", "self-hosted"], "needs": ["container"], "exclusive": ["paas"], "tags": ["oss", "selfhost"] },
+
+  { "id": "aws", "name": "AWS", "group": "devops", "section": "Cloud providers", "icon": "amazonwebservices", "color": "#ff9900", "langs": ["none"],
+    "desc": "Every primitive you could need, and a bill to match. Use when compliance, scale or existing commitments point there.",
+    "provides": ["cloud"], "exclusive": ["cloud"], "tags": ["cloud", "aws"], "url": "https://console.aws.amazon.com" },
+
+  { "id": "gcp", "name": "Google Cloud", "group": "devops", "section": "Cloud providers", "icon": "googlecloud", "color": "#4285f4", "langs": ["none"],
+    "desc": "Strong data, ML and Kubernetes story. Use when BigQuery or GKE is the centre of the architecture.",
+    "provides": ["cloud"], "exclusive": ["cloud"], "tags": ["cloud", "google"] },
+
+  { "id": "azure", "name": "Microsoft Azure", "group": "devops", "section": "Cloud providers", "icon": "microsoftazure", "color": "#0078d4", "langs": ["none"],
+    "desc": "Deep Active Directory, Office and .NET integration. Use in enterprises already paying Microsoft.",
+    "provides": ["cloud"], "exclusive": ["cloud"], "tags": ["cloud", "microsoft", "enterprise"] },
+
+  { "id": "hetzner", "name": "Hetzner", "group": "devops", "section": "Cloud providers", "icon": "hetzner", "color": "#d50c2d", "langs": ["none"],
+    "desc": "Cheap dedicated and cloud servers in Europe. Use when you are happy to run things yourself for a tenth of the price.",
+    "provides": ["cloud", "self-hosted"], "exclusive": ["cloud"], "tags": ["cloud", "selfhost"] },
+
+  { "id": "digitalocean", "name": "DigitalOcean", "group": "devops", "section": "Cloud providers", "icon": "digitalocean", "color": "#0080ff", "langs": ["none"],
+    "desc": "Simple droplets, managed databases and app platform. Use when AWS complexity is not worth it.",
+    "provides": ["cloud"], "exclusive": ["cloud"], "tags": ["cloud"] },
+
+  { "id": "cloudflare", "name": "Cloudflare", "group": "devops", "section": "Edge & CDN", "icon": "cloudflare", "color": "#f38020", "langs": ["ts"],
+    "desc": "CDN, DNS, WAF and Workers at the edge. Use in front of almost any site for caching and protection.",
+    "provides": ["cdn", "edge", "serverless"], "tags": ["cloud", "edge"], "url": "https://dash.cloudflare.com" },
+
+  { "id": "fastly", "name": "Fastly", "group": "devops", "section": "Edge & CDN", "icon": "fastly", "color": "#ff282d", "langs": ["none"],
+    "desc": "Programmable CDN with instant purge. Use for high-traffic media sites needing precise cache control.",
+    "provides": ["cdn", "edge"], "tags": ["cloud", "edge"] },
+
+  { "id": "nginx", "name": "NGINX", "group": "devops", "section": "Edge & CDN", "icon": "nginx", "color": "#009639", "langs": ["none"],
+    "desc": "Reverse proxy, TLS termination and static file serving. Use in front of self-hosted apps.",
+    "provides": ["proxy", "self-hosted"], "tags": ["infra"] },
+
+  { "id": "caddy", "name": "Caddy", "group": "devops", "section": "Edge & CDN", "icon": "caddy", "color": "#1f88c0", "langs": ["none"],
+    "desc": "Reverse proxy with automatic HTTPS certificates. Use when you want TLS to be one line of config.",
+    "provides": ["proxy", "self-hosted"], "tags": ["infra"] },
+
+  { "id": "vault", "name": "HashiCorp Vault", "group": "devops", "section": "Secrets", "icon": "vault", "color": "#ffec6e", "langs": ["none"],
+    "desc": "Secret storage with dynamic credentials and audit logs. Use when secrets must rotate and every read is recorded.",
+    "provides": ["secrets"], "exclusive": ["secrets"], "tags": ["infra", "enterprise"] },
+
+  { "id": "doppler", "name": "Doppler", "group": "devops", "section": "Secrets", "icon": "doppler", "color": "#3b82f6", "langs": ["none"],
+    "desc": "Syncs environment variables across environments and platforms. Use to stop passing .env files around in chat.",
+    "provides": ["secrets"], "exclusive": ["secrets"], "tags": ["infra"] },
+
+  { "id": "infisical", "name": "Infisical", "group": "devops", "section": "Secrets", "icon": "infisical", "color": "#ebebeb", "langs": ["none"],
+    "desc": "Open-source secret management you can self-host. Use when secrets cannot sit with a third party.",
+    "provides": ["secrets", "self-hosted"], "exclusive": ["secrets"], "tags": ["infra", "oss"] }
+]

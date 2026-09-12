@@ -1,0 +1,37 @@
+[
+  { "id": "users-no-auth", "when": ["users"], "requires": ["auth"], "severity": "error",
+    "message": "Missing auth: this stack has user accounts but nothing authenticates them." },
+
+  { "id": "selfhost-no-db", "when": ["self-hosted", "api"], "requires": ["db"], "severity": "error",
+    "message": "Missing database: you are self-hosting an API but nothing persists data." },
+
+  { "id": "payments-no-db", "when": ["payments"], "requires": ["db"], "severity": "error",
+    "message": "Missing database: payments need somewhere to record orders and webhook events." },
+
+  { "id": "api-no-tests", "when": ["api"], "requires": ["test-unit", "test-e2e"], "severity": "warn",
+    "message": "No test runner in this stack." },
+
+  { "id": "prod-no-monitoring", "when": ["hosting"], "requires": ["monitoring"], "severity": "warn",
+    "message": "Deployed with no error tracking — you will hear about bugs from users first." },
+
+  { "id": "container-no-ci", "when": ["container"], "requires": ["ci"], "severity": "warn",
+    "message": "Containers with no CI — images get built by hand." },
+
+  { "id": "orchestration-no-iac", "when": ["orchestration"], "requires": ["iac"], "severity": "warn",
+    "message": "Kubernetes with no infra-as-code — cluster state will drift." },
+
+  { "id": "llm-no-backend", "when": ["llm"], "requires": ["secrets", "serverless", "api"], "severity": "warn",
+    "message": "LLM keys need a backend or secret store — never ship them to the browser." },
+
+  { "id": "rag-no-vector", "when": ["rag"], "requires": ["vector"], "severity": "warn",
+    "message": "RAG without a vector store — retrieval will not scale past a few documents." },
+
+  { "id": "bundler-no-runtime", "when": ["bundler"], "requires": ["runtime"], "severity": "warn",
+    "message": "No JavaScript runtime chosen (Node, Bun or Deno)." },
+
+  { "id": "db-no-orm", "when": ["db-sql", "api"], "requires": ["orm"], "severity": "warn",
+    "message": "Raw SQL with no query layer — fine, but migrations are now your problem." },
+
+  { "id": "frontend-no-styling", "when": ["ui"], "requires": ["styling"], "severity": "warn",
+    "message": "UI components with no styling system." }
+]

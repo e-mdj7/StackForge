@@ -1,0 +1,57 @@
+[
+  { "id": "figma", "name": "Figma", "group": "design", "section": "Design tools", "icon": "figma", "color": "#f24e1e", "langs": ["none"],
+    "desc": "Collaborative interface design with components and dev mode. Use as the source of truth designers and engineers share.",
+    "provides": ["design"], "exclusive": ["design-tool"], "tags": ["design"], "url": "https://figma.com" },
+
+  { "id": "penpot", "name": "Penpot", "group": "design", "section": "Design tools", "icon": "penpot", "color": "#000000", "langs": ["none"],
+    "desc": "Open-source design tool built on web standards, self-hostable. Use when design files cannot live on someone else's cloud.",
+    "provides": ["design", "self-hosted"], "exclusive": ["design-tool"], "tags": ["design", "oss"] },
+
+  { "id": "framer", "name": "Framer", "group": "design", "section": "Design tools", "icon": "framer", "color": "#0055ff", "langs": ["none"],
+    "desc": "Design and publish a real site from the canvas. Use for marketing pages the design team owns end to end.",
+    "provides": ["design", "hosting"], "exclusive": ["design-tool"], "tags": ["design"] },
+
+  { "id": "excalidraw", "name": "Excalidraw", "group": "design", "section": "Design tools", "icon": "excalidraw", "color": "#6965db", "langs": ["none"],
+    "desc": "Hand-drawn style diagrams that nobody mistakes for a finished spec. Use for architecture sketches in a meeting.",
+    "provides": ["diagrams"], "tags": ["design", "oss"] },
+
+  { "id": "styledictionary", "name": "Style Dictionary", "group": "design", "section": "Component systems", "icon": "amazon", "color": "#ff9900", "langs": ["ts"],
+    "desc": "Compiles design tokens into CSS, iOS and Android formats. Use when one palette must ship to several platforms.",
+    "provides": ["tokens"], "needs": ["design"], "tags": ["design"] },
+
+  { "id": "reactaria", "name": "React Aria", "group": "design", "section": "Component systems", "icon": "adobe", "color": "#fa0f00", "langs": ["ts"],
+    "desc": "Adobe behaviour hooks with serious accessibility and i18n. Use as the foundation under a custom design system.",
+    "needs": ["ui"], "links": [{ "to": "react", "rel": "extends" }], "tags": ["design", "a11y"] },
+
+  { "id": "lucide", "name": "Lucide", "group": "design", "section": "Icons & Assets", "icon": "lucide", "color": "#f56565", "langs": ["ts"],
+    "desc": "Clean consistent open-source icon set with tree-shaking. Use as the default icon library for new projects.",
+    "provides": ["icons"], "exclusive": ["icons"], "tags": ["design"] },
+
+  { "id": "simpleicons", "name": "Simple Icons", "group": "design", "section": "Icons & Assets", "icon": "simpleicons", "color": "#111111", "langs": ["none"],
+    "desc": "Brand logos with official colours as SVG. Use for tech stack diagrams and integration pages, exactly like this app does.",
+    "provides": ["icons"], "tags": ["design", "oss"], "url": "https://simpleicons.org" },
+
+  { "id": "heroicons", "name": "Heroicons", "group": "design", "section": "Icons & Assets", "icon": "heroicons", "color": "#8b5cf6", "langs": ["ts"],
+    "desc": "Icon set from the Tailwind team in outline and solid. Use when the project already uses Tailwind.",
+    "provides": ["icons"], "exclusive": ["icons"], "links": [{ "to": "tailwindcss", "rel": "styles" }], "tags": ["design"] },
+
+  { "id": "fontawesome", "name": "Font Awesome", "group": "design", "section": "Icons & Assets", "icon": "fontawesome", "color": "#538dd7", "langs": ["css"],
+    "desc": "Enormous icon catalogue covering brands and oddities. Use when you need one obscure glyph nobody else draws.",
+    "provides": ["icons"], "exclusive": ["icons"], "tags": ["design"] },
+
+  { "id": "googlefonts", "name": "Google Fonts", "group": "design", "section": "Icons & Assets", "icon": "googlefonts", "color": "#4285f4", "langs": ["css"],
+    "desc": "Free web fonts with easy self-hosting. Use unless brand guidelines demand a licensed typeface.",
+    "provides": ["fonts"], "tags": ["design"] },
+
+  { "id": "framermotion", "name": "Motion", "group": "design", "section": "Animation", "icon": "framer", "color": "#0055ff", "langs": ["ts"],
+    "desc": "Declarative animation and gestures for React, including layout transitions. Use for polished UI motion without keyframes.",
+    "provides": ["animation"], "needs": ["ui"], "exclusive": ["animation"], "links": [{ "to": "react", "rel": "extends" }], "tags": ["web", "design"] },
+
+  { "id": "gsap", "name": "GSAP", "group": "design", "section": "Animation", "icon": "greensock", "color": "#88ce02", "langs": ["js"],
+    "desc": "Timeline-based animation with precise sequencing and scroll triggers. Use for marketing sites with choreographed motion.",
+    "provides": ["animation"], "exclusive": ["animation"], "tags": ["web", "design"] },
+
+  { "id": "lottie", "name": "Lottie", "group": "design", "section": "Animation", "icon": "lottiefiles", "color": "#00ddb3", "langs": ["json"],
+    "desc": "Plays After Effects animations as vector JSON. Use when a motion designer hands you the animation.",
+    "provides": ["animation"], "tags": ["design", "mobile"] }
+]

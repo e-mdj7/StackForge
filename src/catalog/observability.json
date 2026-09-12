@@ -1,0 +1,313 @@
+[
+  {
+    "id": "sentry",
+    "name": "Sentry",
+    "group": "observability",
+    "section": "Errors",
+    "icon": "sentry",
+    "color": "#362d59",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Exception tracking with stack traces, releases and source maps. Use from day one so you learn about crashes before users report them.",
+    "provides": [
+      "monitoring",
+      "errors"
+    ],
+    "exclusive": [
+      "errors"
+    ],
+    "tags": [
+      "infra"
+    ],
+    "url": "https://sentry.io"
+  },
+  {
+    "id": "rollbar",
+    "name": "Rollbar",
+    "group": "observability",
+    "section": "Errors",
+    "icon": "rollbar",
+    "color": "#51a7e8",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Error monitoring with grouping and deploy tracking. Use as a Sentry alternative when pricing suits better.",
+    "provides": [
+      "monitoring",
+      "errors"
+    ],
+    "exclusive": [
+      "errors"
+    ],
+    "tags": [
+      "infra"
+    ]
+  },
+  {
+    "id": "bugsnag",
+    "name": "Bugsnag",
+    "group": "observability",
+    "section": "Errors",
+    "icon": "smartbear",
+    "color": "#4949e4",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Stability scores per release across web and mobile. Use when mobile crash-free rate is a tracked KPI.",
+    "provides": [
+      "monitoring",
+      "errors"
+    ],
+    "exclusive": [
+      "errors"
+    ],
+    "tags": [
+      "infra",
+      "mobile"
+    ]
+  },
+  {
+    "id": "prometheus",
+    "name": "Prometheus",
+    "group": "observability",
+    "section": "Metrics & Dashboards",
+    "icon": "prometheus",
+    "color": "#e6522c",
+    "langs": [
+      "none"
+    ],
+    "desc": "Pull-based metrics with a query language built for alerting. Use as the metrics backbone of self-hosted infrastructure.",
+    "provides": [
+      "monitoring",
+      "metrics",
+      "self-hosted"
+    ],
+    "tags": [
+      "infra",
+      "oss"
+    ]
+  },
+  {
+    "id": "grafana",
+    "name": "Grafana",
+    "group": "observability",
+    "section": "Metrics & Dashboards",
+    "icon": "grafana",
+    "color": "#f46800",
+    "langs": [
+      "none"
+    ],
+    "desc": "Dashboards and alerts over any metrics or log source. Use to put a face on Prometheus and Loki.",
+    "provides": [
+      "monitoring",
+      "dashboards"
+    ],
+    "needs": [
+      "metrics"
+    ],
+    "links": [
+      {
+        "to": "prometheus",
+        "rel": "consumes",
+        "card": "n-1"
+      },
+      {
+        "to": "loki",
+        "rel": "consumes",
+        "card": "n-1"
+      }
+    ],
+    "tags": [
+      "infra",
+      "oss"
+    ],
+    "url": "https://grafana.com"
+  },
+  {
+    "id": "datadog",
+    "name": "Datadog",
+    "group": "observability",
+    "section": "Metrics & Dashboards",
+    "icon": "datadog",
+    "color": "#632ca6",
+    "langs": [
+      "none"
+    ],
+    "desc": "One hosted agent for metrics, traces, logs and RUM. Use when you would rather pay than run the observability stack.",
+    "provides": [
+      "monitoring",
+      "metrics",
+      "logs"
+    ],
+    "tags": [
+      "infra",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "newrelic",
+    "name": "New Relic",
+    "group": "observability",
+    "section": "Metrics & Dashboards",
+    "icon": "newrelic",
+    "color": "#1ce783",
+    "langs": [
+      "none"
+    ],
+    "desc": "Full-stack APM with transaction traces. Use when you need deep per-request performance breakdowns.",
+    "provides": [
+      "monitoring",
+      "metrics"
+    ],
+    "tags": [
+      "infra",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "opentelemetry",
+    "name": "OpenTelemetry",
+    "group": "observability",
+    "section": "Logs & Tracing",
+    "icon": "opentelemetry",
+    "color": "#f5a800",
+    "langs": [
+      "ts",
+      "py",
+      "go"
+    ],
+    "desc": "Vendor-neutral instrumentation for traces, metrics and logs. Use so changing observability vendors is a config change.",
+    "provides": [
+      "tracing"
+    ],
+    "tags": [
+      "infra",
+      "oss"
+    ]
+  },
+  {
+    "id": "jaeger",
+    "name": "Jaeger",
+    "group": "observability",
+    "section": "Logs & Tracing",
+    "icon": "jaeger",
+    "color": "#66cfe3",
+    "langs": [
+      "go"
+    ],
+    "desc": "Distributed trace storage and a UI to walk a request across services. Use to find which hop is slow in a microservice call.",
+    "provides": [
+      "tracing",
+      "self-hosted"
+    ],
+    "needs": [
+      "tracing"
+    ],
+    "tags": [
+      "infra",
+      "oss"
+    ]
+  },
+  {
+    "id": "loki",
+    "name": "Grafana Loki",
+    "group": "observability",
+    "section": "Logs & Tracing",
+    "icon": "grafana",
+    "color": "#f46800",
+    "langs": [
+      "none"
+    ],
+    "desc": "Log aggregation indexed by labels rather than full text. Use for cheap self-hosted logs next to Grafana.",
+    "provides": [
+      "logs",
+      "self-hosted"
+    ],
+    "tags": [
+      "infra",
+      "oss"
+    ]
+  },
+  {
+    "id": "axiom",
+    "name": "Axiom",
+    "group": "observability",
+    "section": "Logs & Tracing",
+    "icon": "axiom",
+    "color": "#00c1d4",
+    "langs": [
+      "none"
+    ],
+    "desc": "Hosted event and log store with generous ingest. Use for serverless apps that emit a lot of structured logs.",
+    "provides": [
+      "logs"
+    ],
+    "tags": [
+      "cloud"
+    ]
+  },
+  {
+    "id": "betterstack",
+    "name": "Better Stack",
+    "group": "observability",
+    "section": "Uptime",
+    "icon": "betterstack",
+    "color": "#a855f7",
+    "langs": [
+      "none"
+    ],
+    "desc": "Uptime checks, on-call scheduling and status pages together. Use when a small team needs paging without PagerDuty pricing.",
+    "provides": [
+      "monitoring",
+      "uptime"
+    ],
+    "tags": [
+      "infra"
+    ]
+  },
+  {
+    "id": "uptimerobot",
+    "name": "UptimeRobot",
+    "group": "observability",
+    "section": "Uptime",
+    "icon": "uptimerobot",
+    "color": "#3bd671",
+    "langs": [
+      "none"
+    ],
+    "desc": "Simple HTTP and port checks with alerts. Use as the cheapest possible answer to is the site up.",
+    "provides": [
+      "monitoring",
+      "uptime"
+    ],
+    "tags": [
+      "infra"
+    ]
+  },
+  {
+    "id": "healthchecks",
+    "name": "Healthchecks.io",
+    "group": "observability",
+    "section": "Uptime",
+    "icon": "healthchecksdotio",
+    "color": "#4c7a3f",
+    "langs": [
+      "none"
+    ],
+    "desc": "Dead-man switch monitoring for cron jobs. Use to be told when a nightly job silently stopped running.",
+    "provides": [
+      "monitoring",
+      "uptime"
+    ],
+    "needs": [
+      "scheduler"
+    ],
+    "tags": [
+      "infra",
+      "oss"
+    ]
+  }
+]

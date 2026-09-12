@@ -1,0 +1,46 @@
+[
+  { "id": "language", "name": "Languages & Runtimes", "color": "#f7df1e", "order": 0,
+    "sections": ["Languages", "JS Runtimes", "Type layer"] },
+
+  { "id": "frontend", "name": "Frontend", "color": "#61dafb", "order": 1,
+    "sections": ["Build & Bundler", "Framework", "Meta-framework", "UI & Components", "Styling", "State & Data", "Routing"] },
+
+  { "id": "mobile", "name": "Mobile & Desktop", "color": "#02569b", "order": 2,
+    "sections": ["Cross-platform", "Native", "Desktop", "Distribution"] },
+
+  { "id": "backend", "name": "Backend & API", "color": "#68a063", "order": 3,
+    "sections": ["Framework", "API layer", "Platform (BaaS)", "Jobs & Queues", "Realtime"] },
+
+  { "id": "auth", "name": "Auth & Identity", "color": "#eb5424", "order": 4,
+    "sections": ["Hosted providers", "Self-hosted", "Protocols & Libraries"] },
+
+  { "id": "data", "name": "Data & Storage", "color": "#336791", "order": 5,
+    "sections": ["Relational", "NoSQL & Document", "Cache & KV", "Search", "ORM & Query", "Warehouse & Lake", "Vector", "Object storage"] },
+
+  { "id": "ai", "name": "AI & LLM", "color": "#d97757", "order": 6,
+    "sections": ["Model providers", "Local & Open models", "Frameworks", "Coding agents", "RAG & Retrieval", "Ops & Eval"] },
+
+  { "id": "automation", "name": "Automation & Pipelines", "color": "#ea4b71", "order": 7,
+    "sections": ["Workflow automation", "Data pipelines", "Messaging & Events", "Scheduling"] },
+
+  { "id": "testing", "name": "Testing & Quality", "color": "#c21325", "order": 8,
+    "sections": ["Unit", "Component", "End-to-end", "Lint & Format", "Load & Contract"] },
+
+  { "id": "devops", "name": "DevOps & Infra", "color": "#2496ed", "order": 9,
+    "sections": ["Package managers", "Containers", "Orchestration", "CI/CD", "Infra as Code", "Hosting & PaaS", "Cloud providers", "Edge & CDN", "Secrets"] },
+
+  { "id": "observability", "name": "Observability", "color": "#f46800", "order": 10,
+    "sections": ["Errors", "Metrics & Dashboards", "Logs & Tracing", "Uptime"] },
+
+  { "id": "analytics", "name": "Analytics & BI", "color": "#f2c811", "order": 11,
+    "sections": ["Product analytics", "Web analytics", "BI & Dashboards", "Charting libraries", "Event pipelines"] },
+
+  { "id": "design", "name": "Design & UI", "color": "#f24e1e", "order": 12,
+    "sections": ["Design tools", "Component systems", "Icons & Assets", "Animation"] },
+
+  { "id": "pm", "name": "Project & Collaboration", "color": "#0052cc", "order": 13,
+    "sections": ["Issue tracking", "Docs & Knowledge", "Communication", "Version control"] },
+
+  { "id": "business", "name": "Business Systems", "color": "#00a1e0", "order": 14,
+    "sections": ["ERP", "CRM & Marketing", "Payments", "Commerce", "Support"] }
+]

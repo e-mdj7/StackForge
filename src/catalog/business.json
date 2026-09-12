@@ -1,0 +1,508 @@
+[
+  {
+    "id": "sap",
+    "name": "SAP",
+    "group": "business",
+    "section": "ERP",
+    "icon": "sap",
+    "color": "#0faaff",
+    "langs": [
+      "abap"
+    ],
+    "desc": "Enterprise resource planning for finance, supply chain and manufacturing. Use when it is already the system of record and you are integrating with it.",
+    "provides": [
+      "erp",
+      "users"
+    ],
+    "exclusive": [
+      "erp"
+    ],
+    "tags": [
+      "enterprise"
+    ]
+  },
+  {
+    "id": "odoo",
+    "name": "Odoo",
+    "group": "business",
+    "section": "ERP",
+    "icon": "odoo",
+    "color": "#714b67",
+    "langs": [
+      "py"
+    ],
+    "desc": "Modular open-source ERP covering CRM, inventory and invoicing. Use for SMEs that want SAP scope at a fraction of the cost.",
+    "provides": [
+      "erp",
+      "crm",
+      "users",
+      "self-hosted"
+    ],
+    "exclusive": [
+      "erp"
+    ],
+    "tags": [
+      "oss",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "netsuite",
+    "name": "NetSuite",
+    "group": "business",
+    "section": "ERP",
+    "icon": "oracle",
+    "color": "#f80000",
+    "langs": [
+      "js"
+    ],
+    "desc": "Cloud ERP and financials from Oracle. Use in mid-market companies that outgrew spreadsheets.",
+    "provides": [
+      "erp",
+      "users"
+    ],
+    "exclusive": [
+      "erp"
+    ],
+    "tags": [
+      "enterprise"
+    ]
+  },
+  {
+    "id": "salesforce",
+    "name": "Salesforce",
+    "group": "business",
+    "section": "CRM & Marketing",
+    "icon": "salesforce",
+    "color": "#00a1e0",
+    "langs": [
+      "apex"
+    ],
+    "desc": "The enterprise CRM, endlessly customisable. Use when sales operations are the centre of the business.",
+    "provides": [
+      "crm",
+      "users"
+    ],
+    "exclusive": [
+      "crm"
+    ],
+    "tags": [
+      "enterprise"
+    ],
+    "url": "https://login.salesforce.com",
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "hubspot",
+    "name": "HubSpot",
+    "group": "business",
+    "section": "CRM & Marketing",
+    "icon": "hubspot",
+    "color": "#ff7a59",
+    "langs": [
+      "none"
+    ],
+    "desc": "CRM with marketing automation and forms built in. Use for inbound-led go-to-market without a Salesforce admin.",
+    "provides": [
+      "crm",
+      "users"
+    ],
+    "exclusive": [
+      "crm"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "pipedrive",
+    "name": "Pipedrive",
+    "group": "business",
+    "section": "CRM & Marketing",
+    "icon": "pipedrive",
+    "color": "#017737",
+    "langs": [
+      "none"
+    ],
+    "desc": "Simple pipeline-first CRM. Use for small sales teams who only want deals and stages.",
+    "provides": [
+      "crm",
+      "users"
+    ],
+    "exclusive": [
+      "crm"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "resend",
+    "name": "Resend",
+    "group": "business",
+    "section": "CRM & Marketing",
+    "icon": "resend",
+    "color": "#ffffff",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Transactional email with React email templates. Use for password resets, receipts and invites.",
+    "provides": [
+      "email"
+    ],
+    "exclusive": [
+      "email"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "url": "https://resend.com"
+  },
+  {
+    "id": "mailchimp",
+    "name": "Mailchimp",
+    "group": "business",
+    "section": "CRM & Marketing",
+    "icon": "mailchimp",
+    "color": "#ffe01b",
+    "langs": [
+      "none"
+    ],
+    "desc": "Marketing campaigns, newsletters and audience segments. Use when marketing owns the sending, not engineering.",
+    "provides": [
+      "email"
+    ],
+    "exclusive": [
+      "email"
+    ],
+    "tags": [
+      "saas"
+    ]
+  },
+  {
+    "id": "customerio",
+    "name": "Customer.io",
+    "group": "business",
+    "section": "CRM & Marketing",
+    "icon": "customerio",
+    "color": "#ffcd00",
+    "langs": [
+      "none"
+    ],
+    "desc": "Behaviour-triggered messaging across email, push and SMS. Use for lifecycle campaigns driven by product events.",
+    "provides": [
+      "email"
+    ],
+    "needs": [
+      "events"
+    ],
+    "exclusive": [
+      "email"
+    ],
+    "tags": [
+      "saas"
+    ]
+  },
+  {
+    "id": "stripe",
+    "name": "Stripe",
+    "group": "business",
+    "section": "Payments",
+    "icon": "stripe",
+    "color": "#635bff",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Payments, subscriptions, invoicing and tax with the best developer docs in the industry. Use as the default unless your market is unsupported.",
+    "provides": [
+      "payments",
+      "users"
+    ],
+    "exclusive": [
+      "payments"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "url": "https://dashboard.stripe.com"
+  },
+  {
+    "id": "paypal",
+    "name": "PayPal",
+    "group": "business",
+    "section": "Payments",
+    "icon": "paypal",
+    "color": "#003087",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Wallet checkout buyers already trust. Use as a secondary method to lift conversion.",
+    "provides": [
+      "payments",
+      "users"
+    ],
+    "exclusive": [
+      "payments"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "adyen",
+    "name": "Adyen",
+    "group": "business",
+    "section": "Payments",
+    "icon": "adyen",
+    "color": "#0abf53",
+    "langs": [
+      "none"
+    ],
+    "desc": "Single platform for global card, local and in-person payments. Use at high volume across many countries.",
+    "provides": [
+      "payments",
+      "users"
+    ],
+    "exclusive": [
+      "payments"
+    ],
+    "tags": [
+      "enterprise"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "lemonsqueezy",
+    "name": "Lemon Squeezy",
+    "group": "business",
+    "section": "Payments",
+    "icon": "lemonsqueezy",
+    "color": "#ffc233",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Merchant of record handling VAT and sales tax for you. Use for digital products sold worldwide by a small team.",
+    "provides": [
+      "payments",
+      "users"
+    ],
+    "exclusive": [
+      "payments"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "mercadopago",
+    "name": "Mercado Pago",
+    "group": "business",
+    "section": "Payments",
+    "icon": "mercadopago",
+    "color": "#00b1ea",
+    "langs": [
+      "none"
+    ],
+    "desc": "Dominant payment rails in Latin America, including instalments. Use when selling in Mexico, Argentina or Brazil.",
+    "provides": [
+      "payments",
+      "users"
+    ],
+    "exclusive": [
+      "payments"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "shopify",
+    "name": "Shopify",
+    "group": "business",
+    "section": "Commerce",
+    "icon": "shopify",
+    "color": "#7ab55c",
+    "langs": [
+      "liquid"
+    ],
+    "desc": "Hosted commerce with checkout, payments and apps solved. Use when selling products is the business and infrastructure is not.",
+    "provides": [
+      "commerce",
+      "payments",
+      "users",
+      "hosting"
+    ],
+    "exclusive": [
+      "commerce",
+      "payments"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "url": "https://admin.shopify.com"
+  },
+  {
+    "id": "woocommerce",
+    "name": "WooCommerce",
+    "group": "business",
+    "section": "Commerce",
+    "icon": "woocommerce",
+    "color": "#96588a",
+    "langs": [
+      "php"
+    ],
+    "desc": "Commerce plugin for WordPress. Use when the site is already WordPress and the catalogue is small.",
+    "provides": [
+      "commerce",
+      "users",
+      "self-hosted"
+    ],
+    "exclusive": [
+      "commerce"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ],
+    "tags": [
+      "oss"
+    ]
+  },
+  {
+    "id": "medusa",
+    "name": "Medusa",
+    "group": "business",
+    "section": "Commerce",
+    "icon": "medusa",
+    "color": "#a78bfa",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Headless open-source commerce engine in TypeScript. Use when the storefront must be fully custom.",
+    "provides": [
+      "commerce",
+      "users",
+      "self-hosted",
+      "api"
+    ],
+    "exclusive": [
+      "commerce"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ],
+    "tags": [
+      "oss"
+    ]
+  },
+  {
+    "id": "zendesk",
+    "name": "Zendesk",
+    "group": "business",
+    "section": "Support",
+    "icon": "zendesk",
+    "color": "#03363d",
+    "langs": [
+      "none"
+    ],
+    "desc": "Ticketing, help centre and SLAs for support teams. Use when support volume needs queues and reporting.",
+    "provides": [
+      "support",
+      "users"
+    ],
+    "exclusive": [
+      "support"
+    ],
+    "tags": [
+      "saas",
+      "enterprise"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "intercom",
+    "name": "Intercom",
+    "group": "business",
+    "section": "Support",
+    "icon": "intercom",
+    "color": "#1f8ded",
+    "langs": [
+      "none"
+    ],
+    "desc": "In-product messenger, help centre and AI answers. Use when support happens inside the app, not over email.",
+    "provides": [
+      "support",
+      "users"
+    ],
+    "exclusive": [
+      "support"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  },
+  {
+    "id": "crisp",
+    "name": "Crisp",
+    "group": "business",
+    "section": "Support",
+    "icon": "crisp",
+    "color": "#1972f5",
+    "langs": [
+      "none"
+    ],
+    "desc": "Affordable live chat and shared inbox. Use for small teams that want a chat bubble and nothing more.",
+    "provides": [
+      "support",
+      "users"
+    ],
+    "exclusive": [
+      "support"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "needs": [
+      "auth",
+      "db"
+    ]
+  }
+]

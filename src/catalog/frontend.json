@@ -1,0 +1,1114 @@
+[
+  {
+    "id": "vite",
+    "name": "Vite",
+    "group": "frontend",
+    "section": "Build & Bundler",
+    "icon": "vite",
+    "color": "#646cff",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "Dev server with instant HMR, Rollup for production. Use as the default build tool for any SPA.",
+    "provides": [
+      "bundler"
+    ],
+    "exclusive": [
+      "bundler"
+    ],
+    "tags": [
+      "web"
+    ],
+    "url": "https://vite.dev"
+  },
+  {
+    "id": "webpack",
+    "name": "Webpack",
+    "group": "frontend",
+    "section": "Build & Bundler",
+    "icon": "webpack",
+    "color": "#8dd6f9",
+    "langs": [
+      "js"
+    ],
+    "desc": "The old workhorse bundler. Use only when an existing config or an exotic loader forces your hand.",
+    "provides": [
+      "bundler"
+    ],
+    "exclusive": [
+      "bundler"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "rspack",
+    "name": "Rspack",
+    "group": "frontend",
+    "section": "Build & Bundler",
+    "icon": "rspack",
+    "color": "#f93920",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "Rust rewrite of Webpack, config-compatible. Use to speed up a big Webpack build without rewriting it.",
+    "provides": [
+      "bundler"
+    ],
+    "exclusive": [
+      "bundler"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "esbuild",
+    "name": "esbuild",
+    "group": "frontend",
+    "section": "Build & Bundler",
+    "icon": "esbuild",
+    "color": "#ffcf00",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "Extremely fast Go-based bundler. Use for libraries and scripts where you want a build in milliseconds.",
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "rollup",
+    "name": "Rollup",
+    "group": "frontend",
+    "section": "Build & Bundler",
+    "icon": "rollupdotjs",
+    "color": "#ec4a3f",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "Tree-shaking bundler for publishing libraries. Use when you ship a package, not an app.",
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "turbopack",
+    "name": "Turbopack",
+    "group": "frontend",
+    "section": "Build & Bundler",
+    "icon": "vercel",
+    "color": "#ffffff",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "The Rust bundler built into Next.js. Use only inside Next.js — it is not a standalone tool.",
+    "provides": [
+      "bundler"
+    ],
+    "exclusive": [
+      "bundler"
+    ],
+    "links": [
+      {
+        "to": "nextjs",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "react",
+    "name": "React",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "react",
+    "color": "#61dafb",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "Component UI library with the deepest ecosystem. Use when hiring and library choice matter more than bundle size.",
+    "provides": [
+      "ui"
+    ],
+    "exclusive": [
+      "ui-framework"
+    ],
+    "tags": [
+      "web"
+    ],
+    "url": "https://react.dev"
+  },
+  {
+    "id": "vue",
+    "name": "Vue",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "vuedotjs",
+    "color": "#42b883",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "Single-file components with a gentle learning curve. Use when the team is new to frontend frameworks.",
+    "provides": [
+      "ui"
+    ],
+    "exclusive": [
+      "ui-framework"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "svelte",
+    "name": "Svelte",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "svelte",
+    "color": "#ff3e00",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "Compiles away at build time, no virtual DOM. Use when you want the smallest possible runtime.",
+    "provides": [
+      "ui"
+    ],
+    "exclusive": [
+      "ui-framework"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "angular",
+    "name": "Angular",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "angular",
+    "color": "#dd0031",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Batteries-included framework with DI, router and forms. Use in large enterprise apps that want one official way.",
+    "provides": [
+      "ui",
+      "routing",
+      "state"
+    ],
+    "exclusive": [
+      "ui-framework"
+    ],
+    "tags": [
+      "web",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "solidjs",
+    "name": "Solid",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "solid",
+    "color": "#2c4f7c",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "React-like syntax with fine-grained reactivity. Use when render performance is the priority.",
+    "provides": [
+      "ui"
+    ],
+    "exclusive": [
+      "ui-framework"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "preact",
+    "name": "Preact",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "preact",
+    "color": "#673ab8",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "3kB React-compatible alternative. Use for widgets and embeds where every kilobyte is billed.",
+    "provides": [
+      "ui"
+    ],
+    "exclusive": [
+      "ui-framework"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "qwik",
+    "name": "Qwik",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "qwik",
+    "color": "#ac7ef4",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Resumable framework with near-zero hydration. Use for content sites that must be interactive instantly.",
+    "provides": [
+      "ui"
+    ],
+    "exclusive": [
+      "ui-framework"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "htmx",
+    "name": "htmx",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "htmx",
+    "color": "#3d72d7",
+    "langs": [
+      "js",
+      "html"
+    ],
+    "desc": "HTML attributes that swap server-rendered fragments. Use when the backend already renders HTML and you want interactivity without a SPA.",
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "alpinejs",
+    "name": "Alpine.js",
+    "group": "frontend",
+    "section": "Framework",
+    "icon": "alpinedotjs",
+    "color": "#8bc0d0",
+    "langs": [
+      "js",
+      "html"
+    ],
+    "desc": "Sprinkles of reactivity in markup. Use for dropdowns and modals on an otherwise static page.",
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "nextjs",
+    "name": "Next.js",
+    "group": "frontend",
+    "section": "Meta-framework",
+    "icon": "nextdotjs",
+    "color": "#ffffff",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "React with routing, server components and an API layer. Use when you want SSR and a backend in the same repo.",
+    "provides": [
+      "api",
+      "bundler",
+      "routing",
+      "serverless",
+      "ssr"
+    ],
+    "exclusive": [
+      "meta-framework",
+      "bundler",
+      "router"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ],
+    "url": "https://nextjs.org"
+  },
+  {
+    "id": "nuxt",
+    "name": "Nuxt",
+    "group": "frontend",
+    "section": "Meta-framework",
+    "icon": "nuxt",
+    "color": "#00dc82",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "Vue with file routing, SSR and server routes. Use as the Vue answer to Next.js.",
+    "provides": [
+      "ssr",
+      "routing",
+      "api"
+    ],
+    "exclusive": [
+      "meta-framework",
+      "router"
+    ],
+    "links": [
+      {
+        "to": "vue",
+        "rel": "extends"
+      },
+      {
+        "to": "vite",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "sveltekit",
+    "name": "SvelteKit",
+    "group": "frontend",
+    "section": "Meta-framework",
+    "icon": "svelte",
+    "color": "#ff3e00",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "Svelte with routing, SSR and form actions. Use for fast content-heavy apps with minimal JS.",
+    "provides": [
+      "ssr",
+      "routing",
+      "api"
+    ],
+    "exclusive": [
+      "meta-framework",
+      "router"
+    ],
+    "links": [
+      {
+        "to": "svelte",
+        "rel": "extends"
+      },
+      {
+        "to": "vite",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "remix",
+    "name": "React Router / Remix",
+    "group": "frontend",
+    "section": "Meta-framework",
+    "icon": "reactrouter",
+    "color": "#f44250",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "Web-standards React framework built on loaders and actions. Use when you want forms and caching to work the way the platform intends.",
+    "provides": [
+      "ssr",
+      "routing"
+    ],
+    "exclusive": [
+      "meta-framework",
+      "router"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "astro",
+    "name": "Astro",
+    "group": "frontend",
+    "section": "Meta-framework",
+    "icon": "astro",
+    "color": "#ff5d01",
+    "langs": [
+      "ts",
+      "js",
+      "css"
+    ],
+    "desc": "Ships zero JS by default with islands of interactivity. Use for blogs, docs and marketing sites.",
+    "provides": [
+      "ssr",
+      "routing"
+    ],
+    "exclusive": [
+      "meta-framework",
+      "router"
+    ],
+    "links": [
+      {
+        "to": "vite",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "shadcnui",
+    "name": "shadcn/ui",
+    "group": "frontend",
+    "section": "UI & Components",
+    "icon": "shadcnui",
+    "color": "#ffffff",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Copy-paste Radix + Tailwind components you own outright. Use when you want control instead of a dependency.",
+    "provides": [
+      "ui-kit"
+    ],
+    "needs": [
+      "styling"
+    ],
+    "exclusive": [
+      "ui-kit"
+    ],
+    "links": [
+      {
+        "to": "tailwindcss",
+        "rel": "styles"
+      },
+      {
+        "to": "radixui",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "mui",
+    "name": "MUI",
+    "group": "frontend",
+    "section": "UI & Components",
+    "icon": "mui",
+    "color": "#007fff",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Huge Material Design component set. Use for internal tools and dashboards you need finished this month.",
+    "provides": [
+      "ui-kit"
+    ],
+    "exclusive": [
+      "ui-kit"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "chakraui",
+    "name": "Chakra UI",
+    "group": "frontend",
+    "section": "UI & Components",
+    "icon": "chakraui",
+    "color": "#319795",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Accessible components with a style-props API. Use when you want a11y defaults without fighting the theme.",
+    "provides": [
+      "ui-kit"
+    ],
+    "exclusive": [
+      "ui-kit"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "antdesign",
+    "name": "Ant Design",
+    "group": "frontend",
+    "section": "UI & Components",
+    "icon": "antdesign",
+    "color": "#0170fe",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Dense enterprise components: tables, forms, trees. Use for admin consoles with heavy data grids.",
+    "provides": [
+      "ui-kit"
+    ],
+    "exclusive": [
+      "ui-kit"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "radixui",
+    "name": "Radix UI",
+    "group": "frontend",
+    "section": "UI & Components",
+    "icon": "radixui",
+    "color": "#ffffff",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Unstyled accessible primitives. Use when you want correct keyboard and ARIA behaviour but your own design.",
+    "needs": [
+      "styling"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "headlessui",
+    "name": "Headless UI",
+    "group": "frontend",
+    "section": "UI & Components",
+    "icon": "headlessui",
+    "color": "#66e3ff",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Unstyled primitives from the Tailwind team. Use alongside Tailwind when Radix is more than you need.",
+    "needs": [
+      "styling"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "heroui",
+    "name": "HeroUI",
+    "group": "frontend",
+    "section": "UI & Components",
+    "color": "#006fee",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "React Aria components with a modern glass aesthetic. Use when you want polish out of the box on Tailwind v4.",
+    "provides": [
+      "ui-kit"
+    ],
+    "exclusive": [
+      "ui-kit"
+    ],
+    "links": [
+      {
+        "to": "tailwindcss",
+        "rel": "styles"
+      },
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ],
+    "url": "https://heroui.com"
+  },
+  {
+    "id": "mantine",
+    "name": "Mantine",
+    "group": "frontend",
+    "section": "UI & Components",
+    "icon": "mantine",
+    "color": "#339af0",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Large component set with hooks and a form library. Use when you want batteries included but not Material.",
+    "provides": [
+      "ui-kit"
+    ],
+    "exclusive": [
+      "ui-kit"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "bootstrap",
+    "name": "Bootstrap",
+    "group": "frontend",
+    "section": "UI & Components",
+    "icon": "bootstrap",
+    "color": "#7952b3",
+    "langs": [
+      "css",
+      "js"
+    ],
+    "desc": "Classic CSS framework with a grid and components. Use for quick internal pages and server-rendered templates.",
+    "provides": [
+      "ui-kit",
+      "styling"
+    ],
+    "exclusive": [
+      "ui-kit"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "tailwindcss",
+    "name": "Tailwind CSS",
+    "group": "frontend",
+    "section": "Styling",
+    "icon": "tailwindcss",
+    "color": "#06b6d4",
+    "langs": [
+      "css"
+    ],
+    "desc": "Utility classes in markup, no context switching. Use when a team needs consistent spacing and colour without naming things.",
+    "provides": [
+      "styling"
+    ],
+    "exclusive": [
+      "css-utility"
+    ],
+    "tags": [
+      "web"
+    ],
+    "url": "https://tailwindcss.com"
+  },
+  {
+    "id": "unocss",
+    "name": "UnoCSS",
+    "group": "frontend",
+    "section": "Styling",
+    "icon": "unocss",
+    "color": "#333333",
+    "langs": [
+      "css"
+    ],
+    "desc": "On-demand atomic CSS engine with custom rules. Use when you want the Tailwind model but your own shorthand.",
+    "provides": [
+      "styling"
+    ],
+    "exclusive": [
+      "css-utility"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "sass",
+    "name": "Sass",
+    "group": "frontend",
+    "section": "Styling",
+    "icon": "sass",
+    "color": "#cc6699",
+    "langs": [
+      "css"
+    ],
+    "desc": "CSS with nesting, variables and mixins. Use in codebases that predate CSS custom properties.",
+    "provides": [
+      "styling"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "styledcomponents",
+    "name": "styled-components",
+    "group": "frontend",
+    "section": "Styling",
+    "icon": "styledcomponents",
+    "color": "#db7093",
+    "langs": [
+      "css",
+      "ts"
+    ],
+    "desc": "CSS-in-JS with tagged templates. Use when styles must be computed from props at runtime.",
+    "provides": [
+      "styling"
+    ],
+    "exclusive": [
+      "css-in-js"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "styles"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "emotion",
+    "name": "Emotion",
+    "group": "frontend",
+    "section": "Styling",
+    "color": "#d36ac2",
+    "langs": [
+      "css",
+      "ts"
+    ],
+    "desc": "CSS-in-JS used under MUI and Chakra. Use when a component library already depends on it.",
+    "provides": [
+      "styling"
+    ],
+    "exclusive": [
+      "css-in-js"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "cssmodules",
+    "name": "CSS Modules",
+    "group": "frontend",
+    "section": "Styling",
+    "icon": "cssmodules",
+    "color": "#000000",
+    "langs": [
+      "css"
+    ],
+    "desc": "Locally scoped class names, zero runtime. Use when you want plain CSS without global collisions.",
+    "provides": [
+      "styling"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "redux",
+    "name": "Redux Toolkit",
+    "group": "frontend",
+    "section": "State & Data",
+    "icon": "redux",
+    "color": "#764abc",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Predictable central store with devtools and time travel. Use for large apps where state bugs are expensive.",
+    "provides": [
+      "state"
+    ],
+    "exclusive": [
+      "client-state"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "zustand",
+    "name": "Zustand",
+    "group": "frontend",
+    "section": "State & Data",
+    "color": "#443e38",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Tiny hook-based store with no boilerplate. Use as the default until you can prove you need Redux.",
+    "provides": [
+      "state"
+    ],
+    "exclusive": [
+      "client-state"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "jotai",
+    "name": "Jotai",
+    "group": "frontend",
+    "section": "State & Data",
+    "color": "#000000",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Atomic state, bottom-up. Use when independent pieces of state must not re-render each other.",
+    "provides": [
+      "state"
+    ],
+    "exclusive": [
+      "client-state"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "mobx",
+    "name": "MobX",
+    "group": "frontend",
+    "section": "State & Data",
+    "icon": "mobx",
+    "color": "#ff9955",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Observable objects that update the UI automatically. Use for OO-shaped domain models.",
+    "provides": [
+      "state"
+    ],
+    "exclusive": [
+      "client-state"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "pinia",
+    "name": "Pinia",
+    "group": "frontend",
+    "section": "State & Data",
+    "icon": "pinia",
+    "color": "#ffd859",
+    "langs": [
+      "ts"
+    ],
+    "desc": "The official Vue store. Use with Vue instead of anything React-shaped.",
+    "provides": [
+      "state"
+    ],
+    "exclusive": [
+      "client-state"
+    ],
+    "links": [
+      {
+        "to": "vue",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "tanstackquery",
+    "name": "TanStack Query",
+    "group": "frontend",
+    "section": "State & Data",
+    "color": "#ff4154",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Caching, retries and invalidation for server data. Use the moment you write your second fetch call.",
+    "provides": [
+      "data-fetching"
+    ],
+    "exclusive": [
+      "server-state"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "swr",
+    "name": "SWR",
+    "group": "frontend",
+    "section": "State & Data",
+    "icon": "vercel",
+    "color": "#ffffff",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Minimal stale-while-revalidate fetching. Use when TanStack Query is more machinery than you need.",
+    "provides": [
+      "data-fetching"
+    ],
+    "exclusive": [
+      "server-state"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "apollographql",
+    "name": "Apollo Client",
+    "group": "frontend",
+    "section": "State & Data",
+    "icon": "apollographql",
+    "color": "#311c87",
+    "langs": [
+      "ts"
+    ],
+    "desc": "GraphQL client with a normalised cache. Use when the API is GraphQL and the cache must be shared across views.",
+    "provides": [
+      "data-fetching"
+    ],
+    "needs": [
+      "graphql"
+    ],
+    "exclusive": [
+      "server-state"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "reactrouter",
+    "name": "React Router",
+    "group": "frontend",
+    "section": "Routing",
+    "icon": "reactrouter",
+    "color": "#f44250",
+    "langs": [
+      "ts"
+    ],
+    "desc": "The standard client-side router for React SPAs. Use when you are not on a meta-framework.",
+    "provides": [
+      "routing"
+    ],
+    "exclusive": [
+      "router"
+    ],
+    "links": [
+      {
+        "to": "react",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "tanstackrouter",
+    "name": "TanStack Router",
+    "group": "frontend",
+    "section": "Routing",
+    "color": "#ff4154",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Fully type-safe routes and search params. Use when URL state is part of your data model.",
+    "provides": [
+      "routing"
+    ],
+    "exclusive": [
+      "router"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "vuerouter",
+    "name": "Vue Router",
+    "group": "frontend",
+    "section": "Routing",
+    "icon": "vuedotjs",
+    "color": "#42b883",
+    "langs": [
+      "ts"
+    ],
+    "desc": "The official Vue router. Use in Vue SPAs that are not on Nuxt.",
+    "provides": [
+      "routing"
+    ],
+    "exclusive": [
+      "router"
+    ],
+    "links": [
+      {
+        "to": "vue",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "web"
+    ]
+  }
+]

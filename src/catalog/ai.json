@@ -1,0 +1,561 @@
+[
+  {
+    "id": "anthropic",
+    "name": "Anthropic Claude",
+    "group": "ai",
+    "section": "Model providers",
+    "icon": "anthropic",
+    "color": "#d97757",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Frontier models strong at long context, code and careful reasoning. Use for agents and analysis over large documents.",
+    "provides": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ],
+    "url": "https://console.anthropic.com"
+  },
+  {
+    "id": "openai",
+    "name": "OpenAI",
+    "group": "ai",
+    "section": "Model providers",
+    "icon": "openai",
+    "color": "#ffffff",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "GPT models with the widest tooling and ecosystem support. Use when you want the most examples to copy from.",
+    "provides": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ],
+    "url": "https://platform.openai.com"
+  },
+  {
+    "id": "gemini",
+    "name": "Google Gemini",
+    "group": "ai",
+    "section": "Model providers",
+    "icon": "googlegemini",
+    "color": "#8e75b2",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Multimodal models with very large context and native Google Cloud integration. Use for video, audio and GCP-resident data.",
+    "provides": [
+      "llm"
+    ],
+    "tags": [
+      "ai",
+      "google"
+    ]
+  },
+  {
+    "id": "mistral",
+    "name": "Mistral AI",
+    "group": "ai",
+    "section": "Model providers",
+    "icon": "mistralai",
+    "color": "#fa520f",
+    "langs": [
+      "py"
+    ],
+    "desc": "European models with strong open-weight releases. Use when data residency in the EU is a requirement.",
+    "provides": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "groq",
+    "name": "Groq",
+    "group": "ai",
+    "section": "Model providers",
+    "icon": "groq",
+    "color": "#f55036",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Open models served at extreme token speed on custom LPU hardware. Use when latency is the product. Not the same company as xAI's Grok.",
+    "provides": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "bedrock",
+    "name": "AWS Bedrock",
+    "group": "ai",
+    "section": "Model providers",
+    "icon": "amazonwebservices",
+    "color": "#ff9900",
+    "langs": [
+      "py",
+      "ts"
+    ],
+    "desc": "Many vendors' models behind one AWS-governed API. Use when procurement and IAM must own model access.",
+    "provides": [
+      "llm"
+    ],
+    "tags": [
+      "ai",
+      "aws",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "grok",
+    "name": "Grok (xAI)",
+    "group": "ai",
+    "section": "Model providers",
+    "icon": "x",
+    "color": "#ffffff",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "xAI frontier models with live access to X. Use when real-time public conversation matters to the answer.",
+    "provides": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ],
+    "url": "https://console.x.ai"
+  },
+  {
+    "id": "ollama",
+    "name": "Ollama",
+    "group": "ai",
+    "section": "Local & Open models",
+    "icon": "ollama",
+    "color": "#ffffff",
+    "langs": [
+      "none"
+    ],
+    "desc": "Run open models locally with one command. Use for offline development and privacy-sensitive prototypes.",
+    "provides": [
+      "llm",
+      "self-hosted"
+    ],
+    "tags": [
+      "ai",
+      "selfhost"
+    ]
+  },
+  {
+    "id": "vllm",
+    "name": "vLLM",
+    "group": "ai",
+    "section": "Local & Open models",
+    "icon": "vllm",
+    "color": "#30a2ff",
+    "langs": [
+      "py"
+    ],
+    "desc": "High-throughput inference server with paged attention. Use when you self-host a model for real production traffic.",
+    "provides": [
+      "llm",
+      "self-hosted"
+    ],
+    "tags": [
+      "ai",
+      "selfhost"
+    ]
+  },
+  {
+    "id": "huggingface",
+    "name": "Hugging Face",
+    "group": "ai",
+    "section": "Local & Open models",
+    "icon": "huggingface",
+    "color": "#ffd21e",
+    "langs": [
+      "py"
+    ],
+    "desc": "Model and dataset hub with the transformers library. Use to find, fine-tune and host open models.",
+    "provides": [
+      "llm"
+    ],
+    "tags": [
+      "ai",
+      "ml"
+    ],
+    "url": "https://huggingface.co"
+  },
+  {
+    "id": "llamacpp",
+    "name": "llama.cpp",
+    "group": "ai",
+    "section": "Local & Open models",
+    "icon": "cplusplus",
+    "color": "#00599c",
+    "langs": [
+      "cpp"
+    ],
+    "desc": "Quantised model inference on ordinary CPUs and laptops. Use to embed a small model in a desktop app.",
+    "provides": [
+      "llm",
+      "self-hosted"
+    ],
+    "tags": [
+      "ai",
+      "embedded"
+    ]
+  },
+  {
+    "id": "langchain",
+    "name": "LangChain",
+    "group": "ai",
+    "section": "Frameworks",
+    "icon": "langchain",
+    "color": "#1c3c3c",
+    "langs": [
+      "py",
+      "ts"
+    ],
+    "desc": "Chains, tools and agent scaffolding across providers. Use when swapping models and stitching steps is the main job.",
+    "provides": [
+      "rag"
+    ],
+    "needs": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "llamaindex",
+    "name": "LlamaIndex",
+    "group": "ai",
+    "section": "Frameworks",
+    "icon": "llamaindex",
+    "color": "#ffffff",
+    "langs": [
+      "py",
+      "ts"
+    ],
+    "desc": "Ingestion, indexing and retrieval pipelines for documents. Use when RAG over your own corpus is the whole product.",
+    "provides": [
+      "rag"
+    ],
+    "needs": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "vercelaisdk",
+    "name": "Vercel AI SDK",
+    "group": "ai",
+    "section": "Frameworks",
+    "icon": "vercel",
+    "color": "#ffffff",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Streaming, tool calls and structured output with one TypeScript API. Use in Next.js and React chat interfaces.",
+    "needs": [
+      "llm"
+    ],
+    "links": [
+      {
+        "to": "nextjs",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "ai",
+      "web"
+    ]
+  },
+  {
+    "id": "pydanticai",
+    "name": "Pydantic AI",
+    "group": "ai",
+    "section": "Frameworks",
+    "icon": "pydantic",
+    "color": "#e92063",
+    "langs": [
+      "py"
+    ],
+    "desc": "Typed agents with validated structured output. Use when the model result must fit a schema you can trust.",
+    "needs": [
+      "llm"
+    ],
+    "links": [
+      {
+        "to": "python",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "mcp",
+    "name": "Model Context Protocol",
+    "group": "ai",
+    "section": "Frameworks",
+    "icon": "anthropic",
+    "color": "#d97757",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Open standard for exposing tools and data to any AI client. Use to write one integration instead of one per assistant.",
+    "tags": [
+      "ai",
+      "protocol"
+    ]
+  },
+  {
+    "id": "claudecode",
+    "name": "Claude Code",
+    "group": "ai",
+    "section": "Coding agents",
+    "icon": "anthropic",
+    "color": "#d97757",
+    "langs": [
+      "none"
+    ],
+    "desc": "Terminal agent that reads, edits and runs your repository. Use for multi-file refactors and long autonomous tasks.",
+    "needs": [
+      "llm"
+    ],
+    "links": [
+      {
+        "to": "anthropic",
+        "rel": "consumes"
+      }
+    ],
+    "tags": [
+      "ai",
+      "devtool"
+    ],
+    "url": "https://claude.ai/code"
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor",
+    "group": "ai",
+    "section": "Coding agents",
+    "icon": "cursor",
+    "color": "#ffffff",
+    "langs": [
+      "none"
+    ],
+    "desc": "AI-first editor forked from VS Code. Use when you want inline completion and chat in one familiar IDE.",
+    "needs": [
+      "llm"
+    ],
+    "tags": [
+      "ai",
+      "devtool"
+    ]
+  },
+  {
+    "id": "copilot",
+    "name": "GitHub Copilot",
+    "group": "ai",
+    "section": "Coding agents",
+    "icon": "githubcopilot",
+    "color": "#ffffff",
+    "langs": [
+      "none"
+    ],
+    "desc": "Inline completion and chat inside existing IDEs. Use when enterprise licensing already covers it.",
+    "needs": [
+      "llm"
+    ],
+    "tags": [
+      "ai",
+      "devtool",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "aider",
+    "name": "Aider",
+    "group": "ai",
+    "section": "Coding agents",
+    "icon": "aider",
+    "color": "#14b014",
+    "langs": [
+      "py"
+    ],
+    "desc": "Terminal pair programmer that commits to git as it works. Use when you want every AI change as a reviewable commit.",
+    "needs": [
+      "llm"
+    ],
+    "tags": [
+      "ai",
+      "devtool",
+      "oss"
+    ]
+  },
+  {
+    "id": "notebooklm",
+    "name": "NotebookLM",
+    "group": "ai",
+    "section": "RAG & Retrieval",
+    "icon": "googlegemini",
+    "color": "#8e75b2",
+    "langs": [
+      "none"
+    ],
+    "desc": "Grounded research notebook over documents you upload, with citations. Use to interrogate a pile of PDFs without building a pipeline.",
+    "provides": [
+      "rag"
+    ],
+    "tags": [
+      "ai",
+      "google",
+      "research"
+    ],
+    "url": "https://notebooklm.google.com"
+  },
+  {
+    "id": "firecrawl",
+    "name": "Firecrawl",
+    "group": "ai",
+    "section": "RAG & Retrieval",
+    "icon": "firecrawl",
+    "color": "#ff5a1f",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Turns websites into clean markdown for model consumption. Use when your knowledge base is other people's web pages.",
+    "provides": [
+      "rag"
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "unstructured",
+    "name": "Unstructured",
+    "group": "ai",
+    "section": "RAG & Retrieval",
+    "icon": "unstructured",
+    "color": "#09d5a0",
+    "langs": [
+      "py"
+    ],
+    "desc": "Parses PDFs, slides and scans into structured chunks. Use when the source documents are a mess.",
+    "provides": [
+      "rag"
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "langfuse",
+    "name": "Langfuse",
+    "group": "ai",
+    "section": "Ops & Eval",
+    "icon": "langfuse",
+    "color": "#ffffff",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Open-source tracing, cost tracking and evals for LLM apps. Use to find out which prompt is burning your budget.",
+    "provides": [
+      "llm-ops",
+      "monitoring"
+    ],
+    "needs": [
+      "llm"
+    ],
+    "tags": [
+      "ai",
+      "oss"
+    ]
+  },
+  {
+    "id": "langsmith",
+    "name": "LangSmith",
+    "group": "ai",
+    "section": "Ops & Eval",
+    "icon": "langchain",
+    "color": "#1c3c3c",
+    "langs": [
+      "py",
+      "ts"
+    ],
+    "desc": "Hosted tracing and evaluation from the LangChain team. Use when already deep in LangChain.",
+    "provides": [
+      "llm-ops",
+      "monitoring"
+    ],
+    "needs": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "braintrust",
+    "name": "Braintrust",
+    "group": "ai",
+    "section": "Ops & Eval",
+    "icon": "braintrust",
+    "color": "#ffffff",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Eval-driven development with datasets and scoring in CI. Use to stop prompt changes silently regressing quality.",
+    "provides": [
+      "llm-ops"
+    ],
+    "needs": [
+      "llm"
+    ],
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "wandb",
+    "name": "Weights & Biases",
+    "group": "ai",
+    "section": "Ops & Eval",
+    "icon": "weightsandbiases",
+    "color": "#ffbe00",
+    "langs": [
+      "py"
+    ],
+    "desc": "Experiment tracking, sweeps and model registry. Use when you actually train models rather than only call them.",
+    "provides": [
+      "llm-ops"
+    ],
+    "tags": [
+      "ai",
+      "ml"
+    ]
+  }
+]

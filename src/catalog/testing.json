@@ -1,0 +1,430 @@
+[
+  {
+    "id": "vitest",
+    "name": "Vitest",
+    "group": "testing",
+    "section": "Unit",
+    "icon": "vitest",
+    "color": "#6e9f18",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "Test runner that reuses your Vite config and transforms. Use in any Vite project so tests and app build identically.",
+    "provides": [
+      "test-unit"
+    ],
+    "exclusive": [
+      "test-unit"
+    ],
+    "links": [
+      {
+        "to": "vite",
+        "rel": "tests"
+      }
+    ],
+    "tags": [
+      "web"
+    ],
+    "url": "https://vitest.dev",
+    "needs": [
+      "bundler"
+    ]
+  },
+  {
+    "id": "jest",
+    "name": "Jest",
+    "group": "testing",
+    "section": "Unit",
+    "icon": "jest",
+    "color": "#c21325",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "The long-standing JS test runner with snapshots and mocks. Use in Webpack and React Native projects that expect it.",
+    "provides": [
+      "test-unit"
+    ],
+    "exclusive": [
+      "test-unit"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "pytest",
+    "name": "pytest",
+    "group": "testing",
+    "section": "Unit",
+    "icon": "pytest",
+    "color": "#0a9edc",
+    "langs": [
+      "py"
+    ],
+    "desc": "Python testing with fixtures and plain assert statements. Use for every Python project, full stop.",
+    "provides": [
+      "test-unit"
+    ],
+    "exclusive": [
+      "test-unit"
+    ],
+    "links": [
+      {
+        "to": "python",
+        "rel": "tests"
+      }
+    ],
+    "tags": [
+      "backend"
+    ]
+  },
+  {
+    "id": "junit",
+    "name": "JUnit",
+    "group": "testing",
+    "section": "Unit",
+    "icon": "junit5",
+    "color": "#25a162",
+    "langs": [
+      "java",
+      "kotlin"
+    ],
+    "desc": "The JVM testing standard. Use with Spring Boot and anything else running on the JVM.",
+    "provides": [
+      "test-unit"
+    ],
+    "exclusive": [
+      "test-unit"
+    ],
+    "links": [
+      {
+        "to": "java",
+        "rel": "tests"
+      }
+    ],
+    "tags": [
+      "enterprise"
+    ]
+  },
+  {
+    "id": "rspec",
+    "name": "RSpec",
+    "group": "testing",
+    "section": "Unit",
+    "icon": "rspec",
+    "color": "#cc342d",
+    "langs": [
+      "ruby"
+    ],
+    "desc": "Behaviour-driven testing for Ruby. Use in Rails codebases where readable specs are the culture.",
+    "provides": [
+      "test-unit"
+    ],
+    "exclusive": [
+      "test-unit"
+    ],
+    "tags": [
+      "backend"
+    ]
+  },
+  {
+    "id": "testinglibrary",
+    "name": "Testing Library",
+    "group": "testing",
+    "section": "Component",
+    "icon": "testinglibrary",
+    "color": "#e33332",
+    "langs": [
+      "ts"
+    ],
+    "desc": "Queries components the way a user would, by role and label. Use to stop tests breaking every time markup changes.",
+    "provides": [
+      "test-component"
+    ],
+    "needs": [
+      "test-unit"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "storybook",
+    "name": "Storybook",
+    "group": "testing",
+    "section": "Component",
+    "icon": "storybook",
+    "color": "#ff4785",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Isolated component workbench with visual and interaction tests. Use when designers and developers review UI together.",
+    "provides": [
+      "test-component",
+      "docs"
+    ],
+    "needs": [
+      "ui"
+    ],
+    "tags": [
+      "web",
+      "design"
+    ]
+  },
+  {
+    "id": "playwright",
+    "name": "Playwright",
+    "group": "testing",
+    "section": "End-to-end",
+    "icon": "playwright",
+    "color": "#2ead33",
+    "langs": [
+      "ts",
+      "py"
+    ],
+    "desc": "Cross-browser E2E with auto-waiting, traces and parallel runs. Use as the default end-to-end tool today.",
+    "provides": [
+      "test-e2e"
+    ],
+    "exclusive": [
+      "test-e2e"
+    ],
+    "tags": [
+      "web"
+    ],
+    "url": "https://playwright.dev",
+    "needs": [
+      "ui"
+    ]
+  },
+  {
+    "id": "cypress",
+    "name": "Cypress",
+    "group": "testing",
+    "section": "End-to-end",
+    "icon": "cypress",
+    "color": "#69d3a7",
+    "langs": [
+      "ts"
+    ],
+    "desc": "E2E testing with a time-travelling debugger UI. Use when developer experience during test writing matters most.",
+    "provides": [
+      "test-e2e"
+    ],
+    "exclusive": [
+      "test-e2e"
+    ],
+    "tags": [
+      "web"
+    ],
+    "needs": [
+      "ui"
+    ]
+  },
+  {
+    "id": "selenium",
+    "name": "Selenium",
+    "group": "testing",
+    "section": "End-to-end",
+    "icon": "selenium",
+    "color": "#43b02a",
+    "langs": [
+      "java",
+      "py"
+    ],
+    "desc": "The original browser automation standard, WebDriver everywhere. Use when you must drive real legacy browser matrices.",
+    "provides": [
+      "test-e2e"
+    ],
+    "exclusive": [
+      "test-e2e"
+    ],
+    "tags": [
+      "enterprise"
+    ],
+    "needs": [
+      "ui"
+    ]
+  },
+  {
+    "id": "eslint",
+    "name": "ESLint",
+    "group": "testing",
+    "section": "Lint & Format",
+    "icon": "eslint",
+    "color": "#4b32c3",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "Pluggable JS and TS linting with framework-aware rules. Use to catch hook mistakes and unused code before review.",
+    "provides": [
+      "lint"
+    ],
+    "exclusive": [
+      "lint"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "prettier",
+    "name": "Prettier",
+    "group": "testing",
+    "section": "Lint & Format",
+    "icon": "prettier",
+    "color": "#f7b93e",
+    "langs": [
+      "ts",
+      "css"
+    ],
+    "desc": "Opinionated formatter that ends every style argument. Use on save and in CI so diffs stay about logic.",
+    "provides": [
+      "format"
+    ],
+    "exclusive": [
+      "format"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "biome",
+    "name": "Biome",
+    "group": "testing",
+    "section": "Lint & Format",
+    "icon": "biome",
+    "color": "#60a5fa",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "One fast Rust binary that lints and formats. Use to replace ESLint plus Prettier and delete two configs.",
+    "provides": [
+      "lint",
+      "format"
+    ],
+    "exclusive": [
+      "lint",
+      "format"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "oxlint",
+    "name": "Oxlint",
+    "group": "testing",
+    "section": "Lint & Format",
+    "icon": "oxc",
+    "color": "#2f2f2f",
+    "langs": [
+      "ts",
+      "js"
+    ],
+    "desc": "Extremely fast Rust linter with zero config. Use on large repos where ESLint takes minutes.",
+    "provides": [
+      "lint"
+    ],
+    "exclusive": [
+      "lint"
+    ],
+    "tags": [
+      "web"
+    ]
+  },
+  {
+    "id": "ruff",
+    "name": "Ruff",
+    "group": "testing",
+    "section": "Lint & Format",
+    "icon": "ruff",
+    "color": "#d7ff64",
+    "langs": [
+      "py"
+    ],
+    "desc": "Rust-based Python linter and formatter replacing a dozen tools. Use in every new Python project.",
+    "provides": [
+      "lint",
+      "format"
+    ],
+    "exclusive": [
+      "lint-py",
+      "format-py"
+    ],
+    "links": [
+      {
+        "to": "python",
+        "rel": "extends"
+      }
+    ],
+    "tags": [
+      "backend"
+    ]
+  },
+  {
+    "id": "k6",
+    "name": "k6",
+    "group": "testing",
+    "section": "Load & Contract",
+    "icon": "k6",
+    "color": "#7d64ff",
+    "langs": [
+      "js"
+    ],
+    "desc": "Load tests written in JavaScript, run from a Go engine. Use before a launch to find where the stack folds.",
+    "provides": [
+      "test-load"
+    ],
+    "tags": [
+      "backend"
+    ]
+  },
+  {
+    "id": "locust",
+    "name": "Locust",
+    "group": "testing",
+    "section": "Load & Contract",
+    "icon": "locust",
+    "color": "#889d6b",
+    "langs": [
+      "py"
+    ],
+    "desc": "Load testing where user behaviour is plain Python. Use when scenarios are complex and stateful.",
+    "provides": [
+      "test-load"
+    ],
+    "tags": [
+      "backend"
+    ]
+  },
+  {
+    "id": "pact",
+    "name": "Pact",
+    "group": "testing",
+    "section": "Load & Contract",
+    "icon": "pact",
+    "color": "#ffffff",
+    "langs": [
+      "ts",
+      "java"
+    ],
+    "desc": "Consumer-driven contract testing between services. Use when independent teams deploy services that must keep agreeing.",
+    "provides": [
+      "test-contract"
+    ],
+    "needs": [
+      "api"
+    ],
+    "tags": [
+      "backend",
+      "enterprise"
+    ]
+  }
+]

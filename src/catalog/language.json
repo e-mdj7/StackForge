@@ -1,0 +1,68 @@
+[
+  { "id": "typescript", "name": "TypeScript", "group": "language", "section": "Type layer", "icon": "typescript", "color": "#3178c6", "langs": ["ts", "js"],
+    "desc": "Static types over JavaScript. Use when a codebase outlives one person or one month.",
+    "provides": ["types"], "links": [{ "to": "javascript", "rel": "extends" }], "tags": ["web"], "url": "https://www.typescriptlang.org" },
+
+  { "id": "javascript", "name": "JavaScript", "group": "language", "section": "Languages", "icon": "javascript", "color": "#f7df1e", "langs": ["js"],
+    "desc": "The language every browser already runs. Use when you want zero build step.", "tags": ["web"] },
+
+  { "id": "nodejs", "name": "Node.js", "group": "language", "section": "JS Runtimes", "icon": "nodedotjs", "color": "#5fa04e", "langs": ["js", "ts"],
+    "desc": "JS on the server. Use when you want the largest package ecosystem on earth and boring stability.",
+    "provides": ["runtime"], "exclusive": ["js-runtime"], "tags": ["web"], "url": "https://nodejs.org" },
+
+  { "id": "bun", "name": "Bun", "group": "language", "section": "JS Runtimes", "icon": "bun", "color": "#fbf0df", "langs": ["js", "ts"],
+    "desc": "Fast runtime with bundler, test runner and package manager built in. Use when you want one binary instead of five tools.",
+    "provides": ["runtime", "pkg", "test-unit", "bundler"], "exclusive": ["js-runtime"], "tags": ["web"], "url": "https://bun.sh" },
+
+  { "id": "deno", "name": "Deno", "group": "language", "section": "JS Runtimes", "icon": "deno", "color": "#70ffaf", "langs": ["js", "ts"],
+    "desc": "Secure-by-default runtime with native TypeScript. Use when sandboxed permissions matter.",
+    "provides": ["runtime"], "exclusive": ["js-runtime"], "tags": ["web"], "url": "https://deno.com" },
+
+  { "id": "python", "name": "Python", "group": "language", "section": "Languages", "icon": "python", "color": "#3776ab", "langs": ["py"],
+    "desc": "Use for data work, scripting and ML, where readability beats raw speed.",
+    "provides": ["runtime"], "tags": ["data", "ml"], "url": "https://python.org" },
+
+  { "id": "go", "name": "Go", "group": "language", "section": "Languages", "icon": "go", "color": "#00add8", "langs": ["go"],
+    "desc": "One static binary, real concurrency, fast compiles. Use for network services and CLIs.",
+    "provides": ["runtime"], "tags": ["backend"], "url": "https://go.dev" },
+
+  { "id": "rust", "name": "Rust", "group": "language", "section": "Languages", "icon": "rust", "color": "#dea584", "langs": ["rust"],
+    "desc": "Memory safety without a garbage collector. Use when performance is the feature and crashes are not an option.",
+    "provides": ["runtime"], "tags": ["backend", "systems"], "url": "https://rust-lang.org" },
+
+  { "id": "java", "name": "Java", "group": "language", "section": "Languages", "icon": "openjdk", "color": "#f89820", "langs": ["java"],
+    "desc": "Use for large enterprise services where the JVM, the tooling and the hiring pool already exist.",
+    "provides": ["runtime"], "tags": ["enterprise"] },
+
+  { "id": "kotlin", "name": "Kotlin", "group": "language", "section": "Languages", "icon": "kotlin", "color": "#7f52ff", "langs": ["kotlin", "java"],
+    "desc": "Modern JVM language. Use for Android, and for Java services you want far less boilerplate in.",
+    "provides": ["runtime"], "links": [{ "to": "java", "rel": "extends" }], "tags": ["mobile", "enterprise"] },
+
+  { "id": "csharp", "name": "C# / .NET", "group": "language", "section": "Languages", "icon": "dotnet", "color": "#512bd4", "langs": ["csharp"],
+    "desc": "Use in Microsoft shops, for Windows tooling, Unity games, or high-performance managed services.",
+    "provides": ["runtime"], "tags": ["enterprise"] },
+
+  { "id": "php", "name": "PHP", "group": "language", "section": "Languages", "icon": "php", "color": "#777bb4", "langs": ["php"],
+    "desc": "Use when shared hosting, WordPress or Laravel is the shortest path to a live site.",
+    "provides": ["runtime"], "tags": ["web"] },
+
+  { "id": "ruby", "name": "Ruby", "group": "language", "section": "Languages", "icon": "ruby", "color": "#cc342d", "langs": ["ruby"],
+    "desc": "Use with Rails when one developer has to ship a whole CRUD product this week.",
+    "provides": ["runtime"], "tags": ["web"] },
+
+  { "id": "elixir", "name": "Elixir", "group": "language", "section": "Languages", "icon": "elixir", "color": "#4b275f", "langs": ["elixir"],
+    "desc": "BEAM concurrency and fault tolerance. Use for real-time systems holding many open connections.",
+    "provides": ["runtime"], "tags": ["backend"] },
+
+  { "id": "swift", "name": "Swift", "group": "language", "section": "Languages", "icon": "swift", "color": "#f05138", "langs": ["swift"],
+    "desc": "Use for native Apple platforms when you want every iOS and macOS API on day one.",
+    "provides": ["runtime"], "tags": ["mobile"] },
+
+  { "id": "dart", "name": "Dart", "group": "language", "section": "Languages", "icon": "dart", "color": "#0175c2", "langs": ["dart"],
+    "desc": "The language Flutter runs on. Use it if you are using Flutter, and otherwise do not.",
+    "provides": ["runtime"], "tags": ["mobile"] },
+
+  { "id": "sql", "name": "SQL", "group": "language", "section": "Type layer", "icon": "postgresql", "color": "#e38c00", "langs": ["sql"],
+    "desc": "The query language every relational database speaks. Use when your data has relationships worth enforcing.",
+    "tags": ["data"] }
+]
