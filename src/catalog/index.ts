@@ -1,7 +1,8 @@
-import type { Group, StackRule, Tech } from '../types'
+import type { Build, Group, StackRule, Tech } from '../types'
 
 import groupsJson from './groups.json' with { type: 'json' }
 import rulesJson from './rules.json' with { type: 'json' }
+import buildsJson from './builds.json' with { type: 'json' }
 
 import language from './language.json' with { type: 'json' }
 import frontend from './frontend.json' with { type: 'json' }
@@ -27,10 +28,25 @@ const files = [
 
 export const groups = groupsJson as Group[]
 export const stackRules = rulesJson as StackRule[]
+// each entry lists only its own roles, so TS infers a different shape per build
+export const builds = buildsJson as unknown as Build[]
 export const techs = files.flat() as unknown as Tech[]
 
 export const techById = new Map(techs.map((t) => [t.id, t]))
 export const groupById = new Map(groups.map((g) => [g.id, g]))
+export const buildById = new Map(builds.map((b) => [b.id, b]))
+
+/**
+ * The part this tech would play in that build, or null if it plays none. First matching role
+ * wins, so order the roles in builds.json most-specific first.
+ */
+export function roleOf(build: Build, tech: Tech): string | null {
+  const slot = `${tech.group}:${tech.section}`
+  const box = `${tech.group}:*`
+  for (const [role, globs] of Object.entries(build.roles))
+    if (globs.includes(slot) || globs.includes(box)) return role
+  return null
+}
 
 /** Every language family and tag actually present, for the filter bar. */
 export const allLangs = [...new Set(techs.flatMap((t) => t.langs))].sort()
@@ -65,6 +81,17 @@ export function validateCatalog(): string[] {
   for (const r of stackRules)
     for (const c of [...r.when, ...r.requires])
       if (!provided.has(c)) errors.push(`rule ${r.id}: capability "${c}" is never provided`)
+
+  // a build glob pointing at a section that does not exist would silently light up nothing
+  for (const b of builds)
+    for (const [role, globs] of Object.entries(b.roles))
+      for (const glob of globs) {
+        const [gid, section] = glob.split(':')
+        const g = groupById.get(gid)
+        if (!g) errors.push(`build ${b.id}/${role}: unknown group "${gid}"`)
+        else if (section !== '*' && !g.sections.includes(section))
+          errors.push(`build ${b.id}/${role}: "${section}" is not a ${g.name} section`)
+      }
 
   return errors
 }

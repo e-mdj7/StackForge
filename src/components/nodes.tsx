@@ -2,14 +2,13 @@ import {
   BaseEdge,
   Handle,
   Position,
-  getSmoothStepPath,
-  useInternalNode,
   type EdgeProps,
   type NodeProps,
 } from '@xyflow/react'
 import { useState } from 'react'
 import { groupById } from '../catalog'
 import { GROUP_HEADER, NODE_H, NODE_W, PAD } from '../layout'
+import type { Route } from '../routing'
 import type { Card, Problem, Rel, Tech } from '../types'
 
 /* ---------- relationship styling ----------
@@ -182,70 +181,7 @@ export function GroupNode({ data }: NodeProps & { data: GroupData }) {
   )
 }
 
-/* ---------- floating edge: attaches to whichever side faces the other block ---------- */
-
-interface Rect { x: number; y: number; w: number; h: number }
-
-const rectOf = (n: {
-  internals: { positionAbsolute: { x: number; y: number } }
-  measured?: { width?: number | null; height?: number | null }
-}): Rect => ({
-  x: n.internals.positionAbsolute.x,
-  y: n.internals.positionAbsolute.y,
-  w: n.measured?.width ?? NODE_W,
-  h: n.measured?.height ?? NODE_H,
-})
-
-/**
- * Connection points per side, DaVinci style: a card exposes 7 sockets along the top and
- * bottom and 3 down each side. Each edge lands on its own socket, so two wires leaving the
- * same card no longer trace the same line.
- */
-const SLOTS: Record<Position, number> = {
-  [Position.Top]: 7,
-  [Position.Bottom]: 7,
-  [Position.Left]: 3,
-  [Position.Right]: 3,
-}
-
-const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
-
-/** how far apart two blocks must be before a wire uses the outermost socket */
-const SPREAD = 460
-
-/**
- * Which side of `a` faces `b`, then which socket on that side — chosen by *proximity*, not
- * at random: a block up and to the right attaches near the top of the right edge, one below
- * attaches near the bottom. Wires to different places therefore leave from different points
- * in the same order as their destinations, which is what stops them crossing each other.
- */
-function anchor(a: Rect, b: Rect): [number, number, Position] {
-  const ax = a.x + a.w / 2, ay = a.y + a.h / 2
-  const bx = b.x + b.w / 2, by = b.y + b.h / 2
-  const dx = bx - ax, dy = by - ay
-
-  const side: Position =
-    Math.abs(dx) * a.h > Math.abs(dy) * a.w
-      ? dx > 0 ? Position.Right : Position.Left
-      : dy > 0 ? Position.Bottom : Position.Top
-
-  const n = SLOTS[side]
-  const vertical = side === Position.Left || side === Position.Right
-  const t = 0.5 + clamp((vertical ? dy : dx) / SPREAD, -0.5, 0.5)
-  const slot = Math.round(t * (n - 1)) // 0 … n-1, ordered by where the other block lies
-  const along = (slot + 1) / (n + 1)
-
-  switch (side) {
-    case Position.Right: return [a.x + a.w, a.y + a.h * along, side]
-    case Position.Left: return [a.x, a.y + a.h * along, side]
-    case Position.Bottom: return [a.x + a.w * along, a.y + a.h, side]
-    default: return [a.x + a.w * along, a.y, side]
-  }
-}
-
-/** nudge the cardinality mark just off the block edge */
-const nudge = (p: Position, x: number, y: number): [number, number] =>
-  p === Position.Left ? [x - 9, y - 4] : p === Position.Right ? [x + 9, y - 4] : p === Position.Top ? [x, y - 7] : [x, y + 13]
+/* ---------- wires: geometry comes from planRoutes(), this only paints it ---------- */
 
 export interface RelEdgeData extends Record<string, unknown> {
   rel: Rel
@@ -254,40 +190,26 @@ export interface RelEdgeData extends Record<string, unknown> {
   both?: boolean
   active: boolean
   dimmed: boolean
+  /** geometry planned in App against every block and every other wire */
+  route?: Route
 }
 
-export function RelEdge({ id, source, target, markerEnd, data }: EdgeProps & { data?: RelEdgeData }) {
-  const s = useInternalNode(source)
-  const t = useInternalNode(target)
-  if (!s || !t || !data) return null
-
-  // Deterministic per-edge seed: picks the socket on each card and fans the elbow out, so two
-  // links between the same pair of boxes never trace the identical polyline.
-  let h = 0
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0
-
-  const sr = rectOf(s), tr = rectOf(t)
-  const [sx, sy, sourcePosition] = anchor(sr, tr)
-  const [tx, ty, targetPosition] = anchor(tr, sr)
-  // small deterministic variation in the elbow distance, so two wires that do share a
-  // corridor still separate rather than overprinting
-  const offset = 16 + (Math.abs(h) % 5) * 9
-
-  const [path] = getSmoothStepPath({
-    sourceX: sx, sourceY: sy, targetX: tx, targetY: ty,
-    sourcePosition, targetPosition, borderRadius: 12, offset,
-  })
+export function RelEdge({ id, markerStart, markerEnd, data }: EdgeProps & { data?: RelEdgeData }) {
+  if (!data?.route) return null
+  const { route } = data
   const style = REL[data.rel]
   const ends = data.card ? CARD_ENDS[data.card] : null
-  const [slx, sly] = nudge(sourcePosition, sx, sy)
-  const [tlx, tly] = nudge(targetPosition, tx, ty)
   const opacity = data.dimmed ? 0.06 : data.active ? 1 : 0.4
+  // one speed for every wire: a short hop no longer looks like the dot bouncing on the spot
+  const dur = Math.min(3.4, Math.max(0.7, route.len / 190)).toFixed(2) + 's'
 
   return (
     <>
       <BaseEdge
         id={id}
-        path={path}
+        path={route.path}
+        /* a mutual link is arrowed at both ends — queries, syncs, incompatible */
+        markerStart={markerStart}
         markerEnd={markerEnd}
         /* without this React Flow lays a 20px invisible hit path over the blocks and eats their clicks */
         interactionWidth={0}
@@ -296,13 +218,24 @@ export function RelEdge({ id, source, target, markerEnd, data }: EdgeProps & { d
           strokeWidth: data.active ? 2.2 : 1.2,
           strokeDasharray: style.dash ? '6 4' : undefined,
           opacity,
+          fill: 'none',
         }}
       />
 
       {ends && !data.dimmed && (
-        <g fill={style.color} fontSize="10" fontWeight="700" textAnchor="middle" opacity={opacity}>
-          <text x={slx} y={sly}>{ends[0]}</text>
-          <text x={tlx} y={tly}>{ends[1]}</text>
+        /* the halo keeps the mark readable even where a wire does pass under it */
+        <g
+          fill={style.color}
+          stroke="#0b0d10"
+          strokeWidth="3"
+          paintOrder="stroke"
+          fontSize="10"
+          fontWeight="700"
+          textAnchor="middle"
+          opacity={opacity}
+        >
+          <text x={route.ls.x} y={route.ls.y}>{ends[0]}</text>
+          <text x={route.lt.x} y={route.lt.y}>{ends[1]}</text>
         </g>
       )}
 
@@ -310,14 +243,14 @@ export function RelEdge({ id, source, target, markerEnd, data }: EdgeProps & { d
       {data.active && (
         <>
           <circle r="4" fill={style.color}>
-            <animateMotion dur="1.6s" repeatCount="indefinite" path={path} />
+            <animateMotion dur={dur} repeatCount="indefinite" path={route.path} />
           </circle>
           {data.both && (
             <circle r="4" fill={style.color}>
               <animateMotion
-                dur="1.6s"
+                dur={dur}
                 repeatCount="indefinite"
-                path={path}
+                path={route.path}
                 keyPoints="1;0"
                 keyTimes="0;1"
                 calcMode="linear"

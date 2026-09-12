@@ -6,6 +6,8 @@ import {
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
+  useStore,
+  useStoreApi,
   type Edge,
   type EdgeTypes,
   type Node,
@@ -15,10 +17,11 @@ import '@xyflow/react/dist/style.css'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { groupById, stackRules, techById } from './catalog'
 import { GroupNode, REL, RelEdge, TechNode } from './components/nodes'
-import { DeleteGuard, Drawer, Inspector, Legend, NeedsPanel, Palette, TopBar, UndoToast } from './components/panels'
+import { DeleteGuard, Drawer, Inspector, NeedsPanel, Palette, TopBar, UndoToast } from './components/panels'
 import { NODE_H, NODE_W, layout } from './layout'
+import { planRoutes, type Rect } from './routing'
 import { analyze } from './rules'
-import { useStack } from './store'
+import { matchesHighlight, useStack } from './store'
 import type { Tech } from './types'
 
 const nodeTypes = { tech: TechNode, group: GroupNode } as unknown as NodeTypes
@@ -28,17 +31,16 @@ const edgeTypes = { rel: RelEdge } as unknown as EdgeTypes
  * ReactFlow's own `fitView` prop fires at init, before the restored stack has been
  * measured, so it fits an empty canvas. Wait for the real measurements instead.
  */
-function FitOnDemand({ tick }: { tick: number }) {
+function FitOnDemand({ tick }: { tick: string }) {
   const { fitView } = useReactFlow()
+  // React Flow's own measured pane size. Waiting on a timer after our ResizeObserver was a
+  // race — if React Flow had not re-measured yet the fit used the old size and never retried,
+  // which is how the bottom of the diagram ended up off-screen. Its store cannot be stale.
+  const pane = useStore((s) => `${Math.round(s.width)}x${Math.round(s.height)}`)
   useEffect(() => {
-    // Nodes carry explicit width/height, which keeps `useNodesInitialized` false forever —
-    // depending on it meant this never fired. Retry instead: the first attempt usually lands,
-    // the later ones cover a slow first paint.
-    const timers = [40, 180, 420].map((ms) =>
-      setTimeout(() => void fitView({ padding: 0.08, duration: ms === 40 ? 0 : 200 }), ms),
-    )
-    return () => timers.forEach(clearTimeout)
-  }, [tick, fitView])
+    const id = requestAnimationFrame(() => void fitView({ padding: 0.08 }))
+    return () => cancelAnimationFrame(id)
+  }, [tick, pane, fitView])
   return null
 }
 
@@ -79,12 +81,7 @@ function Canvas() {
     return set
   }, [selected, rel])
 
-  const matchesFilter = (t: Tech) => {
-    if (!highlight) return true
-    if (highlight.kind === 'lang') return t.langs.includes(highlight.value)
-    if (highlight.kind === 'tag') return !!t.tags?.includes(highlight.value)
-    return t.group === highlight.value
-  }
+  const matchesFilter = (t: Tech) => matchesHighlight(t, highlight)
 
   const isDim = (t: Tech) => !matchesFilter(t) || (!!neighbours && !neighbours.has(t.id))
 
@@ -131,6 +128,33 @@ function Canvas() {
     return [...groupNodes, ...techNodes]
   }, [boxes, placed, groupPos, nodePos, problems, selected, highlight, techs])
 
+  /**
+   * Wires are planned against every block at once — see routing.ts. React Flow keeps node
+   * geometry in its own store, so subscribe to a cheap position signature to stay live while
+   * a block is being dragged.
+   * ponytail: rebuilds every wire on each drag frame; batch by moved node if a big stack drags rough.
+   */
+  const store = useStoreApi()
+  const posKey = useStore((s) => {
+    let k = ''
+    for (const [id, n] of s.nodeLookup) k += `${id}:${n.internals.positionAbsolute.x},${n.internals.positionAbsolute.y};`
+    return k
+  })
+  const routes = useMemo(() => {
+    const rects = new Map<string, Rect>()
+    for (const [id, n] of store.getState().nodeLookup) {
+      rects.set(id, {
+        x: n.internals.positionAbsolute.x,
+        y: n.internals.positionAbsolute.y,
+        w: n.measured.width ?? (id.startsWith('group:') ? 0 : NODE_W),
+        h: n.measured.height ?? (id.startsWith('group:') ? 0 : NODE_H),
+        parent: n.parentId,
+        box: id.startsWith('group:'),
+      })
+    }
+    return planRoutes(rects, rel)
+  }, [posKey, rel, store])
+
   const edges = useMemo<Edge[]>(
     () =>
       rel.map((e) => {
@@ -146,10 +170,14 @@ function Canvas() {
           markerEnd: marker,
           markerStart: style.both || e.both ? marker : undefined,
           zIndex: active ? 5 : 1,
-          data: { rel: e.rel, card: e.card, both: style.both || e.both, active, dimmed: (!!selected && !active) || !bothEndsPass },
+          data: {
+            rel: e.rel, card: e.card, both: style.both || e.both, active,
+            dimmed: (!!selected && !active) || !bothEndsPass,
+            route: routes.get(e.id),
+          },
         }
       }),
-    [rel, selected, highlight],
+    [rel, selected, highlight, routes],
   )
 
   const undoRemove = useStack((s) => s.undoRemove)
@@ -175,6 +203,9 @@ function Canvas() {
       <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
         <Palette onBlocked={(m) => { setToast(m); setTimeout(() => setToast(null), 3500) }} />
 
+        {/* the canvas owns its own box: the strip below is a sibling, not an overlay, so
+            the measured height is the height that is actually visible and fitView lands right */}
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <main ref={canvasRef} className="stack-canvas relative min-h-0 min-w-0 flex-1 overflow-hidden">
           {!added.length && (
             <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center text-center text-white/35">
@@ -202,7 +233,8 @@ function Canvas() {
             fitView
             minZoom={0.15}
           >
-            <FitOnDemand tick={fitTick + boxes.length * 1000 + Math.round(canvasSize.w / 40)} />
+            {/* the boxes' own extent, so a re-column refits even when the pane size did not change */}
+            <FitOnDemand tick={`${fitTick}|${boxes.map((b) => `${b.x},${b.y},${b.w},${b.h}`).join(';')}`} />
             <Background color="#212631" gap={26} size={1} />
             <Controls showInteractive={false} />
             <MiniMap
@@ -221,11 +253,6 @@ function Canvas() {
           <NeedsPanel analysis={analysis} />
           <UndoToast />
           <DeleteGuard />
-          <Legend />
-          <Inspector
-            tech={hovered ? techById.get(hovered) : undefined}
-            problems={hovered ? problems.filter((p) => p.techId === hovered) : []}
-          />
 
           {selectedTech && (
             <div className="absolute right-0 top-0 bottom-0 z-30 flex">
@@ -240,6 +267,11 @@ function Canvas() {
           )}
         </main>
 
+        <Inspector
+          tech={hovered ? techById.get(hovered) : undefined}
+          problems={hovered ? problems.filter((p) => p.techId === hovered) : []}
+        />
+        </div>
       </div>
     </div>
   )

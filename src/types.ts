@@ -60,6 +60,18 @@ export interface Group {
   sections: string[]
 }
 
+/**
+ * A thing you might be building (catalog/builds.json). Each role names the part it plays in
+ * that build and the `group:Section` slots that fill it — `group:*` for a whole box. A tech
+ * that lands in one of those slots is relevant to the build, and wears the role as its chip.
+ */
+export interface Build {
+  id: string
+  name: string
+  desc: string
+  roles: Record<string, string[]>
+}
+
 /** Declarative stack-wide completeness check (catalog/rules.json) */
 export interface StackRule {
   id: string

@@ -1,0 +1,110 @@
+[
+  { "id": "saas", "name": "SaaS product",
+    "desc": "Multi-tenant web product with accounts, billing and a database behind it.",
+    "roles": {
+      "UI": ["frontend:*"],
+      "API": ["backend:Framework", "backend:API layer", "backend:Platform (BaaS)"],
+      "Auth": ["auth:*"],
+      "Data": ["data:Relational", "data:ORM & Query", "data:Cache & KV", "data:Object storage"],
+      "Jobs": ["backend:Jobs & Queues", "automation:Scheduling"],
+      "Glue": ["automation:Workflow automation"],
+      "Billing": ["business:Payments", "business:CRM & Marketing", "business:Support"],
+      "Hosting": ["devops:Hosting & PaaS", "devops:CI/CD", "devops:Edge & CDN", "devops:Secrets"],
+      "Monitor": ["observability:*"],
+      "Analytics": ["analytics:Product analytics", "analytics:Web analytics"],
+      "Tests": ["testing:*"],
+      "Language": ["language:*"]
+    } },
+
+  { "id": "mobile", "name": "Mobile app",
+    "desc": "iOS/Android app with a backend, accounts and a release pipeline.",
+    "roles": {
+      "App": ["mobile:Cross-platform", "mobile:Native"],
+      "Backend": ["backend:Platform (BaaS)", "backend:API layer", "backend:Framework"],
+      "Auth": ["auth:Hosted providers", "auth:Protocols & Libraries"],
+      "Data": ["data:Relational", "data:NoSQL & Document", "data:Object storage"],
+      "Release": ["mobile:Distribution", "devops:CI/CD"],
+      "Monitor": ["observability:Errors", "observability:Metrics & Dashboards"],
+      "Analytics": ["analytics:Product analytics"],
+      "Tests": ["testing:Unit", "testing:End-to-end"],
+      "Design": ["design:Design tools", "design:Component systems"],
+      "Language": ["language:Languages"]
+    } },
+
+  { "id": "ecommerce", "name": "E-commerce store",
+    "desc": "Storefront with a catalogue, checkout and order handling.",
+    "roles": {
+      "Storefront": ["frontend:*", "business:Commerce"],
+      "Payments": ["business:Payments"],
+      "Marketing": ["business:CRM & Marketing", "business:Support"],
+      "Search": ["data:Search"],
+      "Data": ["data:Relational", "data:ORM & Query", "data:Cache & KV", "data:Object storage"],
+      "Auth": ["auth:*"],
+      "Hosting": ["devops:Hosting & PaaS", "devops:Edge & CDN", "devops:CI/CD"],
+      "Analytics": ["analytics:Web analytics", "analytics:Product analytics"],
+      "Glue": ["automation:Workflow automation"]
+    } },
+
+  { "id": "internal", "name": "Internal tool",
+    "desc": "Back-office screens, dashboards and glue over systems you already run.",
+    "roles": {
+      "UI": ["frontend:Framework", "frontend:Meta-framework", "frontend:UI & Components"],
+      "Glue": ["automation:Workflow automation", "automation:Scheduling"],
+      "Data": ["data:Relational", "data:ORM & Query", "data:Warehouse & Lake"],
+      "Auth": ["auth:Hosted providers", "auth:Protocols & Libraries"],
+      "Dashboards": ["analytics:BI & Dashboards", "analytics:Charting libraries"],
+      "Business": ["business:ERP", "business:CRM & Marketing"],
+      "Hosting": ["devops:Hosting & PaaS", "devops:Containers"],
+      "Team": ["pm:*"]
+    } },
+
+  { "id": "ai", "name": "AI product",
+    "desc": "LLM-backed features: retrieval, prompts, evaluation and the serving around them.",
+    "roles": {
+      "Models": ["ai:Model providers", "ai:Local & Open models"],
+      "Framework": ["ai:Frameworks", "ai:RAG & Retrieval"],
+      "Vector": ["data:Vector", "data:Object storage"],
+      "Eval": ["ai:Ops & Eval", "observability:Logs & Tracing"],
+      "API": ["backend:Framework", "backend:API layer"],
+      "UI": ["frontend:Framework", "frontend:Meta-framework"],
+      "Queue": ["backend:Jobs & Queues", "automation:Messaging & Events"],
+      "Hosting": ["devops:Hosting & PaaS", "devops:Cloud providers"],
+      "Language": ["language:Languages"]
+    } },
+
+  { "id": "data", "name": "Data platform",
+    "desc": "Ingest, transform, warehouse and report on data.",
+    "roles": {
+      "Warehouse": ["data:Warehouse & Lake", "data:Relational"],
+      "Pipelines": ["automation:Data pipelines", "automation:Scheduling", "automation:Messaging & Events"],
+      "BI": ["analytics:BI & Dashboards", "analytics:Event pipelines", "analytics:Charting libraries"],
+      "Storage": ["data:Object storage", "data:NoSQL & Document"],
+      "Infra": ["devops:Orchestration", "devops:Containers", "devops:Infra as Code"],
+      "Monitor": ["observability:Metrics & Dashboards", "observability:Logs & Tracing"],
+      "Language": ["language:Languages"]
+    } },
+
+  { "id": "marketing", "name": "Marketing site",
+    "desc": "Content-led site: pages, SEO, forms and the analytics behind them.",
+    "roles": {
+      "Site": ["frontend:Meta-framework", "frontend:Framework", "frontend:Styling", "frontend:UI & Components"],
+      "Content": ["business:CRM & Marketing", "pm:Docs & Knowledge"],
+      "Hosting": ["devops:Hosting & PaaS", "devops:Edge & CDN"],
+      "Analytics": ["analytics:Web analytics"],
+      "Design": ["design:*"],
+      "Glue": ["automation:Workflow automation"]
+    } },
+
+  { "id": "api", "name": "API service",
+    "desc": "A backend service other things call: no UI of its own.",
+    "roles": {
+      "Framework": ["backend:Framework", "backend:API layer"],
+      "Data": ["data:Relational", "data:ORM & Query", "data:Cache & KV", "data:NoSQL & Document"],
+      "Queue": ["backend:Jobs & Queues", "automation:Messaging & Events", "automation:Scheduling"],
+      "Auth": ["auth:*"],
+      "Infra": ["devops:Containers", "devops:Orchestration", "devops:CI/CD", "devops:Infra as Code", "devops:Secrets"],
+      "Monitor": ["observability:*"],
+      "Tests": ["testing:Unit", "testing:Load & Contract"],
+      "Language": ["language:*"]
+    } }
+]

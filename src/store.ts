@@ -1,8 +1,33 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { Creds } from './types'
+import { buildById, roleOf } from './catalog'
+import type { Creds, Tech } from './types'
 
-export type Highlight = { kind: 'lang' | 'tag' | 'group'; value: string } | null
+export type Highlight = { kind: 'lang' | 'tag' | 'group' | 'build'; value: string } | null
+
+/** Does the active filter cover this technology? Nothing filtered means everything matches. */
+export function matchesHighlight(t: Tech, h: Highlight): boolean {
+  if (!h) return true
+  if (h.kind === 'lang') return t.langs.includes(h.value)
+  if (h.kind === 'tag') return !!t.tags?.includes(h.value)
+  if (h.kind === 'build') return !!highlightChip(t, h)
+  return t.group === h.value
+}
+
+/**
+ * What to print on a matched tech's chip: for a build, the part it plays in it; otherwise the
+ * filter value itself. Null when the tech is not matched, or when a chip would say nothing
+ * new — under a box filter every match is in that box already.
+ */
+export function highlightChip(t: Tech, h: Highlight): string | null {
+  if (!h) return null
+  if (h.kind === 'build') {
+    const build = buildById.get(h.value)
+    return build ? roleOf(build, t) : null
+  }
+  if (h.kind === 'group') return null
+  return matchesHighlight(t, h) ? (h.kind === 'lang' ? h.value.toUpperCase() : h.value) : null
+}
 
 interface State {
   /** ids of techs on the canvas */

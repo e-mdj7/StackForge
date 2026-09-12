@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
-import { allLangs, allTags, groups, techById, techs } from '../catalog'
+import { allLangs, allTags, buildById, builds, groups, techById, techs } from '../catalog'
 import { decryptSecret, encryptSecret } from '../crypto'
 import { blockedBy } from '../rules'
-import { useStack, type Highlight } from '../store'
+import { highlightChip, matchesHighlight, useStack, type Highlight } from '../store'
 import type { Analysis } from '../rules'
 import type { Problem, Rel, Tech } from '../types'
 import { REL } from './nodes'
@@ -12,7 +12,7 @@ import { REL } from './nodes'
 export function Palette({ onBlocked }: { onBlocked: (msg: string) => void }) {
   const [q, setQ] = useState('')
   const [open, setOpen] = useState<Record<string, boolean>>({})
-  const { added, add, requestRemove } = useStack()
+  const { added, add, requestRemove, highlight } = useStack()
   const selected = useMemo(() => added.map((id) => techById.get(id)!).filter(Boolean), [added])
 
   const needle = q.trim().toLowerCase()
@@ -33,12 +33,32 @@ export function Palette({ onBlocked }: { onBlocked: (msg: string) => void }) {
   return (
     <aside className="flex w-72 shrink-0 flex-col border-r border-white/10 bg-[#0d1014]">
       <div className="shrink-0 p-3">
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Search 349 technologies…"
-          className="w-full rounded-md border border-white/15 bg-white/5 px-2.5 py-1.5 text-[12px] text-white/90 outline-none placeholder:text-white/30 focus:border-white/30"
-        />
+        <div className="relative">
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search 349 technologies…"
+            className="w-full rounded-md border border-white/15 bg-white/5 py-1.5 pl-2.5 pr-7 text-[12px] text-white/90 outline-none placeholder:text-white/30 focus:border-white/30"
+          />
+          {q && (
+            <button
+              title="Clear search"
+              onClick={() => setQ('')}
+              className="absolute right-1.5 top-1/2 grid h-4 w-4 -translate-y-1/2 place-items-center rounded-full text-white/40 hover:bg-white/10 hover:text-white"
+            >
+              <svg viewBox="0 0 16 16" width="8" height="8" aria-hidden="true">
+                <path d="M2 2 L14 14 M14 2 L2 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+              </svg>
+            </button>
+          )}
+        </div>
+        <button
+          onClick={() => setOpen({})}
+          title={needle ? 'Clear the search to see it take effect' : undefined}
+          className="mt-1.5 text-[9px] uppercase tracking-wider text-white/30 hover:text-white/70"
+        >
+          Collapse all
+        </button>
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto px-2 pb-4">
@@ -48,17 +68,24 @@ export function Palette({ onBlocked }: { onBlocked: (msg: string) => void }) {
           // searching forces everything open, otherwise respect the toggle
           const isOpen = needle ? true : (open[g.id] ?? false)
           const onCount = mine.filter((t) => added.includes(t.id)).length
+          // how much of this box the active filter covers, so a closed box still says something
+          const hits = highlight ? mine.filter((t) => matchesHighlight(t, highlight)).length : null
 
           return (
             <div key={g.id} className="mb-1">
               <button
                 onClick={() => setOpen((o) => ({ ...o, [g.id]: !isOpen }))}
-                className="flex w-full items-center gap-1.5 rounded px-1 py-1.5 text-left hover:bg-white/5"
+                className={`flex w-full items-center gap-1.5 rounded px-1 py-1.5 text-left hover:bg-white/5 ${
+                  hits === 0 ? 'opacity-40' : ''
+                }`}
               >
                 <span className={`text-[9px] text-white/40 transition-transform ${isOpen ? 'rotate-90' : ''}`}>▶</span>
                 <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: g.color }}>
                   {g.name}
                 </span>
+                {hits !== null && (
+                  <span className={`text-[9px] ${hits ? 'text-cyan-300' : 'text-white/20'}`}>({hits})</span>
+                )}
                 <span className="ml-auto text-[9px] text-white/25">
                   {onCount ? `${onCount}/${mine.length}` : mine.length}
                 </span>
@@ -74,6 +101,8 @@ export function Palette({ onBlocked }: { onBlocked: (msg: string) => void }) {
                       {items.map((t) => {
                         const on = added.includes(t.id)
                         const reason = on ? null : blockedBy(t, selected)
+                        const hit = !!highlight && matchesHighlight(t, highlight)
+                        const chip = highlightChip(t, highlight)
                         return (
                           <button
                             key={t.id}
@@ -89,11 +118,18 @@ export function Palette({ onBlocked }: { onBlocked: (msg: string) => void }) {
                                 : on
                                   ? 'bg-white/10 text-white'
                                   : 'text-white/70 hover:bg-white/5'
-                            }`}
+                            } ${hit ? 'ring-1 ring-inset ring-cyan-400/40' : highlight ? 'opacity-45' : ''}`}
                           >
                             <span className="h-2 w-2 shrink-0 rounded-sm" style={{ background: t.color }} />
                             <span className="truncate">{t.name}</span>
-                            {on && <span className="ml-auto text-[10px] text-white/40">on</span>}
+                            <span className="ml-auto flex shrink-0 items-center gap-1">
+                              {chip && (
+                                <span className="rounded bg-cyan-400/15 px-1 text-[9px] font-semibold text-cyan-300">
+                                  {chip}
+                                </span>
+                              )}
+                              {on && <span className="text-[10px] text-white/40">on</span>}
+                            </span>
                           </button>
                         )
                       })}
@@ -204,6 +240,33 @@ function FilterMenu({
   )
 }
 
+/**
+ * "What are you building?" — the other filters ask what a tech *is*, this one asks what it
+ * would be *for*. Picking SaaS lights up every block that plays a part in one, each wearing
+ * the part it plays: n8n turns up as Glue, Stripe as Billing.
+ */
+function BuildFilter({ highlight, setHighlight }: { highlight: Highlight; setHighlight: (h: Highlight) => void }) {
+  const value = highlight?.kind === 'build' ? highlight.value : ''
+  return (
+    <label className="flex items-center gap-1.5">
+      <span className="text-[9px] uppercase tracking-wider text-white/35">Build</span>
+      <select
+        value={value}
+        title={value ? buildById.get(value)?.desc : 'Highlight what a kind of project needs'}
+        onChange={(e) => setHighlight(e.target.value ? { kind: 'build', value: e.target.value } : null)}
+        className={`rounded border bg-[#12161c] px-1.5 py-1 text-[11px] outline-none ${
+          value ? 'border-cyan-400/60 text-white' : 'border-white/15 text-white/60'
+        }`}
+      >
+        <option value="">anything</option>
+        {builds.map((b) => (
+          <option key={b.id} value={b.id}>{b.name}</option>
+        ))}
+      </select>
+    </label>
+  )
+}
+
 /** Box is a flat list of 15 — a plain select, not a mega-menu. */
 function BoxFilter({ highlight, setHighlight }: { highlight: Highlight; setHighlight: (h: Highlight) => void }) {
   const value = highlight?.kind === 'group' ? highlight.value : ''
@@ -231,6 +294,7 @@ function Filters({ highlight, setHighlight }: { highlight: Highlight; setHighlig
   const tagCols = useMemo(() => withLeftovers(TAG_COLUMNS, allTags), [])
   return (
     <div className="flex min-w-0 items-center gap-2">
+      <BuildFilter highlight={highlight} setHighlight={setHighlight} />
       <FilterMenu kind="lang" label="Language" columns={langCols} upper highlight={highlight} setHighlight={setHighlight} />
       <FilterMenu kind="tag" label="Ecosystem" columns={tagCols} highlight={highlight} setHighlight={setHighlight} />
       <BoxFilter highlight={highlight} setHighlight={setHighlight} />
@@ -396,8 +460,10 @@ export function UndoToast() {
 
 export function Inspector({ tech, problems }: { tech?: Tech; problems: Problem[] }) {
   return (
-    <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 flex h-12 items-center gap-3 border-t border-white/10 bg-[#0d1014]/95 px-4 text-[11px] backdrop-blur">
-      <div className="flex min-w-0 flex-1 items-center gap-3">
+    <div className="pointer-events-none flex min-h-12 shrink-0 flex-wrap items-center gap-x-3 gap-y-1 border-t border-white/10 bg-[#0d1014] px-4 py-1.5 text-[11px]">
+      {/* basis-64 + truncate: the hint stays one line and the legend drops below it when
+          the window is too narrow for both, instead of the hint wrapping into a column */}
+      <div className="flex min-w-0 flex-1 basis-64 items-center gap-3 overflow-hidden whitespace-nowrap">
         {tech ? (
           <>
             <span className="h-2.5 w-2.5 shrink-0 rounded" style={{ background: tech.color }} />
@@ -416,7 +482,7 @@ export function Inspector({ tech, problems }: { tech?: Tech; problems: Problem[]
             ))}
           </>
         ) : (
-          <span className="text-white/25">Hover a block for details · click it to trace its connections</span>
+          <span className="truncate text-white/25">Hover a block for details · click it to trace its connections</span>
         )}
       </div>
 
@@ -426,11 +492,11 @@ export function Inspector({ tech, problems }: { tech?: Tech; problems: Problem[]
   )
 }
 
-/** Compact always-visible key for the line styles, docked in the bottom bar. */
+/** The legend. Docked in the bottom bar so it is always on screen and never covers a block. */
 function LegendRow() {
   const shown: Rel[] = ['requires', 'consumes', 'queries', 'deploys', 'extends', 'tests', 'monitors', 'conflicts']
   return (
-    <div className="hidden shrink-0 items-center gap-3 border-l border-white/10 pl-4 lg:flex">
+    <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-0.5 border-l border-white/10 pl-4">
       {shown.map((r) => (
         <span key={r} className="flex items-center gap-1.5 whitespace-nowrap">
           <svg width="20" height="6" className="shrink-0">
@@ -445,47 +511,6 @@ function LegendRow() {
         </span>
       ))}
       <span className="whitespace-nowrap text-[10px] text-white/25">1 ∗ cardinality</span>
-    </div>
-  )
-}
-
-/* ---------- legend ---------- */
-
-export function Legend() {
-  // collapsed by default: expanded it sits over whatever box is in the bottom-left corner
-  const [open, setOpen] = useState(false)
-  const solid: Rel[] = ['requires', 'consumes', 'queries', 'deploys']
-  const dashed: Rel[] = ['extends', 'tests', 'monitors', 'conflicts']
-  const row = (r: Rel) => (
-    <div key={r} className="flex items-center gap-2 py-px">
-      <svg width="24" height="6">
-        <line x1="0" y1="3" x2="24" y2="3" stroke={REL[r].color} strokeWidth="2" strokeDasharray={REL[r].dash ? '4 3' : undefined} />
-      </svg>
-      <span className="text-white/50">{REL[r].label}</span>
-    </div>
-  )
-
-  return (
-    <div className="absolute bottom-14 left-3 z-10 rounded-lg border border-white/10 bg-[#0d1014]/90 text-[10px] backdrop-blur">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-1.5 px-2.5 py-1.5 text-[9px] uppercase tracking-wider text-white/40 hover:text-white/80"
-      >
-        <span>{open ? '▾' : '▸'}</span> Legend
-      </button>
-      {open && (
-        <div className="flex gap-4 px-2.5 pb-2.5">
-          <div>
-            <div className="mb-0.5 text-[9px] uppercase tracking-wider text-white/25">Depends on</div>
-            {solid.map(row)}
-          </div>
-          <div>
-            <div className="mb-0.5 text-[9px] uppercase tracking-wider text-white/25">Reference</div>
-            {dashed.map(row)}
-          </div>
-          <div className="self-end text-[9px] text-white/25">1 ∗ = cardinality</div>
-        </div>
-      )}
     </div>
   )
 }

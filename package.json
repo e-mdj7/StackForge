@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "check": "node --experimental-strip-types --test src/rules.test.ts src/catalog/catalog.test.ts"
+    "check": "node --experimental-strip-types --test src/rules.test.ts src/catalog/catalog.test.ts src/routing.test.ts"
   },
   "dependencies": {
     "@xyflow/react": "^12.11.6",
