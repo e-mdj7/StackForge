@@ -5,6 +5,7 @@ import {
   MiniMap,
   ReactFlow,
   ReactFlowProvider,
+  ViewportPortal,
   useReactFlow,
   useStore,
   useStoreApi,
@@ -14,17 +15,23 @@ import {
   type NodeTypes,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { groupById, stackRules, techById } from './catalog'
-import { GroupNode, REL, RelEdge, TechNode } from './components/nodes'
+import { GhostNode, GroupNode, REL, RelEdge, TechNode } from './components/nodes'
 import { DeleteGuard, Drawer, Inspector, NeedsPanel, Palette, TopBar, UndoToast } from './components/panels'
 import { NODE_H, NODE_W, layout } from './layout'
 import { planRoutes, type Rect } from './routing'
 import { analyze } from './rules'
+import { snap, type Guide } from './snap'
 import { matchesHighlight, useStack } from './store'
 import type { Tech } from './types'
 
-const nodeTypes = { tech: TechNode, group: GroupNode } as unknown as NodeTypes
+/** how close, in screen pixels, two edges get before the drag pulls them together */
+const SNAP_PX = 6
+/** the drag preview is a real node, so it needs an id no technology can collide with */
+const GHOST_ID = '__ghost'
+
+const nodeTypes = { tech: TechNode, group: GroupNode, ghost: GhostNode } as unknown as NodeTypes
 const edgeTypes = { rel: RelEdge } as unknown as EdgeTypes
 
 /**
@@ -44,11 +51,46 @@ function FitOnDemand({ tick }: { tick: string }) {
   return null
 }
 
+/**
+ * The lines that say *why* a drag snapped where it did. ViewportPortal puts them inside the
+ * pan/zoom transform, so a guide stays welded to the blocks it relates as the canvas moves.
+ * Thickness and overhang are divided by the zoom, so the line stays one crisp pixel whether
+ * you are zoomed right in or looking at the whole stack.
+ */
+function AlignmentGuides({ guides }: { guides?: Guide[] }) {
+  const zoom = useStore((s) => s.transform[2])
+  if (!guides?.length) return null
+  const thick = 1 / zoom
+  const over = 10 / zoom
+
+  return (
+    <ViewportPortal>
+      {guides.map((g) => (
+        <div
+          key={`${g.axis}${g.at}`}
+          style={{
+            position: 'absolute',
+            pointerEvents: 'none',
+            background: '#22d3ee',
+            boxShadow: `0 0 ${6 / zoom}px #22d3ee`,
+            ...(g.axis === 'x'
+              ? { left: g.at, top: g.from - over, width: thick, height: g.to - g.from + over * 2 }
+              : { left: g.from - over, top: g.at, width: g.to - g.from + over * 2, height: thick }),
+          }}
+        />
+      ))}
+    </ViewportPortal>
+  )
+}
+
 function Canvas() {
   const { added, nodePos, groupPos, selected, highlight, fitTick, select, setNodePos, setGroupPos, requestRemove } =
     useStack()
   const [toast, setToast] = useState<string | null>(null)
   const [hovered, setHovered] = useState<string | null>(null)
+  /** where the block being dragged would land — null whenever no drag is in flight */
+  const [ghost, setGhost] = useState<{ id: string; x: number; y: number; guides: Guide[] } | null>(null)
+  const dragging = !!ghost
 
   const techs = useMemo(() => added.map((id) => techById.get(id)).filter(Boolean) as Tech[], [added])
   const analysis = useMemo(() => analyze(techs, stackRules), [techs])
@@ -129,13 +171,56 @@ function Canvas() {
   }, [boxes, placed, groupPos, nodePos, problems, selected, highlight, techs])
 
   /**
+   * The ghost is appended in its own memo rather than built into `nodes` above, so the real
+   * blocks keep their object identity while a drag runs: React Flow then only has to adopt
+   * the one node that actually changed each frame instead of all of them.
+   */
+  const nodesWithGhost = useMemo<Node[]>(() => {
+    if (!ghost) return nodes
+    const isGroup = ghost.id.startsWith('group:')
+    const box = isGroup ? boxes.find((b) => `group:${b.groupId}` === ghost.id) : undefined
+    const tech = isGroup ? undefined : techById.get(ghost.id)
+    if (isGroup ? !box : !tech) return nodes
+
+    const group = groupById.get(isGroup ? box!.groupId : tech!.group)
+    return [
+      ...nodes,
+      {
+        id: GHOST_ID,
+        type: 'ghost',
+        // a block's drag position is relative to its box, exactly like its resting position
+        parentId: isGroup ? undefined : `group:${tech!.group}`,
+        position: { x: ghost.x, y: ghost.y },
+        width: isGroup ? box!.w : NODE_W,
+        height: isGroup ? box!.h : NODE_H,
+        style: { width: isGroup ? box!.w : NODE_W, height: isGroup ? box!.h : NODE_H },
+        draggable: false,
+        selectable: false,
+        /* above the cards, so the landing spot is never hidden behind one */
+        zIndex: 6,
+        data: {
+          color: (isGroup ? group?.color : tech!.color) ?? '#8b93a1',
+          label: isGroup ? (group?.name ?? '') : tech!.name,
+        },
+      },
+    ]
+  }, [nodes, ghost, boxes])
+
+  /**
    * Wires are planned against every block at once — see routing.ts. React Flow keeps node
-   * geometry in its own store, so subscribe to a cheap position signature to stay live while
-   * a block is being dragged.
-   * ponytail: rebuilds every wire on each drag frame; batch by moved node if a big stack drags rough.
+   * geometry in its own store, so subscribe to a cheap position signature to know when to
+   * re-plan.
+   *
+   * That signature is frozen for the length of a drag. planRoutes() costs a full orthogonal
+   * search over every wire against every block, and paying it on each drag frame re-rendered
+   * the whole canvas at 60fps — the card trailed the cursor so far behind that you could not
+   * tell where it would land. Held constant, the selector returns early, nothing downstream
+   * re-renders, and the card moves at React Flow's own speed as a preview of its landing spot
+   * (index.css gives it the dashed outline and fades the stale wires). One re-plan on drop.
    */
   const store = useStoreApi()
   const posKey = useStore((s) => {
+    if (dragging) return 'dragging'
     let k = ''
     for (const [id, n] of s.nodeLookup) k += `${id}:${n.internals.positionAbsolute.x},${n.internals.positionAbsolute.y};`
     return k
@@ -154,6 +239,61 @@ function Canvas() {
     }
     return planRoutes(rects, rel)
   }, [posKey, rel, store])
+
+  /**
+   * Where a drag actually lands. React Flow hands us the raw position; this pulls it onto any
+   * neighbour it is nearly aligned with and reports the guides to draw. Both drag handlers go
+   * through here, so the ghost you see and the position committed on drop cannot disagree.
+   *
+   * A block aligns against its own box-mates and a box against the other boxes — aligning a
+   * block to something in a different box would be meaningless, since `extent: 'parent'`
+   * means it can never get there. Hold Alt to drop exactly where the cursor is.
+   */
+  const resolveDrag = useCallback(
+    (n: Node, free: boolean) => {
+      const raw = { x: n.position.x, y: n.position.y, guides: [] as Guide[] }
+      if (free) return raw
+
+      const { nodeLookup, transform } = store.getState()
+      const self = nodeLookup.get(n.id)
+      if (!self) return raw
+
+      const isGroup = n.id.startsWith('group:')
+      const parent = n.parentId ? nodeLookup.get(n.parentId) : undefined
+      // a block's position is relative to its box, so snap in absolute space and convert back
+      const origin = parent?.internals.positionAbsolute ?? { x: 0, y: 0 }
+      const size = (m: typeof self) => ({
+        w: m.measured.width ?? NODE_W,
+        h: m.measured.height ?? NODE_H,
+      })
+
+      const peers = []
+      for (const [id, m] of nodeLookup) {
+        if (id === n.id || id === GHOST_ID) continue
+        if (isGroup !== id.startsWith('group:')) continue
+        if (!isGroup && m.parentId !== n.parentId) continue
+        peers.push({ x: m.internals.positionAbsolute.x, y: m.internals.positionAbsolute.y, ...size(m) })
+      }
+      if (!peers.length) return raw
+
+      const me = { x: origin.x + n.position.x, y: origin.y + n.position.y, ...size(self) }
+      // tolerance in flow units, so the pull feels the same at every zoom level
+      const hit = snap(me, peers, SNAP_PX / transform[2])
+
+      const x = hit.x - origin.x
+      const y = hit.y - origin.y
+      if (!parent) return { x, y, guides: hit.guides }
+
+      // A snap must never push a block past the box edge React Flow already clamped it to.
+      // Where the clamp wins, that axis did not really align, so its guide has to go too.
+      const box = size(parent)
+      const cx = Math.min(Math.max(x, 0), box.w - me.w)
+      const cy = Math.min(Math.max(y, 0), box.h - me.h)
+      const guides = hit.guides.filter((g) => (g.axis === 'x' ? cx === x : cy === y))
+      return { x: cx, y: cy, guides }
+    },
+    [store],
+  )
 
   const edges = useMemo<Edge[]>(
     () =>
@@ -217,23 +357,31 @@ function Canvas() {
           )}
 
           <ReactFlow
-            nodes={nodes}
+            className={dragging ? 'is-dragging' : undefined}
+            nodes={nodesWithGhost}
             edges={edges}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
             onNodeClick={(_, n) => !n.id.startsWith('group:') && select(n.id)}
             onPaneClick={() => select(null)}
-            onNodeDragStop={(_, n) =>
-              n.id.startsWith('group:')
-                ? setGroupPos(n.id.slice(6), n.position)
-                : setNodePos(n.id, n.position)
-            }
+            /* n.position is the position the block *would* take, already clamped to its box */
+            onNodeDragStart={(e, n) => setGhost({ id: n.id, ...resolveDrag(n, e.altKey) })}
+            onNodeDrag={(e, n) => setGhost({ id: n.id, ...resolveDrag(n, e.altKey) })}
+            onNodeDragStop={(e, n) => {
+              setGhost(null)
+              // resolve once more rather than trusting state: same inputs, same answer, and
+              // the block lands exactly where the ghost was standing
+              const { x, y } = resolveDrag(n, e.altKey)
+              if (n.id.startsWith('group:')) setGroupPos(n.id.slice(6), { x, y })
+              else setNodePos(n.id, { x, y })
+            }}
             nodesConnectable={false}
             proOptions={{ hideAttribution: true }}
             fitView
             minZoom={0.15}
           >
             {/* the boxes' own extent, so a re-column refits even when the pane size did not change */}
+            <AlignmentGuides guides={ghost?.guides} />
             <FitOnDemand tick={`${fitTick}|${boxes.map((b) => `${b.x},${b.y},${b.w},${b.h}`).join(';')}`} />
             <Background color="#212631" gap={26} size={1} />
             <Controls showInteractive={false} />

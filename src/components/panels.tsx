@@ -212,9 +212,15 @@ function FilterMenu({
       </Button>
 
       {/* one wide panel of wrapped columns rather than a long scrolling menu, so the whole
-          vocabulary is visible at once and it can never push the page wider than the window */}
-      <Popover.Content className="w-[min(78vw,760px)] max-h-[70vh] overflow-y-auto">
-        <div className="flex flex-wrap content-start gap-x-4 gap-y-3">
+          vocabulary is visible at once and it can never push the page wider than the window.
+          The padding lives on the inner wrapper, not on Popover.Content: HeroUI's `.popover`
+          sets `p-0` and wins the cascade against a utility class, which is what left the
+          first column's "Platform" clipped to "latform" against the border and the last one
+          flush with the right edge. */}
+      {/* 690px is five 118px columns plus their gaps and the padding — wide enough that
+          nothing wraps on a desktop, narrow enough that no dead band trails the last column */}
+      <Popover.Content className="w-[min(92vw,690px)] max-h-[70vh] overflow-y-auto">
+        <div className="flex flex-wrap content-start gap-x-4 gap-y-3 p-4">
           {columns.map((c) => (
             <div key={c.title} className="w-[118px]">
               <div className="mb-1 border-b border-border pb-1 text-[9px] font-bold uppercase tracking-wider text-muted">
@@ -344,6 +350,13 @@ export function TopBar({ problems }: { problems: Problem[] }) {
   const { highlight, setHighlight, added, nodePos, groupPos, creds, clear, load, resetPositions } = useStack()
   const errors = problems.filter((p) => p.severity === 'error').length
   const warns = problems.length - errors
+  /* Clear is the one button with no undo behind it — Ctrl+Z only puts back a single removed
+     block — so it asks first. Local state: nothing outside this bar needs to know. */
+  const [confirmingClear, setConfirmingClear] = useState(false)
+  const savedCount = added.filter((id) => {
+    const c = creds[id]
+    return !!(c && (c.url || c.username || c.secret || c.notes))
+  }).length
 
   const exportJson = () => {
     const blob = new Blob([JSON.stringify({ added, nodePos, groupPos, creds }, null, 2)], { type: 'application/json' })
@@ -384,8 +397,43 @@ export function TopBar({ problems }: { problems: Problem[] }) {
             onChange={(e) => e.target.files?.[0] && e.target.files[0].text().then((t) => load(JSON.parse(t)))}
           />
         </label>
-        <Button size="sm" variant="ghost" className="text-danger" onPress={clear}>Clear</Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="text-danger"
+          isDisabled={!added.length}
+          onPress={() => setConfirmingClear(true)}
+        >
+          Clear
+        </Button>
       </div>
+
+      {confirmingClear && (
+        <AlertDialog.Backdrop isOpen variant="blur" onOpenChange={(open) => !open && setConfirmingClear(false)}>
+          <AlertDialog.Container size="sm">
+            <AlertDialog.Dialog>
+              <AlertDialog.Header>
+                <AlertDialog.Icon status="danger" />
+                <AlertDialog.Heading>Clear the workspace?</AlertDialog.Heading>
+              </AlertDialog.Header>
+              <AlertDialog.Body>
+                <p>
+                  This removes all {added.length} {added.length === 1 ? 'block' : 'blocks'} and every position you
+                  arranged{savedCount ? `, along with the account details saved on ${savedCount} of them` : ''}. This
+                  cannot be undone.
+                </p>
+                <p className="mt-2 text-muted">Export first if you want to keep this stack.</p>
+              </AlertDialog.Body>
+              <AlertDialog.Footer>
+                <Button variant="tertiary" onPress={() => setConfirmingClear(false)}>Cancel</Button>
+                <Button variant="danger" onPress={() => { clear(); setConfirmingClear(false) }}>
+                  Clear everything
+                </Button>
+              </AlertDialog.Footer>
+            </AlertDialog.Dialog>
+          </AlertDialog.Container>
+        </AlertDialog.Backdrop>
+      )}
     </header>
   )
 }

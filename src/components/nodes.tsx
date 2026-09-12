@@ -26,10 +26,14 @@ export const REL: Record<Rel, { color: string; label: string; dash?: boolean; bo
   monitors: { color: '#fb923c', label: 'monitors', dash: true },
   tracks: { color: '#fb923c', label: 'tracks', dash: true },
 
+  /* The three solid data links used to be cyan, the same cyan, and a teal ten degrees off it,
+     which made them unreadable side by side. They are a hue apart each now — cyan, lime,
+     indigo — and no closer than 50° to any other solid line (amber deploys, fuchsia
+     automates). The dashed families keep their colours; a dash already separates them. */
   requires: { color: '#22d3ee', label: 'requires' },
-  consumes: { color: '#22d3ee', label: 'reads from' },
-  queries: { color: '#2dd4bf', label: 'queries', both: true },
-  syncs: { color: '#2dd4bf', label: 'syncs with', both: true },
+  consumes: { color: '#a3e635', label: 'reads from' },
+  queries: { color: '#818cf8', label: 'queries', both: true },
+  syncs: { color: '#818cf8', label: 'syncs with', both: true },
   deploys: { color: '#fbbf24', label: 'deploys' },
   hosts: { color: '#fbbf24', label: 'hosts' },
   orchestrates: { color: '#fbbf24', label: 'orchestrates' },
@@ -181,6 +185,37 @@ export function GroupNode({ data }: NodeProps & { data: GroupData }) {
   )
 }
 
+/* ---------- drag ghost ----------
+ * The block you grab never moves. React Flow reports the position it *would* take — already
+ * clamped to its parent box — and App renders that spot as this outline. On release the real
+ * block is committed here and the ghost goes away.
+ */
+
+export interface GhostData extends Record<string, unknown> {
+  color: string
+  label: string
+}
+
+export function GhostNode({ data }: NodeProps & { data: GhostData }) {
+  return (
+    <div
+      className="pointer-events-none flex h-full w-full items-center justify-center rounded-md"
+      style={{
+        border: `2px dashed ${data.color}`,
+        background: `${data.color}1f`,
+        boxShadow: `0 0 22px -6px ${data.color}`,
+      }}
+    >
+      <span
+        className="truncate px-2 text-[11px] font-semibold uppercase tracking-wider"
+        style={{ color: data.color }}
+      >
+        {data.label}
+      </span>
+    </div>
+  )
+}
+
 /* ---------- wires: geometry comes from planRoutes(), this only paints it ---------- */
 
 export interface RelEdgeData extends Record<string, unknown> {
@@ -263,5 +298,5 @@ export function RelEdge({ id, markerStart, markerEnd, data }: EdgeProps & { data
   )
 }
 
-export const nodeTypes = { tech: TechNode, group: GroupNode }
+export const nodeTypes = { tech: TechNode, group: GroupNode, ghost: GhostNode }
 export const edgeTypes = { rel: RelEdge }

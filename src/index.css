@@ -5,13 +5,67 @@
 html, body, #root { height: 100%; margin: 0; background: #0b0d10; overflow: hidden; }
 body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
 
+/* ---------- one radius identity ----------
+   The UI had three shapes at once: HeroUI buttons are pills (rounded-3xl = 24px on an h-8
+   control), its fields sit at 12px, and our own markup added 4px, 8px and 16px on top.
+   Every control and every surface is now the same 10px rounded rectangle.
+   HeroUI derives its whole scale from these tokens, so the first block restyles every one of
+   its components at once; the second catches the Tailwind utilities our own markup uses,
+   which compile to literals rather than to the tokens. Circles survive only where a circle
+   is the point — status dots and the card's remove button keep `rounded-full`. */
+:root {
+  --radius: 10px;
+  --radius-xl: 10px;
+  --radius-2xl: 10px;
+  --radius-3xl: 10px;
+  --radius-4xl: 10px;
+  --field-radius: 10px;
+}
+.rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl { border-radius: 10px; }
+/* inline tags, count badges and colour swatches: same family, scaled for a ~14px-tall box.
+   Every bare `rounded` in this codebase is one of those, so it belongs on this tier. */
+.rounded, .rounded-xs, .rounded-sm { border-radius: 6px; }
+
+/* HeroUI inlines its radius at build time via @apply, so the utility overrides above never
+   reach these — they have to be named. This is the list of its components that ship a pill
+   (rounded-3xl) or a 16px+ corner; everything else already follows --radius / --field-radius. */
+.button, .chip { border-radius: 10px; }
+.popover, .select__popover, .alert-dialog__dialog, .modal__dialog { border-radius: 10px; }
+/* The one deliberate exception, and it is a rule of its own: an icon-only button is a circle.
+   It reads as a circle at 20px whatever radius you give it, so say so — and it matches the
+   round remove button already on every card. */
+.close-button, .select__clear-button { border-radius: 9999px; }
+
 /* React Flow chrome, dark */
+.react-flow__controls {
+  border-radius: 10px;
+  overflow: hidden; /* so the first and last button inherit the group's corners */
+}
 .react-flow__controls-button {
   background: #12151a; border-color: rgba(255,255,255,0.1); fill: rgba(255,255,255,0.6);
 }
 .react-flow__controls-button:hover { background: #1b1f26; }
-.react-flow__minimap { border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
+.react-flow__minimap { border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; }
 .react-flow__node-group { pointer-events: all; }
+
+/* ---------- drag: the block stays, a ghost shows where it lands ----------
+   React Flow discards the drag's position changes here — the flow is controlled (`nodes`
+   prop) with no `onNodesChange` — so the block you grab never moves. Rather than fight that,
+   it *is* the design: the block stays lit in place, App renders a dashed ghost at the
+   position React Flow reports, and the drop commits the block there.
+   The wires are frozen for the length of the drag (App.tsx stops re-planning, which costs a
+   full orthogonal search over every wire) and re-route once on release, so they fade back
+   to say they are stale rather than looking broken. */
+.is-dragging .react-flow__edges { opacity: 0.18; transition: opacity 120ms ease-out; }
+.react-flow__node.dragging { z-index: 50 !important; cursor: grabbing; }
+/* The block left behind: dimmed but ringed, so it reads as the one in flight.
+   !important is load-bearing here — TechNode and GroupNode both set `opacity` inline for
+   their filter dimming, and an inline style beats a stylesheet rule without it. */
+.react-flow__node.dragging > div {
+  opacity: 0.45 !important;
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
 
 /* Edges are decoration, never click targets — otherwise a wire passing over a block eats its click. */
 .react-flow__edges,
@@ -33,7 +87,6 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-se
     radial-gradient(40rem 28rem at 68% 88%, rgba(36, 150, 237, 0.06), transparent 70%),
     radial-gradient(30rem 22rem at 26% 76%, rgba(234, 75, 113, 0.05), transparent 70%);
 }
-.react-flow__minimap { border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
 
 /* React Flow ships a default skin for group nodes — a light-grey slab with a 3px radius.
    That was the outer grey box wrapping our own bordered one. Strip it; GroupNode draws itself. */

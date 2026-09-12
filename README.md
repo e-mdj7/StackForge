@@ -71,6 +71,14 @@ show you a stack that could not exist.
 - Solid lines are runtime dependencies, dashed lines referential; `1` / `∗` marks give cardinality
 - Boxes appear and disappear with their contents; the layout re-columns itself to the window
 
+**Arranging it by hand**
+- Dragging shows a ghost of where the block will land rather than dragging the block itself —
+  the wires hold still until you drop, instead of re-routing under the cursor
+- Alignment guides while you drag: edges and centres snap to the neighbours they line up
+  with, on each axis independently. Hold <kbd>Alt</kbd> to drop exactly where the cursor is
+- Blocks align to their own box-mates and boxes to other boxes; **Re-arrange** puts
+  everything back to the automatic layout
+
 **Finding things among 350 entries**
 - Filter by **Build** — pick "SaaS product" and every block that plays a part lights up
   wearing the part it plays: n8n as `Glue`, Stripe as `Billing`, Vitest as `Tests`
@@ -99,7 +107,7 @@ pnpm dev            # http://localhost:5173
 | `pnpm dev` | Dev server with hot reload |
 | `pnpm build` | Type-check (`tsc -b`) and build to `dist/` |
 | `pnpm preview` | Serve the production build |
-| `pnpm check` | Rule engine, catalog integrity and wire-router tests |
+| `pnpm check` | Rule engine, catalog integrity, wire-router and snapping tests |
 | `pnpm lint` | oxlint |
 
 Nothing to configure — there are no environment variables and no services to stand up.
