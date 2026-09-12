@@ -1,11 +1,5 @@
-<p align="center">
-  <a href="https://github.com/e-mdj7/StackForge">
-    <img src="public/favicon.svg" width="64" height="64" alt="StackForge" />
-  </a>
-</p>
-
 <h1 align="center">
-  StackForge
+  $${\color{#e6e6e6}\Huge \text{Stack}\color{#ffb020}\text{F}\color{#ff9628}\text{o}\color{#ff7a2f}\text{r}\color{#ff6433}\text{g}\color{#ff4d36}\text{e}}$$
 </h1>
 
 <p align="center">
