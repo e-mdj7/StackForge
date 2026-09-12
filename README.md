@@ -209,6 +209,12 @@ Adding a technology is a pull request against one JSON file. Run `pnpm check` fi
 catches almost every mistake you can make in the catalog. For behaviour changes, keep the
 test alongside the module it covers.
 
+## Credits
+
+Built by <a href="https://github.com/e-mdj7">e-mdj7</a>, co-authored with
+<a href="https://claude.com/claude-code">Claude Code</a> — which paired on the rule engine,
+the orthogonal wire router in `src/routing.ts`, and the catalog schema.
+
 ## License
 
 MIT — do what you want with it. See `LICENSE` for the exact text. — <a href="https://github.com/e-mdj7">e-mdj7</a>
