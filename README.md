@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://stackforge.vercel.app">
+  <a href="[https://stackforge.vercel.app](https://github.com/e-mdj7/StackForge)">
     <img src="public/favicon.svg" width="64" height="64" alt="StackForge" />
   </a>
 </p>
