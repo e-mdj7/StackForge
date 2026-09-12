@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* order matters: tailwind first, then HeroUI's layer */
+@import "@heroui/styles";
 
 html, body, #root { height: 100%; margin: 0; background: #0b0d10; overflow: hidden; }
 body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }

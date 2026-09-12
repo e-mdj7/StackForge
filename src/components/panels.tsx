@@ -1,5 +1,21 @@
+import {
+  AlertDialog,
+  Button,
+  Chip,
+  CloseButton,
+  Description,
+  Input,
+  InputGroup,
+  Label,
+  ListBox,
+  Popover,
+  SearchField,
+  Select,
+  TextArea,
+  TextField,
+} from '@heroui/react'
 import { useEffect, useMemo, useState } from 'react'
-import { allLangs, allTags, buildById, builds, groups, techById, techs } from '../catalog'
+import { allLangs, allTags, builds, groups, techById, techs } from '../catalog'
 import { decryptSecret, encryptSecret } from '../crypto'
 import { blockedBy } from '../rules'
 import { highlightChip, matchesHighlight, useStack, type Highlight } from '../store'
@@ -33,32 +49,22 @@ export function Palette({ onBlocked }: { onBlocked: (msg: string) => void }) {
   return (
     <aside className="flex w-72 shrink-0 flex-col border-r border-white/10 bg-[#0d1014]">
       <div className="shrink-0 p-3">
-        <div className="relative">
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search 349 technologies…"
-            className="w-full rounded-md border border-white/15 bg-white/5 py-1.5 pl-2.5 pr-7 text-[12px] text-white/90 outline-none placeholder:text-white/30 focus:border-white/30"
-          />
-          {q && (
-            <button
-              title="Clear search"
-              onClick={() => setQ('')}
-              className="absolute right-1.5 top-1/2 grid h-4 w-4 -translate-y-1/2 place-items-center rounded-full text-white/40 hover:bg-white/10 hover:text-white"
-            >
-              <svg viewBox="0 0 16 16" width="8" height="8" aria-hidden="true">
-                <path d="M2 2 L14 14 M14 2 L2 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-              </svg>
-            </button>
-          )}
-        </div>
-        <button
-          onClick={() => setOpen({})}
-          title={needle ? 'Clear the search to see it take effect' : undefined}
-          className="mt-1.5 text-[9px] uppercase tracking-wider text-white/30 hover:text-white/70"
+        {/* HeroUI's SearchField brings its own magnifier and clear button */}
+        <SearchField aria-label="Search technologies" value={q} onChange={setQ} variant="secondary">
+          <SearchField.Group>
+            <SearchField.SearchIcon />
+            <SearchField.Input placeholder={`Search ${techs.length} technologies…`} />
+            <SearchField.ClearButton />
+          </SearchField.Group>
+        </SearchField>
+        <Button
+          size="sm"
+          variant="ghost"
+          onPress={() => setOpen({})}
+          className="mt-1.5 text-[9px] uppercase tracking-wider"
         >
           Collapse all
-        </button>
+        </Button>
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto px-2 pb-4">
@@ -193,50 +199,50 @@ function FilterMenu({
   const active = highlight?.kind === kind ? highlight.value : null
 
   return (
-    <div className="relative">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className={`flex items-center gap-1.5 whitespace-nowrap rounded border px-2 py-1 text-[11px] ${
-          active ? 'border-white/50 bg-white/10 text-white' : 'border-white/15 text-white/60 hover:text-white/90'
-        }`}
+    <Popover isOpen={open} onOpenChange={setOpen}>
+      <Button
+        size="sm"
+        variant={active ? 'secondary' : 'ghost'}
+        className="shrink-0 whitespace-nowrap"
+        render={(props) => <button {...props} />}
       >
-        <span className="text-[9px] uppercase tracking-wider text-white/35">{label}</span>
-        {active ? (upper ? active.toUpperCase() : active) : 'all'}
-        <span className="text-[8px] text-white/40">▼</span>
-      </button>
+        <span className="text-[9px] uppercase tracking-wider text-muted">{label}</span>
+        <span className="ml-1.5">{active ? (upper ? active.toUpperCase() : active) : 'all'}</span>
+        <span className="ml-1 text-[8px] text-muted">▼</span>
+      </Button>
 
-      {open && (
-        <>
-          <div className="fixed inset-0 z-30" onClick={() => setOpen(false)} />
-          <div className="absolute left-0 top-full z-40 mt-1.5 flex max-h-[70vh] w-[min(78vw,760px)] flex-wrap content-start gap-x-4 gap-y-3 overflow-y-auto rounded-lg border border-white/15 bg-[#12161c] p-3 shadow-2xl">
-            {columns.map((c) => (
-              <div key={c.title} className="w-[118px]">
-                <div className="mb-1 border-b border-white/10 pb-1 text-[9px] font-bold uppercase tracking-wider text-white/30">
-                  {c.title}
-                </div>
-                {c.items.map((v) => {
-                  const on = active === v
-                  return (
-                    <button
-                      key={v}
-                      onClick={() => {
-                        setHighlight(on ? null : { kind, value: v })
-                        setOpen(false)
-                      }}
-                      className={`block w-full truncate rounded px-1.5 py-[3px] text-left text-[11px] ${
-                        on ? 'bg-white/15 text-white' : 'text-white/55 hover:bg-white/[0.07] hover:text-white/90'
-                      }`}
-                    >
-                      {upper ? v.toUpperCase() : v}
-                    </button>
-                  )
-                })}
+      {/* one wide panel of wrapped columns rather than a long scrolling menu, so the whole
+          vocabulary is visible at once and it can never push the page wider than the window */}
+      <Popover.Content className="w-[min(78vw,760px)] max-h-[70vh] overflow-y-auto">
+        <div className="flex flex-wrap content-start gap-x-4 gap-y-3">
+          {columns.map((c) => (
+            <div key={c.title} className="w-[118px]">
+              <div className="mb-1 border-b border-border pb-1 text-[9px] font-bold uppercase tracking-wider text-muted">
+                {c.title}
               </div>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
+              {c.items.map((v) => {
+                const on = active === v
+                return (
+                  <Button
+                    key={v}
+                    size="sm"
+                    variant={on ? 'secondary' : 'ghost'}
+                    fullWidth
+                    className="justify-start truncate px-1.5 text-[11px]"
+                    onPress={() => {
+                      setHighlight(on ? null : { kind, value: v })
+                      setOpen(false)
+                    }}
+                  >
+                    {upper ? v.toUpperCase() : v}
+                  </Button>
+                )
+              })}
+            </div>
+          ))}
+        </div>
+      </Popover.Content>
+    </Popover>
   )
 }
 
@@ -246,46 +252,71 @@ function FilterMenu({
  * the part it plays: n8n turns up as Glue, Stripe as Billing.
  */
 function BuildFilter({ highlight, setHighlight }: { highlight: Highlight; setHighlight: (h: Highlight) => void }) {
-  const value = highlight?.kind === 'build' ? highlight.value : ''
+  const value = highlight?.kind === 'build' ? highlight.value : null
   return (
-    <label className="flex items-center gap-1.5">
-      <span className="text-[9px] uppercase tracking-wider text-white/35">Build</span>
-      <select
-        value={value}
-        title={value ? buildById.get(value)?.desc : 'Highlight what a kind of project needs'}
-        onChange={(e) => setHighlight(e.target.value ? { kind: 'build', value: e.target.value } : null)}
-        className={`rounded border bg-[#12161c] px-1.5 py-1 text-[11px] outline-none ${
-          value ? 'border-cyan-400/60 text-white' : 'border-white/15 text-white/60'
-        }`}
-      >
-        <option value="">anything</option>
-        {builds.map((b) => (
-          <option key={b.id} value={b.id}>{b.name}</option>
-        ))}
-      </select>
-    </label>
+    <div className="flex shrink-0 items-center gap-1.5">
+    <span className="text-[9px] uppercase tracking-wider text-muted">Build</span>
+    <Select
+      aria-label="Build"
+      variant="secondary"
+      placeholder="anything"
+      value={value}
+      onChange={(v) => setHighlight(v ? { kind: 'build', value: String(v) } : null)}
+      className="shrink-0"
+    >
+      <Select.Trigger className={value ? 'border-cyan-400/60' : undefined}>
+        <Select.Value />
+        <Select.ClearButton />
+        <Select.Indicator />
+      </Select.Trigger>
+      <Select.Popover>
+        <ListBox>
+          {builds.map((b) => (
+            <ListBox.Item key={b.id} id={b.id} textValue={b.name}>
+              <Label>{b.name}</Label>
+              <Description>{b.desc}</Description>
+            </ListBox.Item>
+          ))}
+        </ListBox>
+      </Select.Popover>
+    </Select>
+    </div>
   )
 }
 
 /** Box is a flat list of 15 — a plain select, not a mega-menu. */
 function BoxFilter({ highlight, setHighlight }: { highlight: Highlight; setHighlight: (h: Highlight) => void }) {
-  const value = highlight?.kind === 'group' ? highlight.value : ''
+  const value = highlight?.kind === 'group' ? highlight.value : null
   return (
-    <label className="flex items-center gap-1.5">
-      <span className="text-[9px] uppercase tracking-wider text-white/35">Box</span>
-      <select
-        value={value}
-        onChange={(e) => setHighlight(e.target.value ? { kind: 'group', value: e.target.value } : null)}
-        className={`rounded border bg-[#12161c] px-1.5 py-1 text-[11px] outline-none ${
-          value ? 'border-white/50 text-white' : 'border-white/15 text-white/60'
-        }`}
-      >
-        <option value="">all</option>
-        {groups.map((g) => (
-          <option key={g.id} value={g.id}>{g.name}</option>
-        ))}
-      </select>
-    </label>
+    <div className="flex shrink-0 items-center gap-1.5">
+    <span className="text-[9px] uppercase tracking-wider text-muted">Box</span>
+    <Select
+      aria-label="Box"
+      variant="secondary"
+      placeholder="all"
+      value={value}
+      onChange={(v) => setHighlight(v ? { kind: 'group', value: String(v) } : null)}
+      className="shrink-0"
+    >
+      <Select.Trigger className={value ? 'border-white/50' : undefined}>
+        <Select.Value />
+        <Select.ClearButton />
+        <Select.Indicator />
+      </Select.Trigger>
+      <Select.Popover>
+        <ListBox>
+          {groups.map((g) => (
+            <ListBox.Item key={g.id} id={g.id} textValue={g.name}>
+              <Label>
+                <span className="mr-2 inline-block h-2 w-2 rounded-full align-middle" style={{ background: g.color }} />
+                {g.name}
+              </Label>
+            </ListBox.Item>
+          ))}
+        </ListBox>
+      </Select.Popover>
+    </Select>
+    </div>
   )
 }
 
@@ -324,10 +355,10 @@ export function TopBar({ problems }: { problems: Problem[] }) {
   }
 
   return (
-    <header className="flex w-full shrink-0 items-center gap-3 overflow-visible border-b border-white/10 bg-[#0d1014] px-4 py-2">
+    <header className="flex w-full shrink-0 items-center gap-2 overflow-visible border-b border-white/10 bg-[#0d1014] px-4 py-1.5">
       {/* forge, not nebula: warm ember on the second half, so the wordmark reads as a name
           rather than a label and does not compete with the violet mark in the favicon */}
-      <span className="shrink-0 select-none text-[13px] font-bold tracking-tight">
+      <span className="shrink-0 select-none text-[23px] font-bold leading-none tracking-tight">
         <span className="text-white/85">Stack</span>
         <span className="bg-gradient-to-r from-[#ffb020] via-[#ff7a2f] to-[#ff4d36] bg-clip-text text-transparent">
           Forge
@@ -336,14 +367,15 @@ export function TopBar({ problems }: { problems: Problem[] }) {
       <Filters highlight={highlight} setHighlight={setHighlight} />
 
       <div className="ml-auto flex shrink-0 items-center gap-2 text-[11px]">
-        {errors > 0 && <span className="rounded bg-red-500/20 px-2 py-0.5 text-red-300">{errors} blocking</span>}
-        {warns > 0 && <span className="rounded bg-amber-500/20 px-2 py-0.5 text-amber-300">{warns} warning</span>}
-        {!problems.length && added.length > 0 && (
-          <span className="rounded bg-emerald-500/20 px-2 py-0.5 text-emerald-300">stack is coherent</span>
-        )}
-        <button onClick={resetPositions} className="text-white/50 hover:text-white">Re-arrange</button>
-        <button onClick={exportJson} className="text-white/50 hover:text-white">Export</button>
-        <label className="cursor-pointer text-white/50 hover:text-white">
+        {errors > 0 && <Chip color="danger" size="sm">{errors} blocking</Chip>}
+        {warns > 0 && <Chip color="warning" size="sm">{warns} warning</Chip>}
+        {!problems.length && added.length > 0 && <Chip color="success" size="sm">stack is coherent</Chip>}
+
+        <Button size="sm" variant="ghost" onPress={resetPositions}>Re-arrange</Button>
+        <Button size="sm" variant="ghost" onPress={exportJson}>Export</Button>
+        {/* a file input needs a real label around it, so this one keeps the button styling
+            rather than the Button component */}
+        <label className="inline-flex h-8 cursor-pointer items-center rounded-lg px-3 text-sm text-muted hover:bg-default hover:text-foreground">
           Import
           <input
             type="file"
@@ -352,7 +384,7 @@ export function TopBar({ problems }: { problems: Problem[] }) {
             onChange={(e) => e.target.files?.[0] && e.target.files[0].text().then((t) => load(JSON.parse(t)))}
           />
         </label>
-        <button onClick={clear} className="text-white/50 hover:text-red-400">Clear</button>
+        <Button size="sm" variant="ghost" className="text-danger" onPress={clear}>Clear</Button>
       </div>
     </header>
   )
@@ -427,20 +459,23 @@ export function DeleteGuard() {
     .join(', ')
 
   return (
-    <div className="absolute inset-0 z-40 grid place-items-center bg-black/60 backdrop-blur-sm">
-      <div className="w-80 rounded-xl border border-white/15 bg-[#12161c] p-4 text-[12px] shadow-2xl">
-        <div className="text-[14px] font-bold text-white">Remove {tech?.name}?</div>
-        <p className="mt-2 text-white/60">
-          This block has {filled} saved on it. Removing it discards that too.
-        </p>
-        <div className="mt-4 flex justify-end gap-2">
-          <button onClick={cancelRemove} className="rounded px-3 py-1 text-white/60 hover:text-white">Cancel</button>
-          <button onClick={confirmRemove} className="rounded bg-red-500/85 px-3 py-1 font-semibold text-white hover:bg-red-500">
-            Remove
-          </button>
-        </div>
-      </div>
-    </div>
+    <AlertDialog.Backdrop isOpen variant="blur" onOpenChange={(open) => !open && cancelRemove()}>
+      <AlertDialog.Container size="sm">
+        <AlertDialog.Dialog>
+          <AlertDialog.Header>
+            <AlertDialog.Icon status="danger" />
+            <AlertDialog.Heading>Remove {tech?.name}?</AlertDialog.Heading>
+          </AlertDialog.Header>
+          <AlertDialog.Body>
+            <p>This block has {filled} saved on it. Removing it discards that too.</p>
+          </AlertDialog.Body>
+          <AlertDialog.Footer>
+            <Button variant="tertiary" onPress={cancelRemove}>Cancel</Button>
+            <Button variant="danger" onPress={confirmRemove}>Remove</Button>
+          </AlertDialog.Footer>
+        </AlertDialog.Dialog>
+      </AlertDialog.Container>
+    </AlertDialog.Backdrop>
   )
 }
 
@@ -574,7 +609,7 @@ export function Drawer({ tech, problems }: { tech: Tech; problems: Problem[] }) 
           <div className="text-[14px] font-bold text-white">{tech.name}</div>
           <div className="text-[10px] uppercase tracking-wider text-white/35">{tech.section}</div>
         </div>
-        <button onClick={() => select(null)} className="text-white/40 hover:text-white">✕</button>
+        <CloseButton aria-label="Close" onPress={() => select(null)} />
       </div>
 
       <p className="mt-3 text-white/60">{tech.desc}</p>
@@ -617,65 +652,84 @@ export function Drawer({ tech, problems }: { tech: Tech; problems: Problem[] }) 
       <div className="mt-5 border-t border-white/10 pt-3">
         <div className="text-[10px] uppercase tracking-wider text-white/35">Account</div>
 
-        <label className="mt-2 block text-white/40">Console URL</label>
-        <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder={tech.url ?? 'https://…'}
-          className="mt-1 w-full rounded border border-white/15 bg-white/5 px-2 py-1 text-white/90 outline-none focus:border-white/30" />
+        <TextField aria-label="Console URL" value={url} onChange={setUrl} variant="secondary" className="mt-2">
+          <Label>Console URL</Label>
+          <Input placeholder={tech.url ?? 'https://…'} />
+        </TextField>
 
-        <label className="mt-2 block text-white/40">Username</label>
-        <input value={username} onChange={(e) => setUsername(e.target.value)}
-          className="mt-1 w-full rounded border border-white/15 bg-white/5 px-2 py-1 text-white/90 outline-none focus:border-white/30" />
+        <TextField aria-label="Username" value={username} onChange={setUsername} variant="secondary" className="mt-2">
+          <Label>Username</Label>
+          <Input />
+        </TextField>
 
-        <label className="mt-2 block text-white/40">Password</label>
-        <div className="mt-1 flex gap-1">
-          <input
-            type={revealed ? 'text' : 'password'}
-            value={revealed ? secret : saved.secret ? '••••••••••' : secret}
-            onChange={(e) => { setSecret(e.target.value); setRevealed(true) }}
-            className="w-full rounded border border-white/15 bg-white/5 px-2 py-1 font-mono text-white/90 outline-none focus:border-white/30"
-          />
-          <button
-            onClick={() => (revealed ? (setRevealed(false), setSecret('')) : reveal())}
-            title={revealed ? 'Hide' : 'Decrypt and show'}
-            className="rounded border border-white/15 px-2 text-white/50 hover:text-white"
-          >
-            {revealed ? '🙈' : '👁'}
-          </button>
-        </div>
+        <TextField
+          aria-label="Password"
+          type={revealed ? 'text' : 'password'}
+          value={revealed ? secret : saved.secret ? '••••••••••' : secret}
+          onChange={(v) => { setSecret(v); setRevealed(true) }}
+          variant="secondary"
+          className="mt-2"
+        >
+          <Label>Password</Label>
+          <InputGroup>
+            <Input className="font-mono" />
+            <InputGroup.Suffix>
+              <Button
+                size="sm"
+                variant="ghost"
+                isIconOnly
+                aria-label={revealed ? 'Hide password' : 'Decrypt and show password'}
+                onPress={() => (revealed ? (setRevealed(false), setSecret('')) : reveal())}
+              >
+                {revealed ? '🙈' : '👁'}
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
+        </TextField>
 
-        <label className="mt-2 block text-white/40">Passphrase (this session only)</label>
-        <div className="mt-1 flex gap-1">
-          <input
-            type="password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            placeholder={passphrase ? 'set' : 'not set'}
-            className="w-full rounded border border-white/15 bg-white/5 px-2 py-1 text-white/90 outline-none focus:border-white/30"
-          />
-          <button
-            onClick={() => { setPassphrase(pass || null); setPass(''); setStatus(pass ? 'Passphrase set.' : 'Passphrase cleared.') }}
-            className="rounded border border-white/15 px-2 text-white/50 hover:text-white"
-          >
-            Set
-          </button>
-        </div>
-        <p className="mt-1 text-[10px] leading-snug text-white/30">
-          AES-GCM in your browser. The passphrase is never stored — clear it and the saved password is unreadable.
-        </p>
+        <TextField aria-label="Passphrase" type="password" value={pass} onChange={setPass} variant="secondary" className="mt-2">
+          <Label>Passphrase (this session only)</Label>
+          <InputGroup>
+            <Input placeholder={passphrase ? 'set' : 'not set'} />
+            <InputGroup.Suffix>
+              <Button
+                size="sm"
+                variant="ghost"
+                onPress={() => { setPassphrase(pass || null); setPass(''); setStatus(pass ? 'Passphrase set.' : 'Passphrase cleared.') }}
+              >
+                Set
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
+          <Description>
+            AES-GCM in your browser. The passphrase is never stored — clear it and the saved password is unreadable.
+          </Description>
+        </TextField>
 
-        <label className="mt-2 block text-white/40">Notes</label>
-        <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2}
-          className="mt-1 w-full resize-none rounded border border-white/15 bg-white/5 px-2 py-1 text-white/90 outline-none focus:border-white/30" />
+        <TextField aria-label="Notes" value={notes} onChange={setNotes} variant="secondary" className="mt-2">
+          <Label>Notes</Label>
+          <TextArea rows={2} className="resize-none" />
+        </TextField>
 
-        <div className="mt-2 flex items-center gap-2">
-          <button onClick={save} className="rounded bg-white/15 px-3 py-1 text-white hover:bg-white/25">Save</button>
-          {url && <a href={url} target="_blank" rel="noreferrer" className="text-white/50 hover:text-white">Open ↗</a>}
-          {status && <span className="text-[10px] text-white/50">{status}</span>}
+        <div className="mt-3 flex items-center gap-2">
+          <Button size="sm" onPress={save}>Save</Button>
+          {url && (
+            <a href={url} target="_blank" rel="noreferrer" className="text-[11px] text-muted hover:text-foreground">
+              Open ↗
+            </a>
+          )}
+          {status && <span className="text-[10px] text-muted">{status}</span>}
         </div>
       </div>
 
-      <button onClick={() => requestRemove(tech.id)} className="mt-6 text-left text-[11px] text-white/30 hover:text-red-400">
+      <Button
+        size="sm"
+        variant="danger"
+        onPress={() => requestRemove(tech.id)}
+        className="mt-6 self-start text-[11px]"
+      >
         Remove from stack
-      </button>
+      </Button>
     </aside>
   )
 }
