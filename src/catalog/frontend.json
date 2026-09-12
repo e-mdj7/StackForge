@@ -657,6 +657,7 @@
     "name": "HeroUI",
     "group": "frontend",
     "section": "UI & Components",
+    "icon": "heroui",
     "color": "#006fee",
     "langs": [
       "ts",

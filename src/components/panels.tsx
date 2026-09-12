@@ -325,7 +325,14 @@ export function TopBar({ problems }: { problems: Problem[] }) {
 
   return (
     <header className="flex w-full shrink-0 items-center gap-3 overflow-visible border-b border-white/10 bg-[#0d1014] px-4 py-2">
-      <span className="text-[13px] font-bold tracking-tight text-white">StackForge</span>
+      {/* forge, not nebula: warm ember on the second half, so the wordmark reads as a name
+          rather than a label and does not compete with the violet mark in the favicon */}
+      <span className="shrink-0 select-none text-[13px] font-bold tracking-tight">
+        <span className="text-white/85">Stack</span>
+        <span className="bg-gradient-to-r from-[#ffb020] via-[#ff7a2f] to-[#ff4d36] bg-clip-text text-transparent">
+          Forge
+        </span>
+      </span>
       <Filters highlight={highlight} setHighlight={setHighlight} />
 
       <div className="ml-auto flex shrink-0 items-center gap-2 text-[11px]">
